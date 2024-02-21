@@ -1,0 +1,4 @@
+#Wed Feb 21 18:06:07 IST 2024
+base.0=/Users/sunkposrikanth/Ranjith/pocs/sunkonnect/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
