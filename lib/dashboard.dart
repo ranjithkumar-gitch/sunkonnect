@@ -218,7 +218,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         backgroundColor: Colors.orange,
         iconTheme: IconThemeData(color: Colors.white),
         title: const Text(
-          'SunKonnect',
+          'Connect@SunKpo',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -244,13 +244,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search...',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+                Expanded(
+                  child: SizedBox(
+                      height: 40,
+                      child: TextFormField(
+                          decoration: InputDecoration(
+                        hintText: "Search by ID..",
+                        contentPadding: const EdgeInsets.all(10),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(color: Colors.grey),
+                        ),
+                        suffixIcon: const Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 20,
+                        ),
+                        // suffixIcon:
+                        //     const Icon(Icons.edit, size: 18, color: Colors.black),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                        ),
+                      ))),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -290,8 +309,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       height: 40,
                       width: 250,
                       child: Image(image: AssetImage('assets/LOGO.png'))),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
-                    'SunKonnect',
+                    'Connect@SunKpo',
                     style: TextStyle(color: Colors.orange, fontSize: 24),
                   ),
                 ],

@@ -16,26 +16,32 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Image(image: AssetImage('assets/LOGO.png')),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Text(
-                    'SunKonnect',
+                    'Connect@SunKpo',
                     style: TextStyle(
                         color: Colors.orange,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500),
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 35,
             ),
             Text(
               'User Login',
