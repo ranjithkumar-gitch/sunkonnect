@@ -63,7 +63,7 @@ class _TicketTabViewState extends State<TicketTabView>
                     indicatorColor: HexColor("#FFA500"),
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorWeight: 2,
-                    dividerColor: Colors.grey.shade100,
+                    dividerColor: Colors.grey.shade300,
                     tabs: const [
                       Tab(
                         text: 'Ticket Details',

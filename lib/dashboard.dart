@@ -272,14 +272,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           'Connect@SunKpo',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications,
             ),
             onPressed: () {
@@ -382,7 +382,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             ListTile(
-              title: Text('My profile'),
+              title: const Text('My profile'),
               onTap: () {
                 // Add navigation to item 1 here
                 Navigator.push(
@@ -392,19 +392,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
               },
             ),
             ListTile(
-              title: Text('Privacy Policy'),
+              title: const Text('Privacy Policy'),
               onTap: () {
                 // Add navigation to item 2 here
               },
             ),
             ListTile(
-              title: Text('Terms and conditions'),
+              title: const Text('Terms and conditions'),
               onTap: () {
                 // Add navigation to item 2 here
               },
             ),
             ListTile(
-              title: Text('Logout'),
+              title: const Text('Logout'),
               onTap: () {
                 // Add navigation to item 2 here
               },
@@ -423,7 +423,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _currentIndex = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person,
@@ -580,13 +580,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }
 
         return Card(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: ListTile(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TicketTabView()
+                  builder: (context) => const TicketTabView()
                  
                       // TicketDetailsScreen(ticket: tickets[index]),
                 ),
@@ -599,26 +599,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${tickets[index].id}',
-                        style: TextStyle(color: Colors.orange),
+                        tickets[index].id,
+                        style: const TextStyle(color: Colors.orange),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         'Assigned To: ${tickets[index].assignedTo}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                         ),
                       ),
                       Text(
                         'Raised by: ${tickets[index].raisedBy}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
-                        '${tickets[index].dateTime}',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        tickets[index].dateTime,
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -629,12 +629,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Container(
                       width: 100,
                       alignment: Alignment.center,
-                      child: Text(
+                      child: const Text(
                         'Days Open: 2',
                         style: TextStyle(fontSize: 12, color: Colors.orange),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -642,27 +642,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border.all(color: cardColor),
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(8.0),
                         ),
                       ),
                       child: Text(
-                        '${tickets[index].status}',
+                        tickets[index].status,
                         style: TextStyle(color: cardColor),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Container(
                       width: 100.0,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border.all(color: priorityColor),
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(8.0),
                         ),
                       ),
                       child: Text(
-                        '${tickets[index].priority}',
+                        tickets[index].priority,
                         style: TextStyle(color: priorityColor),
                       ),
                     ),
