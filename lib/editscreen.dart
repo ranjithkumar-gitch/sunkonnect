@@ -4,9 +4,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class EditTicketScreen extends StatefulWidget {
-  final Ticket ticket;
+  // final Ticket ticket;
 
-  EditTicketScreen({required this.ticket});
+  // EditTicketScreen({required this.ticket});
 
   @override
   _EditTicketScreenState createState() => _EditTicketScreenState();
@@ -19,8 +19,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
   @override
   void initState() {
     super.initState();
-    _messageController = TextEditingController(text: widget.ticket.message);
-    _statusController = TextEditingController(text: widget.ticket.status);
+    _messageController = TextEditingController();
+    _statusController = TextEditingController();
   }
 
   @override
@@ -49,11 +49,11 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Update the ticket object with edited values
-                    widget.ticket.message = _messageController.text;
-                    widget.ticket.status = _statusController.text;
+                    // widget.ticket.message = _messageController.text;
+                    // widget.ticket.status = _statusController.text;
 
                     // Navigate back to TicketDetailsScreen with updated ticket
-                    Navigator.pop(context, widget.ticket);
+                    // Navigator.pop(context, widget.ticket);
                   },
                   child: Text('Save'),
                 ),
