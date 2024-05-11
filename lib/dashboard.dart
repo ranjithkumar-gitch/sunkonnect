@@ -149,6 +149,7 @@ import 'package:flutter/material.dart';
 import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/ticketdetailsscreen.dart';
+import 'package:sunkonnect/tickets/ticketstabview.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -585,8 +586,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      TicketDetailsScreen(ticket: tickets[index]),
+                  builder: (context) => TicketTabView()
+                 
+                      // TicketDetailsScreen(ticket: tickets[index]),
                 ),
               );
             },
