@@ -55,7 +55,7 @@ class _TicketTabViewState extends State<TicketTabView>
                             textStyle: const TextStyle(
                           color: Colors.black,
                           fontFamily: 'poppins',
-                          fontSize: 13,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                         )),
                         controller: tabController,
@@ -65,13 +65,13 @@ class _TicketTabViewState extends State<TicketTabView>
                         dividerColor: Colors.grey.shade300,
                         tabs: const [
                           Tab(
-                            text: 'Ticket Details',
+                            text: 'Details',
                           ),
                           Tab(
-                            text: 'Message Log',
+                            text: 'Messages',
                           ),
                           Tab(
-                            text: 'Ticket Log',
+                            text: 'Logs',
                           )
                         ]),
                     Expanded(

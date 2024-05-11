@@ -92,18 +92,21 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-   floatingActionButton: SizedBox(
-    height: 45, width: double.infinity,
-     child: FloatingActionButton.extended(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 0,
-          onPressed: () {
-           Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
-          },
-          label: const CustomText(text: 'Add Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.white),
-          icon: const Icon(Icons.add,color: Colors.white,),
-          backgroundColor: Colors.orange, 
-        ),
+   floatingActionButton: Padding(
+     padding: const EdgeInsets.only(bottom: 15),
+     child: SizedBox(
+      height: 45, width: double.infinity,
+       child: FloatingActionButton.extended(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 0,
+            onPressed: () {
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+            },
+            label: const CustomText(text: 'Add Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.white),
+            icon: const Icon(Icons.add,color: Colors.white,),
+            backgroundColor: Colors.orange, 
+          ),
+     ),
    ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(

@@ -150,6 +150,7 @@ import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/ticketdetailsscreen.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
+import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -273,10 +274,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text(
-          'Connect@SunKpo',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const CustomText(text: 'Konnect @ Sun KPO', fontSize: 21, fontWeight: FontWeight.w500, textcolor: Colors.white),
+        
         actions: [
           IconButton(
             icon: const Icon(
