@@ -162,44 +162,99 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   List<Ticket> myTickets = [
     Ticket(
-      id: 'T20240221123',
-      dateTime: '2024-02-19 09:00',
-      status: 'Open',
-      assignedTo: 'ranjith',
-      details: 'This is a sample ticket for demonstration purposes.',
-    ),
+        id: 'TICK-409',
+        dateTime: '2024-02-19 09:00',
+        status: 'New',
+        assignedTo: 'ranjith',
+        priority: 'High',
+        message: 'This is a sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard'),
     Ticket(
-      id: 'T20240221456',
-      dateTime: '2024-02-18 10:30',
-      status: 'Closed',
-      assignedTo: 'Uday',
-      details: 'Another sample ticket for demonstration purposes.',
-    ),
+        id: 'TICK-410',
+        dateTime: '2024-02-18 10:30',
+        status: 'Assigned',
+        assignedTo: 'Uday',
+        priority: 'High',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard'),
     Ticket(
-      id: 'T20240221456',
-      dateTime: '2024-02-18 10:30',
-      status: 'OnGoing',
-      assignedTo: 'Kumar',
-      details: 'Another sample ticket for demonstration purposes.',
-    ),
+        id: 'TICK-411',
+        dateTime: '2024-02-18 10:30',
+        status: 'Acknoledged',
+        assignedTo: 'Kumar',
+        priority: 'Medium',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
+    Ticket(
+        id: 'TICK-411',
+        dateTime: '2024-02-18 10:30',
+        status: 'In process',
+        assignedTo: 'Kumar',
+        priority: 'Medium',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
+    Ticket(
+        id: 'TICK-411',
+        dateTime: '2024-02-18 10:30',
+        status: 'Completed',
+        assignedTo: 'Kumar',
+        priority: 'Medium',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
     // Add more tickets as needed
   ];
 
   List<Ticket> allTickets = [
     Ticket(
-      id: 'T20240221456',
-      dateTime: '2024-02-18 10:30',
-      status: 'Closed',
-      assignedTo: 'Uday',
-      details: 'Another sample ticket for demonstration purposes.',
-    ),
+        id: 'TICK-410',
+        dateTime: '2024-02-18 10:30',
+        status: 'Assigned',
+        assignedTo: 'Uday',
+        priority: 'High',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
     Ticket(
-      id: 'T20240221789',
-      dateTime: '2024-02-18 10:30',
-      status: 'Closed',
-      assignedTo: 'Teja',
-      details: 'Another sample ticket for demonstration purposes.',
-    ),
+        id: 'TICK-411',
+        dateTime: '2024-02-18 10:30',
+        status: 'Acknoledged',
+        assignedTo: 'Kumar',
+        priority: 'Medium',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
+    Ticket(
+        id: 'TICK-411',
+        dateTime: '2024-02-18 10:30',
+        status: 'In process',
+        assignedTo: 'Kumar',
+        priority: 'Medium',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
+    Ticket(
+        id: 'TICK-411',
+        dateTime: '2024-02-18 10:30',
+        status: 'Completed',
+        assignedTo: 'Kumar',
+        priority: 'Medium',
+        message: 'Another sample ticket for demonstration purposes.',
+        attachments: [],
+        raisedBy: 'Ranjith',
+        title: 'Dropdown issue in dashboard.'),
     // Add more tickets as needed
   ];
 
@@ -280,8 +335,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         _selectedStatus = newValue!;
                       });
                     },
-                    items: ['All', 'Open', 'Closed', 'OnGoing']
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: [
+                      'All',
+                      'New',
+                      'Assigned',
+                      'Acknoledged',
+                      'In process',
+                      'Completed'
+                    ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -380,24 +441,143 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildTicketList(List<Ticket> tickets) {
+    // return ListView.builder(
+    //   itemCount: tickets.length,
+    //   itemBuilder: (context, index) {
+    //     Color cardColor;
+    //     switch (tickets[index].status) {
+    //       case 'Closed':
+    //         cardColor = Colors.green;
+    //         break;
+    //       case 'Open':
+    //         cardColor = Colors.red;
+    //         break;
+    //       case 'OnGoing':
+    //         cardColor = Colors.orange;
+    //         break;
+    //       default:
+    //         cardColor = Colors.white;
+    //         break;
+    //     }
+    //     return Card(
+    //       margin: EdgeInsets.all(10),
+    //       child: ListTile(
+    //         onTap: () {
+    //           Navigator.push(
+    //             context,
+    //             MaterialPageRoute(
+    //               builder: (context) =>
+    //                   TicketDetailsScreen(ticket: tickets[index]),
+    //             ),
+    //           );
+    //         },
+    //         title: Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           mainAxisAlignment: MainAxisAlignment.start,
+    //           children: [
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: [
+    //                     Text(
+    //                       '${tickets[index].id}',
+    //                       style: TextStyle(color: Colors.orange),
+    //                     ),
+    //                     Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text('Assigned To: ${tickets[index].assignedTo}'),
+    //                         Text('Raised by: Uday'),
+    //                         SizedBox(
+    //                           height: 5,
+    //                         ),
+    //                         Text('${tickets[index].dateTime}'),
+    //                         // Text('Details: ${tickets[index].details}'),
+    //                       ],
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 Column(
+    //                   children: [
+    //                     Container(
+    //                       width: 100.0,
+    //                       alignment: Alignment.center,
+    //                       decoration: BoxDecoration(
+    //                         border: Border.all(color: Colors.green),
+    //                         borderRadius: BorderRadius.all(
+    //                           Radius.circular(8.0),
+    //                         ),
+    //                       ),
+    //                       child: Text(
+    //                         '${tickets[index].status}',
+    //                         style: TextStyle(color: cardColor),
+    //                       ),
+    //                     ),
+    //                     SizedBox(
+    //                       height: 10,
+    //                     ),
+    //                     Container(
+    //                       width: 100.0,
+    //                       alignment: Alignment.center,
+    //                       decoration: BoxDecoration(
+    //                         border: Border.all(color: Colors.red),
+    //                         borderRadius: BorderRadius.all(
+    //                           Radius.circular(8.0),
+    //                         ),
+    //                       ),
+    //                       child: Text(
+    //                         'High',
+    //                         style: TextStyle(
+    //                           color: cardColor,
+    //                         ),
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
+    // Widget _buildTicketList(List<Ticket> tickets) {
+    Map<String, Color> priorityColors = {
+      'High': Colors.red,
+      'Medium': Colors.orange,
+      // 'Low': Colors.green,
+    };
     return ListView.builder(
       itemCount: tickets.length,
       itemBuilder: (context, index) {
+        Color priorityColor =
+            priorityColors[tickets[index].priority] ?? Colors.white;
+
         Color cardColor;
         switch (tickets[index].status) {
-          case 'Closed':
+          case 'New':
+            cardColor = Colors.deepOrange;
+            break;
+          case 'Assigned':
+            cardColor = Colors.blueAccent;
+            break;
+          case 'Acknoledged':
+            cardColor = Colors.orangeAccent;
+            break;
+          case 'In process':
+            cardColor = Colors.purple;
+            break;
+          case 'Completed':
             cardColor = Colors.green;
-            break;
-          case 'Open':
-            cardColor = Colors.red;
-            break;
-          case 'OnGoing':
-            cardColor = Colors.orange;
             break;
           default:
             cardColor = Colors.white;
             break;
         }
+
         return Card(
           margin: EdgeInsets.all(10),
           child: ListTile(
@@ -411,27 +591,81 @@ class _DashboardScreenState extends State<DashboardScreen> {
               );
             },
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'ID: ${tickets[index].id}',
-                  style: TextStyle(color: Colors.orange),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${tickets[index].id}',
+                        style: TextStyle(color: Colors.orange),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        'Assigned To: ${tickets[index].assignedTo}',
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        'Raised by: ${tickets[index].raisedBy}',
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '${tickets[index].dateTime}',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
                 ),
-                Text(
-                  '${tickets[index].status}',
-                  style: TextStyle(color: cardColor),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 100,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Days Open: 2',
+                        style: TextStyle(fontSize: 12, color: Colors.orange),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      width: 100.0,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: cardColor),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                      child: Text(
+                        '${tickets[index].status}',
+                        style: TextStyle(color: cardColor),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: 100.0,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: priorityColor),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                      child: Text(
+                        '${tickets[index].priority}',
+                        style: TextStyle(color: priorityColor),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Assigned To: ${tickets[index].assignedTo}'),
-                SizedBox(
-                  height: 5,
-                ),
-                Text('${tickets[index].dateTime}'),
-                // Text('Details: ${tickets[index].details}'),
               ],
             ),
           ),
@@ -443,16 +677,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 class Ticket {
   final String id;
-  final String dateTime;
+  final String title;
   late final String status;
+  final String priority;
   final String assignedTo;
-  late final String details;
+  final String raisedBy;
+  late final String message;
+  final List<String> attachments;
+  final String dateTime;
 
   Ticket({
     required this.id,
-    required this.dateTime,
+    required this.title,
     required this.status,
+    required this.priority,
     required this.assignedTo,
-    required this.details,
+    required this.raisedBy,
+    required this.message,
+    required this.attachments,
+    required this.dateTime,
   });
 }

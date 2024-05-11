@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.black),
+        textTheme:
+            GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(),
         useMaterial3: true,
       ),
       home: Splashscreen(),

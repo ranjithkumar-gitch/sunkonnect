@@ -32,8 +32,11 @@ class _SplashscreenState extends State<Splashscreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(image: AssetImage('assets/LOGO.png')),
+          SizedBox(
+            height: 20,
+          ),
           Text(
-            'SunKonnect',
+            'Connect@SunKpo',
             style: TextStyle(
                 color: Colors.orange,
                 fontSize: 30,
