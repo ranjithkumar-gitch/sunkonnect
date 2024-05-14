@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/loginpage.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -19,7 +20,7 @@ class _SplashscreenState extends State<Splashscreen> {
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => LoginScreen(),
+              builder: (context) => const LoginScreen(),
             )));
   }
 
@@ -33,12 +34,12 @@ class _SplashscreenState extends State<Splashscreen> {
         children: [
           Image(image: AssetImage('assets/LOGO.png')),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
           Text(
-            'Connect@SunKpo',
+            'Konnect @ SunKpo',
             style: TextStyle(
-                color: Colors.orange,
+                color: Colours.korange,
                 fontSize: 30,
                 fontWeight: FontWeight.w500),
           ),

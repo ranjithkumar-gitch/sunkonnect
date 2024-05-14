@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class ViewMessage extends StatefulWidget {
@@ -17,19 +18,11 @@ class _ViewMessageState extends State<ViewMessage> {
      appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(onPressed: (){
-            Navigator.pop(context);
-            }, icon: const Icon(Icons.arrow_back,color: Colors.black,))
-          ),
-         
-          title: const CustomText(
-              text: "View Message",
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              textcolor: Colors.black),
-          centerTitle: false,
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios,color: Colours.korange,)),
+        
+        centerTitle: true,
+        title: const  CustomText(text: 'View Message', fontSize: 22, fontWeight: FontWeight.w500, textcolor: Colours.korange),
+          
           
         ),
         body: Container(
@@ -39,7 +32,7 @@ class _ViewMessageState extends State<ViewMessage> {
            children: [
            const ContentCard(
           title: 'Message Id',
-         content: 'TLG202404151489'),
+         content: ''),
 
         const SizedBox(height: 10,),
         const ContentCard(
@@ -58,11 +51,11 @@ class _ViewMessageState extends State<ViewMessage> {
 
        const SizedBox(height: 10,),
 
-           CustomText(
+           const CustomText(
               text: " Message ",
               fontSize: 16,
-              fontWeight: FontWeight.w600,
-              textcolor: Colors.grey.shade600),
+              fontWeight: FontWeight.w500,
+              textcolor: Colours.korange),
 
              const SizedBox(height: 5,),
 
@@ -90,15 +83,41 @@ class _ViewMessageState extends State<ViewMessage> {
 
               const SizedBox(height: 10,),
 
-           CustomText(
+           const CustomText(
               text: " Attachments ",
               fontSize: 16,
-              fontWeight: FontWeight.w600,
-              textcolor: Colors.grey.shade600),
+              fontWeight: FontWeight.w500,
+              textcolor: Colours.korange),
 
-             const SizedBox(height: 10,),
+             const SizedBox(height: 5,),
 
-               AttachmentsGrid()   
+              Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              color: Colors.grey.shade100,
+              elevation: 0,
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(right: 10,left: 10),
+              color: Colors.grey.shade100,
+              child: const  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                  SizedBox(height: 10,),
+                CustomText(
+                  text: 'http://www.example.com/image1.jpg',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  textcolor:Colors.black,),
+                 SizedBox(height: 10,),
+                CustomText(
+                  text: 'http://www.example.com/image1.pdf',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  textcolor:Colors.black,),
+                    SizedBox(height: 10,),
+                 
+               
+               ]))), 
                                
            ],
           ),
@@ -170,13 +189,13 @@ class ContentCard extends StatelessWidget {
                 CustomText(
                   text: title,
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   textcolor:Colors.grey.shade500,),
                 const SizedBox(height: 10,),
                  CustomText(
                   text: content,
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                   textcolor: Colors.black,),
 
                   const SizedBox(height: 10,),

@@ -1,22 +1,19 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/dashboard.dart';
-
-import 'package:sunkonnect/editscreen.dart';
+import 'package:sunkonnect/editstatus.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class TicketDetailsScreen extends StatelessWidget {
-  // final Ticket ticket;
 
-  // TicketDetailsScreen({required this.ticket});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Text('Ticket Details'),
-      // ),
+     
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -31,109 +28,110 @@ class TicketDetailsScreen extends StatelessWidget {
               ),
              const  SizedBox(height: 10,) ,
               Card(
-                elevation: 3,
+                color: Colours.klightpink,
+                elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const  CustomText(text: 'TICK-409', fontSize: 16, fontWeight: FontWeight.w500, textcolor: Colors.orange),
-                            CustomText(text: ' 2024-02-19, 09:00', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                        ],
-                      ),
-                           
-                                        
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Company', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'SunKpo ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Customer', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'REXEL USA ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Branch Name', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Rexel-Santa-Clara ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Requested By', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: '31-05-2024 ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Title ', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Test panelboard - 2nd revision required ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                       const SizedBox(height: 10),
-                      CustomText(text: 'Category', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Panel Build - Shop Package ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Priority', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Medium ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Status', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Closed ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Raised By', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Ranjith ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Assigned To', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: 'Uday Teja', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                      const SizedBox(height: 10),
-                      CustomText(text: 'Date Closed', fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colors.grey.shade600),
-                      const  CustomText(text: '11-05-2024, 4:30 ', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
-                       
-                      
-                      SizedBox(height: 10),
-                      
-           const CustomText(text: 'Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.orange),
-                      
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      DottedBorder(
-                        child: const SizedBox(
-                          child: Text(
-                            'This is a sample ticket for demonstration purposes.',
-                            style: TextStyle(fontSize: 14),
-                          ),
+                child: Container(
+                
+                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),   color: Colours.klightpink,),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        
+                       const  Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(text: 'TICK-409', fontSize: 16, fontWeight: FontWeight.w500, textcolor: Colours.korange),
+                            CustomText(text: ' 2024-02-19, 09:00', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colours.korange),
+                          ],
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      const CustomText(text: 'Attachments', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.orange),
-                      
-                      SizedBox(height: 5),
-                      AttachmentsGrid(),
-                      SizedBox(height: 10),
-          
-                      Center(
-                          child: CustomButton(
-                              text: "Edit",
-                              textColor: Colors.white,
-                              onPressed: () async {
-                                final updatedTicket = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => EditTicketScreen(),
-                                  ),
-                                );
-          
-                                // Update ticket if it's not null (i.e., if user saved changes)
-                                if (updatedTicket != null) {
-                                  // setState(() {
-                                  //   ticket = updatedTicket;
-                                  // });
-                                }
-                                // updateProfile();
-                              },
-                              color: Colors.orange,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
-                    ],
+                             
+                        const SizedBox(height: 10),
+                        const ContentCard(title: 'Company', content: 'SunKpo'),
+                        const ContentCard(title: 'Customer', content: 'REXEL USA '),
+                        const ContentCard(title: 'Branch Name', content: 'Rexel-Santa-Clara '),
+                        const ContentCard(title: 'Requested By', content: '31-05-2024 '),
+                        const ContentCard(title: 'Title', content: 'Test panelboard - 2nd revision required '),
+                        const ContentCard(title: 'Category', content: 'Panel Build - Shop Package '),
+                        const ContentCard(title: 'Priority', content: 'Medium'),
+                       const ContentCard(title: 'Status', content: 'Closed'),
+                        const ContentCard(title: 'Raised By', content: 'Ranjith'),
+                        const ContentCard(title: 'Assigned To', content: 'Uday Teja'),
+                        const ContentCard(title: 'Date Closed', content: '11-05-2024, 4:30'),
+                  
+                    
+                  
+                        const SizedBox(height: 10),
+                        
+                       const CustomText(text: 'Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.orange),
+                        
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SizedBox(
+                          child: CustomText(
+                text: 'This is a sample ticket for demonstration purposes.',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                textcolor:Colors.black,),
+                         
+                        ),
+                       const  SizedBox(height: 10),
+                        const CustomText(text: 'Attachments', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.orange),
+                        
+                        const SizedBox(height: 5),
+
+                SizedBox(height: 10,),
+                  CustomText(
+                text: 'http://www.example.com/image1.jpg',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                textcolor:Colors.black,),
+                  SizedBox(height: 10,),
+                  CustomText(
+                text: 'http://www.example.com/image1.pdf',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                textcolor:Colors.black,),
+                  SizedBox(height: 10,), 
+                        // AttachmentsGrid(),
+                        const SizedBox(height: 10),
+                            
+                        Center(
+                            child: CustomButton(
+                                text: "Update Status",
+                                textColor: Colors.white,
+                                onPressed: () async {
+                                  final updatedTicket = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditTicketScreen(),
+                                    ),
+                                  );
+                            
+                                  // Update ticket if it's not null (i.e., if user saved changes)
+                                  if (updatedTicket != null) {
+                                    // setState(() {
+                                    //   ticket = updatedTicket;
+                                    // });
+                                  }
+                                  // updateProfile();
+                                },
+                                color: Colors.orange,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600)),
+                      ],
+                    ),
                   ),
                 ),
               ),
+                const SizedBox(
+          height: 10,
+        ),
             ],
           ),
         ),
@@ -142,20 +140,60 @@ class TicketDetailsScreen extends StatelessWidget {
   }
 }
 
+class ContentCard extends StatelessWidget {
+  final String title;
+  final String content;
+
+  const ContentCard({
+    Key? key,
+    required this.title,
+    required this.content,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          
+          child:  CustomText(text: title, fontSize: 13, fontWeight: FontWeight.w400, textcolor: Colors.grey.shade600),
+        ),
+     
+
+        SizedBox(
+          width: double.infinity,
+          
+          child: CustomText(text: content, fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
+        ),
+
+           const SizedBox(
+          height: 10,
+        ),
+        
+      ],
+    );
+  }
+
+  
+
+
+}
+
 class AttachmentsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DottedBorder(
       child: GridView.count(
-        crossAxisCount: 5, // Number of columns
+        crossAxisCount: 5,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(), // Disable scrolling
+        physics: const NeverScrollableScrollPhysics(), 
         children: List.generate(10, (index) {
-          // Generate 10 image widgets
+          
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              'assets/img.jpeg', // Adjust image paths accordingly
+              'assets/img.jpeg', 
               fit: BoxFit.cover,
             ),
           );

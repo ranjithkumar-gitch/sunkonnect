@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class TicketLogScreen extends StatefulWidget {
@@ -9,6 +10,29 @@ class TicketLogScreen extends StatefulWidget {
 }
 
 class _TicketLogScreenState extends State<TicketLogScreen> {
+
+  List<TicketLog> ticketlog = [
+    TicketLog(
+        ticketId: 'TICK-431',
+        date: '05-09-2024 , 14:03:46',
+        message: 'Sandy Johnson has changed status of #TICK-431 Test panelboard - 2nd revision required from Completed to Closed.',
+       ),
+
+      TicketLog(
+        ticketId: 'TICK-431',
+        date: '05-09-2024 , 14:03:46',
+        message: 'Sandy Johnson has changed status of #TICK-431 Test panelboard - 2nd revision required from Completed to Closed.',
+       ),
+       
+       TicketLog(
+        ticketId: 'TICK-431',
+        date: '05-09-2024 , 14:03:46',
+        message: 'Sandy Johnson has changed status of #TICK-431 Test panelboard - 2nd revision required from Completed to Closed.',
+       ),
+       
+       
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,162 +47,89 @@ class _TicketLogScreenState extends State<TicketLogScreen> {
             fontWeight: FontWeight.w500,
             textcolor: Colors.black,
               ),
+
+   const  SizedBox(height: 10,) ,
+              Expanded(
+        child: ListView.builder(
+          itemCount: ticketlog.length,
+          itemBuilder: (context, index) {
+          
+       return Column(
+      children: [
+        Card(
+          elevation: 1,
+          color: Colours.klightpink,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Container(
+             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),   color: Colours.klightpink,),
+            child: Container(
+               color: Colours.klightpink,
+              margin: const EdgeInsets.only(right: 10,left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 const SizedBox(height: 5,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    text: ticketlog[index].ticketId,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textcolor:Colours.korange,),
+              
+                  CustomText(
+                    text: ticketlog[index].date,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textcolor: Colours.korange,),
+              
+                ],
+                ),
+                
+            
+                 const SizedBox(height: 5,),
+
+                 CustomText(
+                    text: ticketlog[index].message,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    textcolor: Colors.black,),
+                      
+                     const SizedBox(height: 10,),
+                
+               ],
+              ),
+            ),
+          )
+          
+        ),
+          const SizedBox(height: 10,),
+      ],
+            );
+            
+          },
+        ),
+      ),
         
-          Card(
-            margin: EdgeInsets.all(10),
-            child: ListTile(
-             
-              title: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             const CustomText(
-                                         text: " TICK-410 ",
-                                         fontSize: 15,
-                                         fontWeight: FontWeight.w500,
-                                         textcolor: Colors.orange,
-                                           ),
-
-                                     CustomText(
-                                         text: "2024-02-18 10:30",
-                                         fontSize: 13,
-                                         fontWeight: FontWeight.w500,
-                                         textcolor: Colors.grey.shade600,
-                                           ),
-
-
-                                  
-                           ],
-                         ),
-                        
-                        SizedBox(height: 5),
-                           const CustomText(
-                           text: "Sandy Johnson has changed status of #TICK-431 Test panelboard - 2nd revision required from Completed to Closed.",
-                          fontSize: 13,
-                           fontWeight: FontWeight.w400,
-                         textcolor: Colors.black,
-                          ),
-                        
-                       
-                        SizedBox(height: 5),
-                        
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-
-          Card(
-            margin: EdgeInsets.all(10),
-            child: ListTile(
-             
-              title: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             const CustomText(
-                                         text: " TICK-410 ",
-                                         fontSize: 15,
-                                         fontWeight: FontWeight.w500,
-                                         textcolor: Colors.orange,
-                                           ),
-
-                                     CustomText(
-                                         text: "2024-02-18 10:30",
-                                         fontSize: 13,
-                                         fontWeight: FontWeight.w500,
-                                         textcolor: Colors.grey.shade600,
-                                           ),
-                           ],
-                         ),
-                        
-                        SizedBox(height: 5),
-                           const CustomText(
-                           text: "Sandy Johnson has changed status of #TICK-431 Test panelboard - 2nd revision required from Completed to Closed.",
-                          fontSize: 13,
-                           fontWeight: FontWeight.w400,
-                         textcolor: Colors.black,
-                          ),
-                        
-                       
-                        SizedBox(height: 5),
-                        
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-
-          Card(
-            margin: EdgeInsets.all(10),
-            child: ListTile(
-             
-              title: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             const CustomText(
-                                         text: " TICK-410 ",
-                                         fontSize: 15,
-                                         fontWeight: FontWeight.w500,
-                                         textcolor: Colors.orange,
-                                           ),
-
-                                     CustomText(
-                                         text: "2024-02-18 10:30",
-                                         fontSize: 13,
-                                         fontWeight: FontWeight.w500,
-                                         textcolor: Colors.grey.shade600,
-                                           ),     
-                           ],
-                         ),
-                        
-                        SizedBox(height: 5),
-                           const CustomText(
-                           text: "Sandy Johnson has changed status of #TICK-431 Test panelboard - 2nd revision required from Completed to Closed.",
-                          fontSize: 13,
-                           fontWeight: FontWeight.w400,
-                         textcolor: Colors.black,
-                          ),
-                        
-                       
-                    
-                        
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+         
           
         ],
       ),
     );
   }
+}
+class TicketLog {
+  final String ticketId;
+  final String date;
+  final String message;
+ 
+
+  TicketLog({
+    required this.ticketId,
+    required this.date,
+     required this.message,
+    
+    
+  });
 }

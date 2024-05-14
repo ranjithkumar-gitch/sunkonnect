@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sunkonnect/tickets/addMessage.dart';
 import 'package:sunkonnect/tickets/viewMessage.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class MessageLogScreen extends StatefulWidget {
@@ -131,63 +132,70 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewMessage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> ViewMessage()));
           },
           child: Card(
+            elevation: 1,
+            color: Colours.klightpink,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Container(
-              margin: const EdgeInsets.only(right: 10,left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 const SizedBox(height: 5,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(
-                    text: message[index].messageId,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    textcolor:Colors.orange,),
-              
-                  CustomText(
-                    text: message[index].ticketId,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    textcolor: Colors.black,),
-              
-                ],
-                ),
+               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),   color: Colours.klightpink,),
+              child: Container(
+                 color: Colours.klightpink,
+                margin: const EdgeInsets.only(right: 10,left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   const SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                      text: message[index].messageId,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      textcolor:Colours.korange,),
                 
-
-                 const SizedBox(height: 5,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(
-                    text: message[index].logDate,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colors.grey.shade700,),
-              
-                  CustomText(
-                    text: message[index].sender,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colors.grey.shade700,),
-                ],
-                ),
-
-                 const SizedBox(height: 5,),
-          
-                 CustomText(
-                    text: message[index].message,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colors.black,),
-          
-                     const SizedBox(height: 5,),
+                    CustomText(
+                      text: message[index].ticketId,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      textcolor: Colours.korange,),
                 
-               ],
+                  ],
+                  ),
+                  
+              
+                   const SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                      text: message[index].logDate,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      textcolor: Colors.grey.shade700,),
+                
+                    CustomText(
+                      text: message[index].sender,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      textcolor: Colors.grey.shade700,),
+                  ],
+                  ),
+              
+                   const SizedBox(height: 5,),
+                        
+                   CustomText(
+                      text: message[index].message,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      textcolor: Colors.black,),
+                        
+                       const SizedBox(height: 5,),
+                  
+                 ],
+                ),
               ),
             )
             

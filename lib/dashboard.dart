@@ -148,7 +148,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
-import 'package:sunkonnect/ticketdetailsscreen.dart';
+import 'package:sunkonnect/tickets/ticketdetailsscreen.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 

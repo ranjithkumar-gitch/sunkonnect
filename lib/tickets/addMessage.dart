@@ -1,8 +1,14 @@
 
+import 'dart:io';
+ import 'package:file_picker/file_picker.dart';
+ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
 class AddMessage extends StatefulWidget {
   const AddMessage({super.key});
 
@@ -11,27 +17,41 @@ class AddMessage extends StatefulWidget {
 }
 
 class _AddMessageState extends State<AddMessage> {
-    final TextEditingController dateController = TextEditingController();
+
+   final ImagePicker picker = ImagePicker();
+    
+  List<File> selectedImages = [];
+    String? pdfFilePath;
+   File? media;
+    late TextEditingController dateController = TextEditingController();
+
+    @override
+  void initState() {
+    super.initState();
+    dateController = TextEditingController();
+
+    String currentDateTime =
+        DateFormat('dd-MM-yyyy , HH:mm a').format(DateTime.now());
+    dateController.text = currentDateTime;
+  }
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
     backgroundColor: Colors.white,
-     appBar: AppBar(
+    appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(onPressed: (){
-            Navigator.pop(context);
-            }, icon: const Icon(Icons.arrow_back,color: Colors.black,))
-          ),
-         
-          title: const CustomText(
-              text: "Add Message",
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              textcolor: Colors.black),
-          centerTitle: false,
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios,color: Colours.korange,)),
+        
+        centerTitle: true,
+        title: const  CustomText(text: 'Add Message', fontSize: 22, fontWeight: FontWeight.w500, textcolor: Colours.korange),
+          
           
         ),
         body: Container(
@@ -40,6 +60,7 @@ class _AddMessageState extends State<AddMessage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
              children: [
+             const SizedBox(height: 10,),
             
                 const Heading(title: 'Message Id'),
              Card(
@@ -55,7 +76,7 @@ class _AddMessageState extends State<AddMessage> {
                   const Padding(
                     padding:  EdgeInsets.only(top: 15,),
                     child: CustomText(
-                      text: 'TLG202404151489',
+                      text: '',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       textcolor:Colors.black,),
@@ -146,7 +167,7 @@ class _AddMessageState extends State<AddMessage> {
                 if (pickedTime != null) {
                   setState(() {
                     String formattedDate = DateFormat('dd-MM-yyyy').format(pickeddate);
-                    String formattedTime = DateFormat('HH:mm').format(
+                    String formattedTime = DateFormat('HH:mm a').format(
                       DateTime(
                         pickeddate.year,
                         pickeddate.month,
@@ -207,40 +228,341 @@ class _AddMessageState extends State<AddMessage> {
                       ),
             
               // 
-               
+                const SizedBox(height: 10,),
+
+                   const Heading(title: 'Add Images'),
+            
+               const SizedBox(height: 15,),
              
+                    Center(
+                      child: SizedBox(
+                        height: 35,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              imagePicker();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colours.korange,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(10))),
+                            child: const Text(
+                              "Add Images +",
+                              style: TextStyle(
+                                  fontFamily: 'poppins',
+                                  fontSize: 16.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  SizedBox( height: (selectedImages.isNotEmpty || media != null) ? 10 : 0,
+                     child: Container(),
+                     ), 
+                            
+                     Container(
+                      child: selectedImages.isEmpty && media == null 
+                    ? Container()
+                    : SizedBox(
+                        height: ((selectedImages.length + (media != null ? 1 : 0)) <= 3) ? 130 : 250,
+                        child: GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: selectedImages.length + (media != null ? 1 : 0),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 15,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index == selectedImages.length) {
+                              return buildImageWidget(media!, onDelete: () {
+                                deleteImage();
+                              });
+                            } else {
+                              return buildImageWidget(selectedImages[index], onDelete: () {
+                                deleteMultiImage(index);
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                     ),
+
+                      const SizedBox(height: 10,),
+
+                   const Heading(title: 'Add Attachments/Documents'),
             
-               const SizedBox(height: 20,),
-            
-               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                SizedBox( height: 40, width: 100,
-                  child: ElevatedButton(onPressed: (){}, 
-                  style: ElevatedButton.styleFrom(backgroundColor: HexColor('#464667'),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
-                   child: const CustomText(text: 'Cancel', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
+               const SizedBox(height: 15,),
+
+
+
+               Center(
+                      child: SizedBox(
+                        height: 35,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              pickFile();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colours.korange,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(10))),
+                            child: const Text(
+                              "Add Attachments +",
+                              style: TextStyle(
+                                  fontFamily: 'poppins',
+                                  fontSize: 16.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      ),
+                    ),
+       const SizedBox(height: 15,),
+     Container(
+    child: (pdfFilePath == null && media == null) || (pdfFilePath?.isEmpty ?? true)
+    ? Container() 
+    : Container(
+        height: 180,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.grey),
+        ),
+        child: pdfFilePath != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Stack(
+                  children: [
+                    PDFView(
+                      filePath: pdfFilePath,
+                      autoSpacing: true,
+                      enableSwipe: true,
+                      pageSnap: true,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        deletePdf();
+                        setState(() {
+                          pdfFilePath = null;
+                        });
+                      },
+                      child: Container(
+                        height: 25,
+                        width: 25,
+                        margin: const EdgeInsets.all(7),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                  SizedBox(
-                    height: 40, width: 100,
-                    child: ElevatedButton(onPressed: (){}, 
-                    style: ElevatedButton.styleFrom(backgroundColor: HexColor('#464667'),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
-                      child: const CustomText(text: 'Add', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
-                  )
-                ],
-               )
-            
-              
-                                 
-             ],
+              )
+            : Center(
+                child: Container(),
+              ),
+      ),
+             ),
+
+
+           
+
+
+                       const SizedBox(height: 20,),
+                            
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                SizedBox( height: 40, width: 100,
+                                  child: ElevatedButton(onPressed: (){}, 
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colours.korange,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                   child: const CustomText(text: 'Cancel', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
+                                ),
+                                  SizedBox(
+                                    height: 40, width: 100,
+                                    child: ElevatedButton(onPressed: (){}, 
+                                    style: ElevatedButton.styleFrom(backgroundColor: Colours.korange,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                      child: const CustomText(text: 'Add', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
+                                  )
+                                ],
+                               ),
+                                  const SizedBox(height: 15,),
+        ]),
+      
+    )));
+  }  
+  
+
+     void deletePdf() {
+    setState(() {
+      pdfFilePath = null;
+    });
+  }
+
+   Widget buildImageWidget(File imageFile, {required VoidCallback onDelete}) {
+  return Stack(
+    children: [
+      GestureDetector(
+        onTap: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => FullImageView(image: imageFile),
+          //   ),
+          // );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.file(imageFile, fit: BoxFit.cover, height: 180, width: double.infinity),
+        ),
+      ),
+      Positioned(
+        top: 5,
+        right: 5,
+        child: GestureDetector(
+          onTap: onDelete,
+          child: const CircleAvatar(
+            radius: 15,
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.delete,
+              color: Colors.orange,
             ),
           ),
         ),
-      
-    );
-  }
+      ),
+    ],
+  );
 }
 
 
+
+
+
+   void deleteMultiImage(int indexToDelete) {
+  setState(() {
+    selectedImages.removeAt(indexToDelete);
+  });
+}
+
+  void deleteImage() {
+    setState(() {
+      media = null;
+    });
+  }
+  void pickFile() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowMultiple: true,
+    allowedExtensions: ['pdf'],
+  );
+  
+   if (result != null) {
+     setState(() {
+    pdfFilePath = result.files.single.path;
+      media = null;
+        });} }
+
+  void pickImageFromCamera() async {
+    final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+    if (photo == null) return;
+    setState(() {
+      media = File(photo.path);
+    });
+  }
+Future<void> getImages() async {
+    final pickedFileList =
+        await picker.pickMultiImage(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
+    
+    setState(() {
+      if (pickedFileList.isNotEmpty) {
+        for (var pickedFile in pickedFileList) {
+          selectedImages.add(File(pickedFile.path));
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Nothing is selected')));
+      }
+    });
+  }
+
+ void imagePicker() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          content: Container(
+            height: 80,
+            width: double.infinity,
+            decoration: const BoxDecoration(),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      pickImageFromCamera();
+                    },
+                    child: Column(
+                      children: [
+                        const Icon(Icons.camera),
+                        Text(
+                          "Camera",
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      // pickImageFromGallery();
+                      getImages();
+                    },
+                    child: Column(
+                      children: [
+                        const Icon(Icons.photo),
+                        Text(
+                          "Gallery",
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  
+
+}
 
 
 
@@ -261,7 +583,7 @@ class Heading extends StatelessWidget {
          text: title,
          fontSize: 14,
        fontWeight: FontWeight.w500,
-      textcolor:Colors.grey.shade700,),
+      textcolor: Colours.korange),
     );
   }
    }
