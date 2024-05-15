@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
+import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 import 'package:expandable/expandable.dart';
@@ -232,60 +233,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _currentIndex == 0 ? myTickets : allTickets)),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(),
-              child: Column(
-                children: [
-                  SizedBox(
-                      height: 40,
-                      width: 250,
-                      child: Image(image: AssetImage('assets/LOGO.png'))),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Connect@SunKpo',
-                    style: TextStyle(color: Colors.orange, fontSize: 24),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: const Text('My profile'),
-              onTap: () {
-                // Add navigation to item 1 here
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Privacy Policy'),
-              onTap: () {
-                // Add navigation to item 2 here
-              },
-            ),
-            ListTile(
-              title: const Text('Terms and conditions'),
-              onTap: () {
-                // Add navigation to item 2 here
-              },
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                // Add navigation to item 2 here
-              },
-            ),
-            // Add more list items as needed
-          ],
-        ),
-      ),
+      drawer: const SideMenu(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0xff464667),
         currentIndex: _currentIndex,
