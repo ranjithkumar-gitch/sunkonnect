@@ -1,156 +1,9 @@
-// import 'package:flutter/material.dart';
-
-// class DashboardApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: DashboardScreen(),
-//     );
-//   }
-// }
-
-// class DashboardScreen extends StatefulWidget {
-//   @override
-//   _DashboardScreenState createState() => _DashboardScreenState();
-// }
-
-// class _DashboardScreenState extends State<DashboardScreen> {
-//   List<Ticket> myTickets = [
-//     Ticket(
-//       id: '123',
-//       dateTime: '2024-02-19 09:00',
-//       status: 'Open',
-//       assignedTo: 'John Doe',
-//       details: 'This is a sample ticket for demonstration purposes.',
-//     ),
-//     Ticket(
-//       id: '123',
-//       dateTime: '2024-02-19 09:00',
-//       status: 'Open',
-//       assignedTo: 'John Doe',
-//       details: 'This is a sample ticket for demonstration purposes.',
-//     ),
-//     // Add more tickets as needed
-//   ];
-
-//   List<Ticket> allTickets = [
-//     Ticket(
-//       id: '456',
-//       dateTime: '2024-02-18 10:30',
-//       status: 'Closed',
-//       assignedTo: 'Jane Smith',
-//       details: 'Another sample ticket for demonstration purposes.',
-//     ),
-//     // Add more tickets as needed
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return DefaultTabController(
-//       length: 2,
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Sunkonnect'),
-//           actions: [
-//             IconButton(
-//               icon: Icon(Icons.notifications),
-//               onPressed: () {
-//                 // Add notification functionality here
-//               },
-//             ),
-//           ],
-//           bottom: TabBar(
-//             tabs: [
-//               Tab(text: 'My Tickets'),
-//               Tab(text: 'All Tickets'),
-//             ],
-//           ),
-//         ),
-//         body: TabBarView(
-//           children: [
-//             _buildTicketList(myTickets),
-//             _buildTicketList(allTickets),
-//           ],
-//         ),
-//         drawer: Drawer(
-//           child: ListView(
-//             padding: EdgeInsets.zero,
-//             children: <Widget>[
-//               DrawerHeader(
-//                 child: Text(
-//                   'Side Menu',
-//                   style: TextStyle(color: Colors.white, fontSize: 24),
-//                 ),
-//                 decoration: BoxDecoration(
-//                   color: Colors.blue,
-//                 ),
-//               ),
-//               ListTile(
-//                 title: Text('Item 1'),
-//                 onTap: () {
-//                   // Add navigation to item 1 here
-//                 },
-//               ),
-//               ListTile(
-//                 title: Text('Item 2'),
-//                 onTap: () {
-//                   // Add navigation to item 2 here
-//                 },
-//               ),
-//               // Add more list items as needed
-//             ],
-//           ),
-
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTicketList(List<Ticket> tickets) {
-//     return ListView.builder(
-//       itemCount: tickets.length,
-//       itemBuilder: (context, index) {
-//         return Card(
-//           margin: EdgeInsets.all(10),
-//           child: ListTile(
-//             title: Text('Ticket ID: ${tickets[index].id}'),
-//             subtitle: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text('Date-Time: ${tickets[index].dateTime}'),
-//                 Text('Status: ${tickets[index].status}'),
-//                 Text('Assigned To: ${tickets[index].assignedTo}'),
-//                 Text('Details: ${tickets[index].details}'),
-//               ],
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
-
-// class Ticket {
-//   final String id;
-//   final String dateTime;
-//   final String status;
-//   final String assignedTo;
-//   final String details;
-
-//   Ticket({
-//     required this.id,
-//     required this.dateTime,
-//     required this.status,
-//     required this.assignedTo,
-//     required this.details,
-//   });
-// }
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
-import 'package:sunkonnect/tickets/ticketdetailsscreen.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:expandable/expandable.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -172,16 +25,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'This is a sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        category: "Enclosure MOD- shop Package",
+        daysOpen: "3",
         title: 'Dropdown issue in dashboard'),
     Ticket(
         id: 'TICK-410',
         dateTime: '2024-02-18 10:30',
         status: 'Assigned',
         assignedTo: 'Uday',
-        priority: 'High',
+        priority: 'Low',
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        category: "Enclosure MOD- shop Package",
+        daysOpen: "2",
         title: 'Dropdown issue in dashboard'),
     Ticket(
         id: 'TICK-411',
@@ -192,6 +49,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        daysOpen: "3",
+        category: "Enclosure MOD- shop Package",
         title: 'Dropdown issue in dashboard.'),
     Ticket(
         id: 'TICK-411',
@@ -202,16 +61,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        daysOpen: "1",
+        category: "Enclosure MOD- shop Package",
         title: 'Dropdown issue in dashboard.'),
     Ticket(
         id: 'TICK-411',
         dateTime: '2024-02-18 10:30',
         status: 'Completed',
         assignedTo: 'Kumar',
-        priority: 'Medium',
+        priority: 'High',
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        daysOpen: "4",
+        category: "Enclosure MOD- shop Package",
         title: 'Dropdown issue in dashboard.'),
     // Add more tickets as needed
   ];
@@ -226,6 +89,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        category: "Enclosure MOD- shop Package",
+        daysOpen: "1",
         title: 'Dropdown issue in dashboard.'),
     Ticket(
         id: 'TICK-411',
@@ -236,6 +101,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        category: "Enclosure MOD- shop Package",
+        daysOpen: "2",
         title: 'Dropdown issue in dashboard.'),
     Ticket(
         id: 'TICK-411',
@@ -246,6 +113,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        category: "Enclosure MOD- shop Package",
+        daysOpen: "3",
         title: 'Dropdown issue in dashboard.'),
     Ticket(
         id: 'TICK-411',
@@ -256,6 +125,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         message: 'Another sample ticket for demonstration purposes.',
         attachments: [],
         raisedBy: 'Ranjith',
+        category: "Enclosure MOD- shop Package",
+        daysOpen: "5",
         title: 'Dropdown issue in dashboard.'),
     // Add more tickets as needed
   ];
@@ -274,8 +145,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const CustomText(text: 'Konnect @ Sun KPO', fontSize: 21, fontWeight: FontWeight.w500, textcolor: Colors.white),
-        
+        title: const CustomText(
+            text: 'Konnect @ Sun KPO',
+            fontSize: 21,
+            fontWeight: FontWeight.w500,
+            textcolor: Colors.white),
         actions: [
           IconButton(
             icon: const Icon(
@@ -441,236 +315,309 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildTicketList(List<Ticket> tickets) {
-    // return ListView.builder(
-    //   itemCount: tickets.length,
-    //   itemBuilder: (context, index) {
-    //     Color cardColor;
-    //     switch (tickets[index].status) {
-    //       case 'Closed':
-    //         cardColor = Colors.green;
-    //         break;
-    //       case 'Open':
-    //         cardColor = Colors.red;
-    //         break;
-    //       case 'OnGoing':
-    //         cardColor = Colors.orange;
-    //         break;
-    //       default:
-    //         cardColor = Colors.white;
-    //         break;
-    //     }
-    //     return Card(
-    //       margin: EdgeInsets.all(10),
-    //       child: ListTile(
-    //         onTap: () {
-    //           Navigator.push(
-    //             context,
-    //             MaterialPageRoute(
-    //               builder: (context) =>
-    //                   TicketDetailsScreen(ticket: tickets[index]),
-    //             ),
-    //           );
-    //         },
-    //         title: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           mainAxisAlignment: MainAxisAlignment.start,
-    //           children: [
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [
-    //                 Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     Text(
-    //                       '${tickets[index].id}',
-    //                       style: TextStyle(color: Colors.orange),
-    //                     ),
-    //                     Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Text('Assigned To: ${tickets[index].assignedTo}'),
-    //                         Text('Raised by: Uday'),
-    //                         SizedBox(
-    //                           height: 5,
-    //                         ),
-    //                         Text('${tickets[index].dateTime}'),
-    //                         // Text('Details: ${tickets[index].details}'),
-    //                       ],
-    //                     ),
-    //                   ],
-    //                 ),
-    //                 Column(
-    //                   children: [
-    //                     Container(
-    //                       width: 100.0,
-    //                       alignment: Alignment.center,
-    //                       decoration: BoxDecoration(
-    //                         border: Border.all(color: Colors.green),
-    //                         borderRadius: BorderRadius.all(
-    //                           Radius.circular(8.0),
-    //                         ),
-    //                       ),
-    //                       child: Text(
-    //                         '${tickets[index].status}',
-    //                         style: TextStyle(color: cardColor),
-    //                       ),
-    //                     ),
-    //                     SizedBox(
-    //                       height: 10,
-    //                     ),
-    //                     Container(
-    //                       width: 100.0,
-    //                       alignment: Alignment.center,
-    //                       decoration: BoxDecoration(
-    //                         border: Border.all(color: Colors.red),
-    //                         borderRadius: BorderRadius.all(
-    //                           Radius.circular(8.0),
-    //                         ),
-    //                       ),
-    //                       child: Text(
-    //                         'High',
-    //                         style: TextStyle(
-    //                           color: cardColor,
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ],
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
-    // Widget _buildTicketList(List<Ticket> tickets) {
-    Map<String, Color> priorityColors = {
-      'High': Colors.red,
-      'Medium': Colors.orange,
-      // 'Low': Colors.green,
-    };
     return ListView.builder(
       itemCount: tickets.length,
       itemBuilder: (context, index) {
-        Color priorityColor =
-            priorityColors[tickets[index].priority] ?? Colors.white;
-
-        Color cardColor;
-        switch (tickets[index].status) {
-          case 'New':
-            cardColor = Colors.deepOrange;
-            break;
-          case 'Assigned':
-            cardColor = Colors.blueAccent;
-            break;
-          case 'Acknoledged':
-            cardColor = Colors.orangeAccent;
-            break;
-          case 'In process':
-            cardColor = Colors.purple;
-            break;
-          case 'Completed':
-            cardColor = Colors.green;
-            break;
-          default:
-            cardColor = Colors.white;
-            break;
-        }
-
-        return Card(
-          margin: const EdgeInsets.all(10),
-          child: ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TicketTabView()
-                 
-                      // TicketDetailsScreen(ticket: tickets[index]),
-                ),
-              );
-            },
-            title: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tickets[index].id,
-                        style: const TextStyle(color: Colors.orange),
+        return ExpandableNotifier(
+            child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            child: Container(
+              color: Colors.grey[100],
+              child: Column(
+                children: <Widget>[
+                  ScrollOnExpand(
+                    scrollOnExpand: true,
+                    scrollOnCollapse: false,
+                    child: ExpandablePanel(
+                      theme: const ExpandableThemeData(
+                        headerAlignment: ExpandablePanelHeaderAlignment.center,
+                        tapBodyToCollapse: true,
+                        iconColor: Color(0xffFFA500),
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Assigned To: ${tickets[index].assignedTo}',
-                        style: const TextStyle(
-                          fontSize: 12,
+                      header: Container(
+                        margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tickets[index].id,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: Color(0xffFFA500),
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'poppins',
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: Image(
+                                        image: AssetImage(tickets[index]
+                                                    .priority ==
+                                                "High"
+                                            ? "assets/highpriority.png"
+                                            : tickets[index].priority ==
+                                                    "Medium"
+                                                ? 'assets/medpriority.png'
+                                                : 'assets/lowpriority.png')))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Customer Name   : ",
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.black,
+                                    fontFamily: 'poppins',
+                                  ),
+                                ),
+                                Text(
+                                  tickets[index].assignedTo.toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'poppins',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 6.0,
+                            ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Raised By   : ",
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.black,
+                                    fontFamily: 'poppins',
+                                  ),
+                                ),
+                                Text(
+                                  tickets[index].raisedBy,
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'poppins',
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 6.0,
+                            ),
+                            Text(
+                              tickets[index].title,
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'poppins',
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        'Raised by: ${tickets[index].raisedBy}',
-                        style: const TextStyle(
-                          fontSize: 12,
+                      collapsed: const Text(
+                        "More details",
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Color(0xffFFA500),
+                          fontFamily: 'poppins',
                         ),
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        tickets[index].dateTime,
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      expanded: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          const Divider(
+                            thickness: 1,
+                            color: Color(0xffCCCCCC),
+                          ),
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Assigned To         : ",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                              Text(
+                                tickets[index].assignedTo,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6.0,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Days Open            : ",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                              Text(
+                                tickets[index].daysOpen,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6.0,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Created On           : ",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                              Text(
+                                tickets[index].dateTime,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6.0,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Closed On             : ",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                              Text(
+                                tickets[index].dateTime,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          const Divider(
+                            height: 2.0,
+                          ),
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          const Row(
+                            children: [
+                              Text(
+                                " Category",
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'poppins',
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                          Text(
+                            tickets[index].category,
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.black,
+                              fontFamily: 'poppins',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 6.0,
+                          ),
+                          CustomButton(
+                              text: "View Details",
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TicketTabView()),
+                                );
+                              },
+                              color: Colors.orange,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                          const SizedBox(
+                            height: 4.0,
+                          ),
+                        ],
                       ),
-                    ],
+                      builder: (_, collapsed, expanded) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, bottom: 10),
+                          child: Expandable(
+                            collapsed: collapsed,
+                            expanded: expanded,
+                            theme: const ExpandableThemeData(crossFadePoint: 0),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: 100,
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Days Open: 2',
-                        style: TextStyle(fontSize: 12, color: Colors.orange),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      width: 100.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: cardColor),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8.0),
-                        ),
-                      ),
-                      child: Text(
-                        tickets[index].status,
-                        style: TextStyle(color: cardColor),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      width: 100.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: priorityColor),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8.0),
-                        ),
-                      ),
-                      child: Text(
-                        tickets[index].priority,
-                        style: TextStyle(color: priorityColor),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        );
+        ));
       },
     );
   }
@@ -686,6 +633,8 @@ class Ticket {
   late final String message;
   final List<String> attachments;
   final String dateTime;
+  final String category;
+  final String daysOpen;
 
   Ticket({
     required this.id,
@@ -697,5 +646,7 @@ class Ticket {
     required this.message,
     required this.attachments,
     required this.dateTime,
+    required this.category,
+    required this.daysOpen,
   });
 }
