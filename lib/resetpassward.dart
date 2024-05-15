@@ -3,21 +3,30 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/forgotpassward.dart';
+import 'package:sunkonnect/loginpage.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtextviews.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class Resetpassward extends StatefulWidget {
+  const Resetpassward({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Resetpassward> createState() => _ResetpasswardState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ResetpasswardState extends State<Resetpassward> {
   bool password = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Back',
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colours.kdarkgrey,
+            )),
+      ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -32,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 80,
                     ),
-                    Image(image: AssetImage('assets/sunkpo.png')),
+                    // Image(image: AssetImage('assets/sunkpo.png')),
                     SizedBox(
                       height: 45,
                     ),
@@ -49,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              Text('Login',
+              Text('Forgot Password',
                   style: GoogleFonts.poppins(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
@@ -61,30 +70,86 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              // Text('Email Address',
-              //     style: GoogleFonts.poppins(
-              //       fontSize: 16,
-              //       fontWeight: FontWeight.w400,
-              //       color: Colors.black,
-              //     )),
+              Text('New Password',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colours.klightgrey,
+                  )),
               const SizedBox(
                 height: 10,
               ),
+              // SizedBox(
+              //   height: 70,
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.emailAddress,
+              //     textAlignVertical: TextAlignVertical.center,
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return "Please Enter a Email";
+              //       } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+              //         return "Please Enter a Valid Email";
+              //       }
+              //       return null;
+              //     },
+              //     decoration: InputDecoration(
+              //       hintText: "Email",
+              //       hintStyle: GoogleFonts.montserrat(
+              //           color: Colours.klightgrey,
+              //           fontSize: 16,
+              //           fontWeight: FontWeight.w400),
+              //       prefixIcon: const Padding(
+              //         padding: EdgeInsets.fromLTRB(12, 12, 10, 15),
+              //         child: Icon(
+              //           Icons.email,
+              //           color: Colours.klightgrey,
+              //           size: 22,
+              //         ),
+              //       ),
+              //       //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+              //       contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
+
+              //       border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide:
+              //               const BorderSide(color: Colours.kbordergrey)),
+              //       enabledBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide:
+              //               const BorderSide(color: Colours.kbordergrey)),
+              //       focusedBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide:
+              //               const BorderSide(color: Colours.kbordergrey)),
+              //       errorBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide:
+              //               const BorderSide(color: Colours.kbordergrey)),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 70,
                 child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  textAlignVertical: TextAlignVertical.center,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please Enter a Email";
-                    } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                      return "Please Enter a Valid Email";
-                    }
-                    return null;
-                  },
+                  keyboardType: TextInputType.text,
+                  obscureText: password,
                   decoration: InputDecoration(
-                    hintText: "Email",
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            password = !password;
+                          });
+                        },
+                        icon: password
+                            ? (const Icon(
+                                Icons.visibility_off,
+                                color: Colors.grey,
+                              ))
+                            : const Icon(
+                                Icons.visibility,
+                                color: Colours.klightgrey,
+                              )),
+                    hintText: "Password",
                     hintStyle: GoogleFonts.montserrat(
                         color: Colours.klightgrey,
                         fontSize: 16,
@@ -92,14 +157,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     prefixIcon: const Padding(
                       padding: EdgeInsets.fromLTRB(12, 12, 10, 15),
                       child: Icon(
-                        Icons.email,
+                        Icons.lock,
                         color: Colours.klightgrey,
                         size: 22,
                       ),
                     ),
                     //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
                     contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
-
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
@@ -119,12 +183,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // Text('Password',
-              //     style: GoogleFonts.poppins(
-              //       fontSize: 16,
-              //       fontWeight: FontWeight.w400,
-              //       color: Colors.black,
-              //     )),
+              Text('Confirm New Password',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colours.klightgrey,
+                  )),
               const SizedBox(
                 height: 10,
               ),
@@ -183,21 +247,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Forgotpassward()));
-                },
-                child: Text("Forgot Password?",
-                    textAlign: TextAlign.right,
-                    style: GoogleFonts.montserrat(
-                      color: Colours.korange,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    )),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => Forgotpassward()));
+              //   },
+              //   child: Text("Forgot Password?",
+              //       textAlign: TextAlign.right,
+              //       style: GoogleFonts.montserrat(
+              //         color: Colours.korange,
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.w600,
+              //       )),
+              // ),
               const SizedBox(height: 30),
               SizedBox(
                 height: 50,
@@ -207,13 +271,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DashboardScreen()));
+                              builder: (context) => LoginScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colours.kbuttonpurple,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    child: Text('Login',
+                    child: Text('Change',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
