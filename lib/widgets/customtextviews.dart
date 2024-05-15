@@ -41,7 +41,7 @@ class CustomViewText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      // height: 40,
       width: double.infinity,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),

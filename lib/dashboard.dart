@@ -143,7 +143,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Color(0xffFFA500),
         iconTheme: const IconThemeData(color: Colors.white),
         title: const CustomText(
             text: 'Konnect @ Sun KPO',
@@ -287,7 +287,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Color(0xff464667),
         currentIndex: _currentIndex,
         selectedItemColor: Colors.white,
         // selectedLabelStyle: TextStyle(color: Colors.white),
