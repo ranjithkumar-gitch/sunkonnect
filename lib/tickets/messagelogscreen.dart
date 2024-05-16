@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/tickets/addMessage.dart';
 import 'package:sunkonnect/tickets/viewMessage.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -17,68 +18,68 @@ class MessageLogScreen extends StatefulWidget {
 class _MessageLogScreenState extends State<MessageLogScreen> {
   List<MessageLog> message = [
     MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:46',
+       
+        logDate: '10 min ago',
         messageId: 'TLG202404151489',
         sender: 'Sai Sharad Raj',
-        message: 'drawing complete, please verify.',
+        message: 'drawing complete, please verify,testing how to drawing complete, please verify.',
        ),
        MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
+       
+        logDate: '6 hr ago',
         messageId: 'TLG202404151488',
         sender: 'Sandy Johnson',
         message: 'what\'s the status now ?',
        ),
 
        MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:46',
+       
+        logDate: '14 hr ago',
         messageId: 'TLG202404151489',
         sender: 'Sai Sharad Raj',
         message: 'drawing complete, please verify.',
        ),
        MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
+       
+        logDate: '1 day ago',
         messageId: 'TLG202404151488',
         sender: 'Sandy Johnson',
-        message: 'what\'s the status now ?',
+        message: 'Dropdown issue, please verify,testing how to drawing complete, please verify.',
        ),
 
         MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
+       
+        logDate: '2 days ago',
+        messageId: 'TLG202404151488',
+        sender: 'Sandy Johnson',
+        message: 'Png Images issue , please verify,testing how to drawing complete, please verify.',
+       ),
+
+       MessageLog(
+       
+        logDate: '13-05-2024',
         messageId: 'TLG202404151488',
         sender: 'Sandy Johnson',
         message: 'what\'s the status now ?',
        ),
 
        MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
-        messageId: 'TLG202404151488',
-        sender: 'Sandy Johnson',
-        message: 'what\'s the status now ?',
-       ),
-
-       MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
+       
+        logDate: '13-05-2024',
         messageId: 'TLG202404151488',
         sender: 'Sandy Johnson',
         message: 'what\'s the status now ?',
        ),
        MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
+       
+        logDate: '10-05-2024',
         messageId: 'TLG202404151488',
         sender: 'Sandy Johnson',
         message: 'what\'s the status now ?',
        ),
        MessageLog(
-        ticketId: 'TICK-431',
-        logDate: '05-09-2024 14:03:11',
+       
+        logDate: '05-05-2024',
         messageId: 'TLG202404151488',
         sender: 'Sandy Johnson',
         message: 'what\'s the status now ?',
@@ -103,9 +104,9 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
             onPressed: () {
              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
             },
-            label: const CustomText(text: 'Add Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.white),
-            icon: const Icon(Icons.add,color: Colors.white,),
-            backgroundColor: Colors.orange, 
+            label: const CustomText(text: 'Add Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colours.kwhiteColor),
+            icon: const Icon(Icons.add,color: Colours.kwhiteColor,),
+            backgroundColor: Colours.kbuttonpurple, 
           ),
      ),
    ),
@@ -116,9 +117,9 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
         const SizedBox(height: 10,),
          const CustomText(
             text: " Message Log ",
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
-            textcolor: Colors.black,
+            textcolor: Colours.kheadertext,
               ),
            const SizedBox(height: 10,),
       
@@ -136,12 +137,12 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
           },
           child: Card(
             elevation: 1,
-            color: Colours.klightpink,
+            color: Colours.kcardbgColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Container(
-               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),   color: Colours.klightpink,),
+               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),   color: Colours.kcardbgColor,),
               child: Container(
-                 color: Colours.klightpink,
+                 color: Colours.kcardbgColor,
                 margin: const EdgeInsets.only(right: 10,left: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,46 +154,38 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                     CustomText(
                       text: message[index].messageId,
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textcolor:Colours.korange,),
-                
-                    CustomText(
-                      text: message[index].ticketId,
-                      fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      textcolor: Colours.korange,),
+                      textcolor:Colors.black,),
+                    
+                     Text(message[index].logDate,style: GoogleFonts.poppins(fontSize: 10,color: Colours.ksubheadertext),),
+                    
                 
                   ],
                   ),
                   
               
                    const SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                      text: message[index].logDate,
+
+                   CustomText(
+                      text:message[index].message.length <= 25 ? message[index].message : '${message[index].message.substring(0,25)} . . . . . . . .',
                       fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      textcolor: Colors.grey.shade700,),
-                
-                    CustomText(
+                      fontWeight: FontWeight.w400,
+                      textcolor: Colours.kheadertext,),
+                        
+                       const SizedBox(height: 5,),
+                                  
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomText(
                       text: message[index].sender,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
-                      textcolor: Colors.grey.shade700,),
-                  ],
+                      textcolor: Colours.kheadertext,),
                   ),
               
                    const SizedBox(height: 5,),
                         
-                   CustomText(
-                      text: message[index].message,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      textcolor: Colors.black,),
-                        
-                       const SizedBox(height: 5,),
+                 
                   
                  ],
                 ),
@@ -219,14 +212,13 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
 }
 
 class MessageLog {
-  final String ticketId;
+  
   final String messageId;
   final String sender;
   final String message;
   final String logDate;
 
   MessageLog({
-    required this.ticketId,
     required this.messageId,
     required this.sender,
     required this.message,

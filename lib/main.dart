@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(),
         useMaterial3: true,
       ),
-      home: Splashscreen(),
+      home: const Splashscreen(),
     );
   }
 }

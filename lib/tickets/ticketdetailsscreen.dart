@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sunkonnect/editstatus.dart';
+import 'package:sunkonnect/tickets/editticketscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 
@@ -20,7 +20,7 @@ class TicketDetailsScreen extends StatelessWidget {
               ),
               const CustomText(
                 text: " Ticket Details ",
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textcolor: Colours.kheadertext,
               ),
@@ -183,7 +183,7 @@ class ContentCard extends StatelessWidget {
           width: double.infinity,
           child: CustomText(
               text: title,
-              fontSize: 13,
+              fontSize: 10,
               fontWeight: FontWeight.w400,
               textcolor: Colours.ksubheadertext),
         ),

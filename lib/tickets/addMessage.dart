@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,7 +22,9 @@ class _AddMessageState extends State<AddMessage> {
    final ImagePicker picker = ImagePicker();
     
   List<File> selectedImages = [];
-    String? pdfFilePath;
+   String? pdfFilePath;
+
+  File? file;
    File? media;
     late TextEditingController dateController = TextEditingController();
 
@@ -44,56 +47,24 @@ class _AddMessageState extends State<AddMessage> {
   Widget build(BuildContext context) {
     return Scaffold(
     backgroundColor: Colors.white,
-    appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios,color: Colours.korange,)),
-        
-        centerTitle: true,
-        title: const  CustomText(text: 'Add Message', fontSize: 22, fontWeight: FontWeight.w500, textcolor: Colours.korange),
-          
-          
-        ),
+    appBar: const CustomAppbar(title: 'Add Message'),
         body: Container(
           margin: const EdgeInsets.only(right: 10,left: 10),
           child:  SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
              children: [
-             const SizedBox(height: 10,),
-            
-                const Heading(title: 'Message Id'),
+             const SizedBox(height: 15,),
+          
+           const Heading(title: 'Sender'),
              Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                color: Colors.grey.shade100,
+                color: Colours.ktextfeildbgColor,
                 elevation: 0,
               child: Container(
                 width: double.infinity,height: 45,
                 margin: const EdgeInsets.only(right: 10,left: 10),
-                color: Colors.grey.shade100,
-                child: 
-                   
-                  const Padding(
-                    padding:  EdgeInsets.only(top: 15,),
-                    child: CustomText(
-                      text: '',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textcolor:Colors.black,),
-                  ),
-                
-                )),
-                 const SizedBox(height: 10,),
-            
-                  const Heading(title: 'Sender'),
-             Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                color: Colors.grey.shade100,
-                elevation: 0,
-              child: Container(
-                width: double.infinity,height: 45,
-                margin: const EdgeInsets.only(right: 10,left: 10),
-                color: Colors.grey.shade100,
+                color: Colours.ktextfeildbgColor,
                 child: 
                    
                   const Padding(
@@ -112,15 +83,15 @@ class _AddMessageState extends State<AddMessage> {
                      Card(
                   elevation: 0.0,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(
-            color: Colors.grey.shade400,
+                    side: const BorderSide(
+            color: Colours.kbordergrey,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Container(
-                    decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.all(
+                    decoration: const BoxDecoration(
+            color: Colours.ktextfeildbgColor,
+            borderRadius:  BorderRadius.all(
               Radius.circular(10.0),
             ),
                     ),
@@ -198,7 +169,7 @@ class _AddMessageState extends State<AddMessage> {
                         width: double.infinity,
                         height: 150,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
+                          color: Colours.ktextfeildbgColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: TextFormField(
                           minLines: 6,
@@ -208,14 +179,14 @@ class _AddMessageState extends State<AddMessage> {
                           decoration: InputDecoration(
                               alignLabelWithHint: true,
                               focusedBorder: OutlineInputBorder(
-                                  borderSide:  BorderSide(
-                                    color: Colors.grey.shade400,
+                                  borderSide:  const BorderSide(
+                                    color: Colours.kbordergrey,
                                   ),
                                   borderRadius: BorderRadius.circular(10)),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide:  BorderSide(
-                                  color: Colors.grey.shade400,
+                                borderSide: const  BorderSide(
+                                  color: Colours.kbordergrey,
                                   width: 1.0,
                                 ),
                               ),
@@ -242,7 +213,7 @@ class _AddMessageState extends State<AddMessage> {
                               imagePicker();
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colours.korange,
+                                backgroundColor: Colours.kbuttonpurple,
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.circular(10))),
@@ -308,7 +279,7 @@ class _AddMessageState extends State<AddMessage> {
                               pickFile();
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colours.korange,
+                                backgroundColor: Colours.kbuttonpurple,
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.circular(10))),
@@ -324,7 +295,7 @@ class _AddMessageState extends State<AddMessage> {
                     ),
        const SizedBox(height: 15,),
      Container(
-    child: (pdfFilePath == null && media == null) || (pdfFilePath?.isEmpty ?? true)
+    child: (pdfFilePath == null && file == null) || (pdfFilePath?.isEmpty ?? true)
     ? Container() 
     : Container(
         height: 180,
@@ -374,25 +345,30 @@ class _AddMessageState extends State<AddMessage> {
               ),
       ),
              ),
-
-
-           
-
-
                        const SizedBox(height: 20,),
                             
                                Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                SizedBox( height: 40, width: 100,
-                                  child: ElevatedButton(onPressed: (){}, 
-                                  style: ElevatedButton.styleFrom(backgroundColor: Colours.korange,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                                   child: const CustomText(text: 'Cancel', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
-                                ),
+                                OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    side:
+                                        const BorderSide(color: Colours.kbuttonpurple,),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                  child: const Text(
+                                    "Cancel",
+                                    style: TextStyle(color: Colours.kbuttonpurple,),
+                                  )),
                                   SizedBox(
                                     height: 40, width: 100,
                                     child: ElevatedButton(onPressed: (){}, 
-                                    style: ElevatedButton.styleFrom(backgroundColor: Colours.korange,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                    style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                       child: const CustomText(text: 'Add', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
                                   )
                                 ],
@@ -437,7 +413,7 @@ class _AddMessageState extends State<AddMessage> {
             backgroundColor: Colors.white,
             child: Icon(
               Icons.delete,
-              color: Colors.orange,
+              color: Colours.kbuttonpurple,
             ),
           ),
         ),
@@ -471,7 +447,7 @@ class _AddMessageState extends State<AddMessage> {
    if (result != null) {
      setState(() {
     pdfFilePath = result.files.single.path;
-      media = null;
+      file = null;
         });} }
 
   void pickImageFromCamera() async {
@@ -578,12 +554,12 @@ class Heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 5),
       child: CustomText(
          text: title,
-         fontSize: 14,
+         fontSize: 12,
        fontWeight: FontWeight.w500,
-      textcolor: Colours.korange),
+      textcolor: Colours.ksubheadertext),
     );
   }
    }

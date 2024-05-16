@@ -12,4 +12,5 @@ class Colours {
   static const Color ksubheadertext = Color(0xD9727374);
   static const Color kcardbgColor = Color(0xFFF6F7F8);
   static const Color kresponsivetext = Color(0xFF313131);
+  static const Color ktextfeildbgColor = Color(0xFFFAFAFA);
 }
