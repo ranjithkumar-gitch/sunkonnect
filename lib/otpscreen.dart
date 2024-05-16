@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/resetpassward.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
+// import 'package:sunkonnect/widgets/customtextviews.dart';
 
 class OTPScreen extends StatefulWidget {
   @override
@@ -15,14 +18,17 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Verify OTP',
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colours.kheadertext,
-            )),
+      appBar: CustomAppbar(
+        title: "Verify OTP",
       ),
+      // appBar: AppBar(
+      //   title: Text('Verify OTP',
+      //       style: GoogleFonts.poppins(
+      //         fontSize: 20,
+      //         fontWeight: FontWeight.w600,
+      //         color: Colours.kheadertext,
+      //       )),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -65,28 +71,54 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
             ),
             SizedBox(height: 20.0),
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Resetpassward()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colours.kbuttonpurple,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  child: Text('Verify',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ))),
-            ),
+            // SizedBox(
+            //   height: 50,
+            //   width: double.infinity,
+            //   child: ElevatedButton(
+            //       onPressed: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => Resetpassward()));
+            //       },
+            //       style: ElevatedButton.styleFrom(
+            //           backgroundColor: Colours.kbuttonpurple,
+            //           shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(10))),
+            //       child: Text('Verify',
+            //           style: GoogleFonts.poppins(
+            //             fontSize: 16,
+            //             fontWeight: FontWeight.w600,
+            //             color: Colors.white,
+            //           ))),
+            // ),
           ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 15,
+          left: 25,
+        ),
+        child: SizedBox(
+          height: 50,
+          width: double.infinity,
+          child: FloatingActionButton.extended(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 0,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Resetpassward()));
+              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+            },
+            label: const CustomText(
+                text: 'Verify',
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                textcolor: Colors.white),
+            backgroundColor: Colours.kbuttonpurple,
+          ),
         ),
       ),
     );

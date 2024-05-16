@@ -5,6 +5,7 @@ import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/forgotpassward.dart';
 import 'package:sunkonnect/loginpage.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 
 class Resetpassward extends StatefulWidget {
@@ -19,14 +20,17 @@ class _ResetpasswardState extends State<Resetpassward> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Forgot Password',
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colours.kheadertext,
-            )),
+      appBar: CustomAppbar(
+        title: "Forgot Password",
       ),
+      // appBar: AppBar(
+      //   title: Text('Forgot Password',
+      //       style: GoogleFonts.poppins(
+      //         fontSize: 20,
+      //         fontWeight: FontWeight.w600,
+      //         color: Colours.kheadertext,
+      //       )),
+      // ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -263,31 +267,55 @@ class _ResetpasswardState extends State<Resetpassward> {
               //       )),
               // ),
               const SizedBox(height: 30),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colours.kbuttonpurple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: Text('Change',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ))),
-              ),
+              // SizedBox(
+              //   height: 50,
+              //   width: double.infinity,
+              //   child: ElevatedButton(
+              //       onPressed: () {
+              //         Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => LoginScreen()));
+              //       },
+              //       style: ElevatedButton.styleFrom(
+              //           backgroundColor: Colours.kbuttonpurple,
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(10))),
+              //       child: Text('Change',
+              //           style: GoogleFonts.poppins(
+              //             fontSize: 16,
+              //             fontWeight: FontWeight.w500,
+              //             color: Colors.white,
+              //           ))),
+              // ),
             ],
           ),
         ),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+        child: SizedBox(
+          height: 45,
+          width: double.infinity,
+          child: FloatingActionButton.extended(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 0,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+            },
+            label: const CustomText(
+                text: 'Change',
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                textcolor: Colors.white),
+            backgroundColor: Colours.kbuttonpurple,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
