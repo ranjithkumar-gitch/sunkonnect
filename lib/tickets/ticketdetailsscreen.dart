@@ -1,156 +1,162 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sunkonnect/dashboard.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sunkonnect/editstatus.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 
 class TicketDetailsScreen extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      
-     floatingActionButton: Padding(
-     padding: const EdgeInsets.only(bottom: 5),
-     child: SizedBox(
-      height: 45, width: double.infinity,
-       child: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        elevation: 0,
-            onPressed: () {
-            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
-            },
-            label: const CustomText(text: 'EDIT', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.white),
-            icon: const Icon(Icons.add,color: Colors.white,),
-            backgroundColor: Colours.kbuttonpurple, 
-          ),
-          
-     ),
-   ),
-   floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                  const  SizedBox(height: 10,) ,
-              const CustomText(
-            text: " Ticket Details ",
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            textcolor: Colors.black,
+              const SizedBox(
+                height: 10,
               ),
-             const  SizedBox(height: 10,) ,
+              const CustomText(
+                text: " Ticket Details ",
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                textcolor: Colours.kheadertext,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Card(
-                color: Colours.klightpink,
-                elevation: 4,
+                color: Colours.kcardbgColor,
+                elevation: 2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 child: Container(
-                
-                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),   color: Colours.klightpink,),
-                  child: const Padding(
-                    padding:  EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colours.kcardbgColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Row(
                           children: [
-                            CustomText(text: 'TICK-409', fontSize: 16, fontWeight: FontWeight.w500, textcolor: Colours.korange),
-                            CustomText(text: ' 2024-02-19, 09:00', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colours.korange),
+                            const Expanded(
+                                child: ContentCard(
+                                    title: 'Company', content: 'SunKpo')),
+                            SizedBox(
+                              height: 40,
+                              width: 100,
+                              child: OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EditTicketScreen()));
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                      color: Colours.kbuttonpurple,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.border_color,color: Colours.kbuttonpurple,size: 15,),
+                                    SizedBox(width: 5,),
+                          CustomText(
+                            text:
+                                'Edit',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            textcolor: Colours.kresponsivetext,
+                          ),
+                                    ],
+                                  )),
+                            ),
                           ],
                         ),
-                             
-                         SizedBox(height: 10),
-                         ContentCard(title: 'Company', content: 'SunKpo'),
-                         ContentCard(title: 'Customer', content: 'REXEL USA '),
-                         ContentCard(title: 'Branch Name', content: 'Rexel-Santa-Clara '),
-                         ContentCard(title: 'Requested By', content: '31-05-2024 '),
-                         ContentCard(title: 'Title', content: 'Test panelboard - 2nd revision required '),
-                         ContentCard(title: 'Category', content: 'Panel Build - Shop Package '),
-                         ContentCard(title: 'Priority', content: 'Medium'),
-                        ContentCard(title: 'Status', content: 'Closed'),
-                         ContentCard(title: 'Raised By', content: 'Ranjith'),
-                         ContentCard(title: 'Assigned To', content: 'Uday Teja'),
-                         ContentCard(title: 'Date Closed', content: '11-05-2024, 4:30'),
-                  
-                    
-                  
-                         SizedBox(height: 10),
-                        
-                        CustomText(text: 'Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.orange),
-                        
-                         SizedBox(
+                        const ContentCard(
+                            title: 'Customer', content: 'REXEL USA '),
+                        const ContentCard(
+                            title: 'Branch Name',
+                            content: 'Rexel-Santa-Clara '),
+                        const ContentCard(
+                            title: 'Created On', content: '30-04-2024, 2:30 '),
+                        const ContentCard(
+                            title: 'Requested By', content: '31-05-2024 '),
+                        const ContentCard(
+                            title: 'Title',
+                            content:
+                                'Test panelboard - 2nd revision required '),
+                        const ContentCard(
+                            title: 'Category',
+                            content: 'Panel Build - Shop Package '),
+                        const ContentCard(title: 'Priority', content: 'Medium'),
+                        const ContentCard(title: 'Status', content: 'Closed'),
+                        const ContentCard(
+                            title: 'Raised By', content: 'Ranjith'),
+                        const ContentCard(
+                            title: 'Assigned To', content: 'Uday Teja'),
+                        const ContentCard(
+                            title: 'Date Closed', content: '11-05-2024, 4:30'),
+                        const SizedBox(height: 10),
+                        const CustomText(
+                            text: 'Message',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            textcolor: Colours.ksubheadertext),
+                        const SizedBox(
                           height: 10,
                         ),
-                         SizedBox(
+                        const SizedBox(
                           child: CustomText(
-                text: 'This is a sample ticket for demonstration purposes.',
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                textcolor:Colors.black,),
-                         
+                            text:
+                                'This is a sample ticket for demonstration purposes.',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            textcolor: Colours.kresponsivetext,
+                          ),
                         ),
-                         SizedBox(height: 10),
-                         CustomText(text: 'Attachments', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.orange),
-                        
-                         SizedBox(height: 5),
-
-                 SizedBox(height: 10,),
-                   CustomText(
-                text: 'http://www.example.com/image1.jpg',
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                textcolor:Colors.black,),
-                   SizedBox(height: 10,),
-                   CustomText(
-                text: 'http://www.example.com/image1.pdf',
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                textcolor:Colors.black,),
-                   SizedBox(height: 10,), 
-                        // AttachmentsGrid(),
-                         SizedBox(height: 10),
-                            
-                        // Center(
-                        //     child: CustomButton(
-                        //         text: "Update Status",
-                        //         textColor: Colors.white,
-                        //         onPressed: () async {
-                        //           final updatedTicket = await Navigator.push(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //               builder: (context) => EditTicketScreen(),
-                        //             ),
-                        //           );
-                            
-                        //           // Update ticket if it's not null (i.e., if user saved changes)
-                        //           if (updatedTicket != null) {
-                        //             // setState(() {
-                        //             //   ticket = updatedTicket;
-                        //             // });
-                        //           }
-                        //           // updateProfile();
-                        //         },
-                        //         color: Colors.orange,
-                        //         fontSize: 16,
-                        //         fontWeight: FontWeight.w600)),
+                        const SizedBox(height: 10),
+                        const CustomText(
+                            text: 'Attachments',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            textcolor: Colours.ksubheadertext),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const CustomText(
+                          text: 'http://www.example.com/image1.jpg',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          textcolor: Colours.kresponsivetext,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const CustomText(
+                          text: 'http://www.example.com/image1.pdf',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          textcolor: Colors.black,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
               ),
-                const SizedBox(
-          height: 80,
-        ),
+              const SizedBox(
+                height: 40,
+              ),
             ],
           ),
         ),
@@ -175,28 +181,26 @@ class ContentCard extends StatelessWidget {
       children: [
         SizedBox(
           width: double.infinity,
-          
-          child:  CustomText(text: title, fontSize: 13, fontWeight: FontWeight.w400, textcolor: Colors.grey.shade600),
+          child: CustomText(
+              text: title,
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              textcolor: Colours.ksubheadertext),
         ),
-     
-
         SizedBox(
           width: double.infinity,
-          
-          child: CustomText(text: content, fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
+          child: CustomText(
+              text: content,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              textcolor: Colours.kresponsivetext),
         ),
-
-           const SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        
       ],
     );
   }
-
-  
-
-
 }
 
 class AttachmentsGrid extends StatelessWidget {
@@ -206,13 +210,12 @@ class AttachmentsGrid extends StatelessWidget {
       child: GridView.count(
         crossAxisCount: 5,
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(), 
+        physics: const NeverScrollableScrollPhysics(),
         children: List.generate(10, (index) {
-          
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              'assets/img.jpeg', 
+              'assets/img.jpeg',
               fit: BoxFit.cover,
             ),
           );

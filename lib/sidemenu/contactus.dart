@@ -16,7 +16,7 @@ class _ContactUSState extends State<ContactUS> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-       appBar: const CustomAppbar(title: 'Contact US'),
+       appBar: const CustomAppbar(title: 'Contact Us'),
         
       body: Container(
         margin: const EdgeInsets.only(right: 10,left: 10),
@@ -29,10 +29,10 @@ class _ContactUSState extends State<ContactUS> {
             Center(
               child: Card( elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              color: Color(0XffF6F7F7),
+              color: Colours.kcardbgColor,
               child: Container(
                 height: 60,width: 60,
-               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Color(0XffF6F7F7),),
+               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Colours.kcardbgColor,),
                child: const Center(
                 child: Icon(Icons.alternate_email,color: Colours.kbuttonpurple,size: 30,)
                ),
@@ -66,7 +66,7 @@ class _ContactUSState extends State<ContactUS> {
             
                      const  SizedBox(height: 15,),
           
-                    const  CustomText(text: ' First Name', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext, ),
+                    const  CustomText(text: ' First Name', fontSize: 12,fontWeight: FontWeight.w500, textcolor: Colours.ksubheadertext, ),
             
                       const SizedBox(
                         height: 10,
@@ -84,7 +84,7 @@ class _ContactUSState extends State<ContactUS> {
                                 ),
                                
                               hintText: "First Name",
-                               hintStyle: const TextStyle( fontSize: 15, fontWeight: FontWeight.normal),
+                               hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.normal),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: const BorderSide(
@@ -96,7 +96,7 @@ class _ContactUSState extends State<ContactUS> {
           
                               const  SizedBox(height: 5,),
                      
-                    const  CustomText(text: ' Last Name', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext,),
+                    const  CustomText(text: ' Last Name', fontSize: 12,fontWeight: FontWeight.w500, textcolor: Colours.ksubheadertext,),
             
                       const SizedBox(
                         height: 10,
@@ -114,7 +114,7 @@ class _ContactUSState extends State<ContactUS> {
                                 ),
                                
                               hintText: "Last Name",
-                               hintStyle: const TextStyle( fontSize: 15, fontWeight: FontWeight.normal),
+                               hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.normal),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: const BorderSide(
@@ -126,7 +126,7 @@ class _ContactUSState extends State<ContactUS> {
           
                              const  SizedBox(height: 5,),
                      
-                    const  CustomText(text: ' Email', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext,),
+                    const  CustomText(text: ' Email', fontSize: 12,fontWeight: FontWeight.w500, textcolor: Colours.ksubheadertext,),
             
                       const SizedBox(
                         height: 10,
@@ -144,7 +144,7 @@ class _ContactUSState extends State<ContactUS> {
                                 ),
                                
                               hintText: "Email",
-                               hintStyle: const TextStyle( fontSize: 15, fontWeight: FontWeight.normal),
+                               hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.normal),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: const BorderSide(
@@ -156,7 +156,7 @@ class _ContactUSState extends State<ContactUS> {
           
                                const  SizedBox(height: 5,),
                      
-                    const  CustomText(text: ' Message', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext,),
+                    const  CustomText(text: ' Message', fontSize: 12,fontWeight: FontWeight.w500, textcolor: Colours.ksubheadertext,),
             
                       const SizedBox(
                         height: 10,
@@ -187,7 +187,7 @@ class _ContactUSState extends State<ContactUS> {
                                   ),
                                 ),
                                hintText: 'Message',
-                                hintStyle: const TextStyle( fontSize: 15, fontWeight: FontWeight.normal),),
+                                hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.normal),),
                           ),
                         ),
 
@@ -198,7 +198,7 @@ class _ContactUSState extends State<ContactUS> {
                             width: double.infinity,
                             child: ElevatedButton(
                          style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                        child: Text('Submit',style: GoogleFonts.poppins( textStyle: const TextStyle(color: Colors.white,fontFamily: 'poppins',fontSize: 12,   fontWeight:FontWeight.w600,))),
+                        child: Text('Submit',style: GoogleFonts.poppins( textStyle: const TextStyle(color: Colors.white,fontFamily: 'poppins',fontSize: 15,   fontWeight:FontWeight.w600,))),
                        onPressed: () async {
                   
                        }

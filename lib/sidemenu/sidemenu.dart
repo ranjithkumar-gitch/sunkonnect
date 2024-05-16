@@ -84,7 +84,7 @@ class SideMenu extends StatelessWidget {
               color: Colors.black,
               size: 20,
             ),
-              title:const CustomText(text: 'Contact US', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
+              title:const CustomText(text: 'Contact Us', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colors.black),
               onTap: () {
                Navigator.push(
                   context,

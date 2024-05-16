@@ -62,7 +62,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           
         
          const  SizedBox(height: 10,),
-         Text(' Email',style: GoogleFonts.poppins( fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),
+         Text(' Email',style: GoogleFonts.poppins( fontSize: 12,fontWeight: FontWeight.w500, color: Colours.ksubheadertext, ),),
                   
                   
                     const SizedBox(
@@ -80,16 +80,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 borderSide: const BorderSide(color: Colours.kbordergrey,),
                               ),
                               prefixIcon: const Padding(
-                                padding:  EdgeInsets.fromLTRB(12, 12, 10, 15),
+                                padding:  EdgeInsets.fromLTRB(12, 10, 10, 10),
                                 child: Icon(
                                   Icons.email,
                                   color: Colors.grey,
-                                  size: 22,
+                                  size: 18,
                                 ),
                               ), 
                       
                             hintText: "Email",
-                             hintStyle: const TextStyle( fontSize: 16, fontWeight: FontWeight.w400),
+                             hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.w400),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: const BorderSide(
@@ -101,7 +101,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   const SizedBox(
                         height: 10,),
      
-                         Text(' Old Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),   
+                         Text(' Old Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w500, color: Colours.ksubheadertext, ),),   
                         //  fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black
                     const SizedBox(
                       height: 10,
@@ -113,17 +113,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                           controller: currentPasswordController,
                             decoration: InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 12, 10, 15),
+                                  const EdgeInsets.fromLTRB(12, 10, 10, 10),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: const BorderSide(color: Colours.kbordergrey,),
                               ),
                               prefixIcon:const  Padding(
-                                padding:  EdgeInsets.fromLTRB(12, 12, 10, 15),
+                                padding:  EdgeInsets.fromLTRB(12, 10, 10, 10),
                                 child: Icon(
                                   Icons.lock,
                                   color: Colors.grey,
-                                  size: 22,
+                                  size: 18,
                                 ),
                               ), 
                         
@@ -131,19 +131,19 @@ class _ChangePasswordState extends State<ChangePassword> {
                    ? (currentPasswordController.text == ''
                    ? const Icon(
                        Icons.check_circle,
-                  color: Colors.green,
+                  color: Colors.green, size: 18,
                  )
                : const Icon(
               Icons.cancel,
-                color: Colors.red,
+                color: Colors.red,size: 18,
                  ))
                : const  Icon(
             Icons.remove_red_eye,
-             color: Colors.grey,
+             color: Colors.grey,size: 18,
                   ),
         
                             hintText: "Old Password",
-                             hintStyle: const TextStyle( fontSize: 15, fontWeight: FontWeight.w400),
+                             hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.w400),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: const BorderSide(
@@ -155,7 +155,7 @@ class _ChangePasswordState extends State<ChangePassword> {
      
                       const SizedBox(height: 10,),
      
-                   Text(' New Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),
+                   Text(' New Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w500, color: Colours.ksubheadertext, ),),
                       
                     const SizedBox(
                       height: 10,
@@ -176,14 +176,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     },
                                     decoration: InputDecoration(
                                       contentPadding: const EdgeInsets.fromLTRB(
-                                          12, 12, 10, 15),
+                                          12, 10, 10, 10),
                                       prefixIcon:  const Padding(
                                         padding:
-                                             EdgeInsets.fromLTRB(12, 12, 10, 15),
+                                             EdgeInsets.fromLTRB(12, 10, 10, 10),
                                         child: Icon(
                                           Icons.lock,
                                           color: Colors.grey,
-                                          size: 22,
+                                          size: 18,
                                         ),
                                       ),
                                       suffixIcon: IconButton(
@@ -195,18 +195,18 @@ class _ChangePasswordState extends State<ChangePassword> {
                                           icon: newPassword
                                               ? (const Icon(
                                                   Icons.visibility_off,
-                                                  color: Colors.grey,
+                                                  color: Colors.grey, size: 18,
                                                 ))
                                               :  const Icon(
                                                   Icons.visibility,
-                                                  color: Colors.grey,
+                                                  color: Colors.grey,size: 18,
                                                 )),
                                       hintText: "New Password",
-                                       hintStyle:const TextStyle( fontSize: 15, fontWeight: FontWeight.w400),
+                                       hintStyle:const TextStyle( fontSize: 13, fontWeight: FontWeight.w400),
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          borderSide:  BorderSide(
+                                          borderSide: const  BorderSide(
                                               color: Colours.kbordergrey,)),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius:
@@ -229,7 +229,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             
                             const SizedBox(height: 10,),
      
-               Text(' Confirm Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),
+               Text(' Confirm Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w500, color: Colours.ksubheadertext, ),),
           
                     const SizedBox(
                       height: 10,
@@ -251,14 +251,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     },
                             decoration: InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 12, 10, 15),
+                                  const EdgeInsets.fromLTRB(12, 10, 10, 10),
                               
                               prefixIcon:  const Padding(
                                 padding:  EdgeInsets.fromLTRB(12, 12, 10, 15),
                                 child: Icon(
                                   Icons.lock,
                                   color: Colors.grey,
-                                  size: 22,
+                                  size: 18,
                                 ),
                               ),
                                suffixIcon: IconButton(
@@ -270,14 +270,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 icon: confirmPassword
                                     ? (const Icon(
                                         Icons.visibility_off,
-                                        color: Colors.grey,
+                                        color: Colors.grey,size: 18,
                                       ))
                                     :  const Icon(
                                         Icons.visibility,
-                                        color: Colors.grey,
+                                        color: Colors.grey,size: 18,
                                       )),
                             hintText: "Confirm Password",
-                            hintStyle:const TextStyle( fontSize: 15, fontWeight: FontWeight.w400),
+                            hintStyle:const TextStyle( fontSize: 13, fontWeight: FontWeight.w400),
                              border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -307,7 +307,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             width: double.infinity,
                             child: ElevatedButton(
                          style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                        child: Text('Change Password',style: GoogleFonts.poppins( textStyle: const TextStyle(color: Colors.white,fontFamily: 'poppins',fontSize: 16,   fontWeight:FontWeight.w600,))),
+                        child: Text('Change Password',style: GoogleFonts.poppins( textStyle: const TextStyle(color: Colors.white,fontFamily: 'poppins',fontSize: 15,   fontWeight:FontWeight.w500,))),
                        onPressed: () async {
                   
                        }
