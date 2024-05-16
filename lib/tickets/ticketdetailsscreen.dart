@@ -106,7 +106,7 @@ class TicketDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         const CustomText(
                             text: 'Message',
-                            fontSize: 14,
+                            fontSize: 10,
                             fontWeight: FontWeight.w400,
                             textcolor: Colours.ksubheadertext),
                         const SizedBox(
@@ -124,7 +124,7 @@ class TicketDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         const CustomText(
                             text: 'Attachments',
-                            fontSize: 14,
+                            fontSize: 10,
                             fontWeight: FontWeight.w400,
                             textcolor: Colours.ksubheadertext),
                         const SizedBox(
