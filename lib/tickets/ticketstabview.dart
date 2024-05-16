@@ -4,7 +4,8 @@ import 'package:sunkonnect/tickets/ticketdetailsscreen.dart';
 import 'package:sunkonnect/tickets/messagelogscreen.dart';
 import 'package:sunkonnect/tickets/ticketlogscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class TicketTabView extends StatefulWidget {
@@ -22,27 +23,7 @@ class _TicketTabViewState extends State<TicketTabView>
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colours.korange,
-                  ))),
-              
-          title: const CustomText(
-              text: "TICK-431",
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
-              textcolor: Colours.korange),
-          centerTitle: true,
-        ),
+        appBar: const CustomAppbar(title: 'TICK-431'),
         body: SafeArea(
           child: Container(
               margin: const EdgeInsets.only(right: 10, left: 10),

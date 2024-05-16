@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 class AddMessage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/forgotpassward.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

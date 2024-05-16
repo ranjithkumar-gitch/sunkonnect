@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 
 class ChangePassword extends StatefulWidget {
@@ -34,17 +35,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
     backgroundColor: Colors.white,
-   appBar: AppBar(
-    elevation: 1,
-        backgroundColor: Colours.korange,
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios,color: Colours.kwhiteColor,)),
-         title: const CustomText(
-            text: 'Change Password',
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
-            textcolor: Colours.kwhiteColor),
-            centerTitle: true,
-      ),
+   appBar: const CustomAppbar(title: 'Change Password'),
      body: Container(
      margin: const EdgeInsets.only(right: 10,left: 10),
      child: SingleChildScrollView(
@@ -71,7 +62,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           
         
          const  SizedBox(height: 10,),
-         Text(' Email',style: GoogleFonts.poppins( fontSize: 12,fontWeight: FontWeight.w400, color: Colours.kgreywhiteColor, ),),
+         Text(' Email',style: GoogleFonts.poppins( fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),
                   
                   
                     const SizedBox(
@@ -110,7 +101,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   const SizedBox(
                         height: 10,),
      
-                         Text(' Old Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.kgreywhiteColor, ),),   
+                         Text(' Old Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),   
                         //  fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black
                     const SizedBox(
                       height: 10,
@@ -164,7 +155,7 @@ class _ChangePasswordState extends State<ChangePassword> {
      
                       const SizedBox(height: 10,),
      
-                   Text(' New Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.kgreywhiteColor, ),),
+                   Text(' New Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),
                       
                     const SizedBox(
                       height: 10,
@@ -238,7 +229,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             
                             const SizedBox(height: 10,),
      
-               Text(' Confirm Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.kgreywhiteColor, ),),
+               Text(' Confirm Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400, color: Colours.ksubheadertext, ),),
           
                     const SizedBox(
                       height: 10,

@@ -3,7 +3,7 @@ import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:expandable/expandable.dart';
 
 class DashboardScreen extends StatefulWidget {

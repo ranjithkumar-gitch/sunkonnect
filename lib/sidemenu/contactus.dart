@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 class ContactUS extends StatefulWidget {
   const ContactUS({super.key});
@@ -15,17 +16,7 @@ class _ContactUSState extends State<ContactUS> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-       appBar: AppBar(
-         elevation: 1,
-        backgroundColor: Colours.korange,
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios,color: Colours.kwhiteColor,)),
-         title: const CustomText(
-            text: 'Contact US',
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
-            textcolor: Colours.kwhiteColor),
-            centerTitle: true,
-      ),
+       appBar: const CustomAppbar(title: 'Contact US'),
         
       body: Container(
         margin: const EdgeInsets.only(right: 10,left: 10),
@@ -75,7 +66,7 @@ class _ContactUSState extends State<ContactUS> {
             
                      const  SizedBox(height: 15,),
           
-                    const  CustomText(text: ' First Name', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.kgreywhiteColor, ),
+                    const  CustomText(text: ' First Name', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext, ),
             
                       const SizedBox(
                         height: 10,
@@ -105,7 +96,7 @@ class _ContactUSState extends State<ContactUS> {
           
                               const  SizedBox(height: 5,),
                      
-                    const  CustomText(text: ' Last Name', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.kgreywhiteColor,),
+                    const  CustomText(text: ' Last Name', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext,),
             
                       const SizedBox(
                         height: 10,
@@ -135,7 +126,7 @@ class _ContactUSState extends State<ContactUS> {
           
                              const  SizedBox(height: 5,),
                      
-                    const  CustomText(text: ' Email', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.kgreywhiteColor,),
+                    const  CustomText(text: ' Email', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext,),
             
                       const SizedBox(
                         height: 10,
@@ -165,7 +156,7 @@ class _ContactUSState extends State<ContactUS> {
           
                                const  SizedBox(height: 5,),
                      
-                    const  CustomText(text: ' Message', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.kgreywhiteColor,),
+                    const  CustomText(text: ' Message', fontSize: 12,fontWeight: FontWeight.w400, textcolor: Colours.ksubheadertext,),
             
                       const SizedBox(
                         height: 10,

@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sunkonnect/tickets/addMessage.dart';
 import 'package:sunkonnect/tickets/viewMessage.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 class MessageLogScreen extends StatefulWidget {
   const MessageLogScreen({super.key});

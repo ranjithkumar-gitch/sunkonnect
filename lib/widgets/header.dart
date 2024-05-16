@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 class Header extends StatelessWidget {
   final String title;
@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomText(
         text: title,
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: FontWeight.w500,
         textcolor: Colours.kheadertext);
   }

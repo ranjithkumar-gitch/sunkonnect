@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/editprofilepage.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 class ProfilePage extends StatelessWidget {
   @override

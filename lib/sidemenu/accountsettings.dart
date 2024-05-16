@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customappbar.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:sunkonnect/widgets/header.dart';
 class AccountSettings extends StatefulWidget {
@@ -16,17 +17,8 @@ class _AccountSettingsState extends State<AccountSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-         elevation: 1,
-        backgroundColor: Colours.korange,
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios,color:Colours.kwhiteColor,)),
-         title: const CustomText(
-            text: 'Account Settings',
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
-            textcolor: Colours.kwhiteColor),
-          centerTitle: true,
-      ),
+      appBar: const CustomAppbar(title: 'Account Settings'),
+      
          floatingActionButton: Padding(
        padding: const EdgeInsets.only(bottom: 15,left: 15,right: 15),
          child:  Row(
@@ -95,7 +87,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                  const SizedBox(width: 15),
                   const CustomText(
                  text: 'Subscribe to all emails',
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                  textcolor: Colors.black),
                 

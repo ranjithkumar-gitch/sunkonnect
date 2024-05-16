@@ -6,7 +6,7 @@ import 'package:sunkonnect/sidemenu/accountsettings.dart';
 import 'package:sunkonnect/sidemenu/changepassword.dart';
 import 'package:sunkonnect/sidemenu/contactus.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customtextviews.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({super.key});
@@ -113,7 +113,7 @@ class SideMenu extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                              
+                            
                               child: OutlinedButton(
                                   onPressed: () {
                                     Navigator.pop(context);
