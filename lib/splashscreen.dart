@@ -37,7 +37,7 @@ class _SplashscreenState extends State<Splashscreen> {
             height: 15,
           ),
           Text(
-            'Konnect @ SunKpo',
+            'Konnect @ Sun Kpo',
             style: TextStyle(
                 color: Colours.korange,
                 fontSize: 30,

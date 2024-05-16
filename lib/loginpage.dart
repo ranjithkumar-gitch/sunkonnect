@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: GoogleFonts.poppins(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
-                    color: Colours.kdarkgrey,
+                    color: Colours.kheadertext,
                   )),
               SizedBox(
                 height: 10,

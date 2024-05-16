@@ -16,11 +16,11 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Back',
+        title: Text('Verify OTP',
             style: GoogleFonts.poppins(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: Colours.kdarkgrey,
+              color: Colours.kheadertext,
             )),
       ),
       body: Padding(
@@ -32,7 +32,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Text(
               'Enter OTP Code Sent To Your Email',
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w600,
               ),
             ),

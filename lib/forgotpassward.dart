@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/otpscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -15,26 +16,26 @@ class _ForgotpasswardState extends State<Forgotpassward> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Back',
+          title: Text('Forgot Password',
               style: GoogleFonts.poppins(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: Colours.kdarkgrey,
+                color: Colours.kheadertext,
               )),
         ),
         body: Container(
           margin: EdgeInsets.all(20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Forgot Password',
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colours.kdarkgrey,
-                  )),
+              // Text('Forgot Password',
+              //     textAlign: TextAlign.left,
+              //     style: GoogleFonts.poppins(
+              //       fontSize: 20,
+              //       fontWeight: FontWeight.w600,
+              //       color: Colours.kheadertext,
+              //     )),
               SizedBox(
                 height: 20,
               ),
@@ -83,24 +84,29 @@ class _ForgotpasswardState extends State<Forgotpassward> {
               SizedBox(
                 height: 30,
               ),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OTPScreen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colours.kbuttonpurple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: Text('Send OTP',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ))),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OTPScreen()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colours.kbuttonpurple,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Text('Send OTP',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ))),
+                ),
               ),
             ],
           ),

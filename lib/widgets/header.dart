@@ -12,6 +12,10 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomText(text: title, fontSize: 16, fontWeight: FontWeight.w500, textcolor: Colours.kdarkgrey);
+    return CustomText(
+        text: title,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        textcolor: Colours.kheadertext);
   }
 }

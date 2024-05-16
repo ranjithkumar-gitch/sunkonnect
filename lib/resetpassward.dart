@@ -20,11 +20,11 @@ class _ResetpasswardState extends State<Resetpassward> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Back',
+        title: Text('Forgot Password',
             style: GoogleFonts.poppins(
               fontSize: 20,
               fontWeight: FontWeight.w600,
-              color: Colours.kdarkgrey,
+              color: Colours.kheadertext,
             )),
       ),
       body: Padding(
@@ -58,12 +58,12 @@ class _ResetpasswardState extends State<Resetpassward> {
               const SizedBox(
                 height: 15,
               ),
-              Text('Forgot Password',
-                  style: GoogleFonts.poppins(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colours.kdarkgrey,
-                  )),
+              // Text('Forgot Password',
+              //     style: GoogleFonts.poppins(
+              //       fontSize: 25,
+              //       fontWeight: FontWeight.w600,
+              //       color: Colours.kheadertext,
+              //     )),
               SizedBox(
                 height: 10,
               ),
