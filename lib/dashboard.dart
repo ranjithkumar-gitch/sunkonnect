@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sunkonnect/myprofilepage.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/sidemenu/sidemenu.dart';
+import 'package:sunkonnect/tickets/ticketdata.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
+import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:expandable/expandable.dart';
 
@@ -16,132 +17,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   String _selectedStatus = 'All';
 
-  List<Ticket> myTickets = [
-    Ticket(
-        id: 'TICK-409',
-        dateTime: '2024-02-19 09:00',
-        status: 'New',
-        assignedTo: 'ranjith',
-        priority: 'High',
-        message: 'This is a sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        category: "Enclosure MOD- shop Package",
-        daysOpen: "3",
-        title: 'Dropdown issue in dashboard'),
-    Ticket(
-        id: 'TICK-410',
-        dateTime: '2024-02-18 10:30',
-        status: 'Assigned',
-        assignedTo: 'Uday',
-        priority: 'Low',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        category: "Enclosure MOD- shop Package",
-        daysOpen: "2",
-        title: 'Dropdown issue in dashboard'),
-    Ticket(
-        id: 'TICK-411',
-        dateTime: '2024-02-18 10:30',
-        status: 'Acknoledged',
-        assignedTo: 'Kumar',
-        priority: 'Medium',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        daysOpen: "3",
-        category: "Enclosure MOD- shop Package",
-        title: 'Dropdown issue in dashboard.'),
-    Ticket(
-        id: 'TICK-411',
-        dateTime: '2024-02-18 10:30',
-        status: 'In process',
-        assignedTo: 'Kumar',
-        priority: 'Medium',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        daysOpen: "1",
-        category: "Enclosure MOD- shop Package",
-        title: 'Dropdown issue in dashboard.'),
-    Ticket(
-        id: 'TICK-411',
-        dateTime: '2024-02-18 10:30',
-        status: 'Completed',
-        assignedTo: 'Kumar',
-        priority: 'High',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        daysOpen: "4",
-        category: "Enclosure MOD- shop Package",
-        title: 'Dropdown issue in dashboard.'),
-    // Add more tickets as needed
-  ];
-
-  List<Ticket> allTickets = [
-    Ticket(
-        id: 'TICK-410',
-        dateTime: '2024-02-18 10:30',
-        status: 'Assigned',
-        assignedTo: 'Uday',
-        priority: 'High',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        category: "Enclosure MOD- shop Package",
-        daysOpen: "1",
-        title: 'Dropdown issue in dashboard.'),
-    Ticket(
-        id: 'TICK-411',
-        dateTime: '2024-02-18 10:30',
-        status: 'Acknoledged',
-        assignedTo: 'Kumar',
-        priority: 'Medium',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        category: "Enclosure MOD- shop Package",
-        daysOpen: "2",
-        title: 'Dropdown issue in dashboard.'),
-    Ticket(
-        id: 'TICK-411',
-        dateTime: '2024-02-18 10:30',
-        status: 'In process',
-        assignedTo: 'Kumar',
-        priority: 'Medium',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        category: "Enclosure MOD- shop Package",
-        daysOpen: "3",
-        title: 'Dropdown issue in dashboard.'),
-    Ticket(
-        id: 'TICK-411',
-        dateTime: '2024-02-18 10:30',
-        status: 'Completed',
-        assignedTo: 'Kumar',
-        priority: 'Medium',
-        message: 'Another sample ticket for demonstration purposes.',
-        attachments: [],
-        raisedBy: 'Ranjith',
-        category: "Enclosure MOD- shop Package",
-        daysOpen: "5",
-        title: 'Dropdown issue in dashboard.'),
-    // Add more tickets as needed
-  ];
-
   @override
   Widget build(BuildContext context) {
-    List<Ticket> filteredTickets;
-    if (_selectedStatus == 'All') {
-      filteredTickets = _currentIndex == 0 ? myTickets : allTickets;
-    } else {
-      filteredTickets = (_currentIndex == 0 ? myTickets : allTickets)
-          .where((ticket) => ticket.status == _selectedStatus)
-          .toList();
-    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffFFA500),
@@ -214,9 +91,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       'All',
                       'New',
                       'Assigned',
-                      'Acknoledged',
+                      'Acknowledged',
                       'In process',
-                      'Completed'
+                      'Completed',
+                      "Cancelled",
+                      "On Hold",
+                      "Closed"
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -272,7 +152,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Card(
             clipBehavior: Clip.antiAlias,
             child: Container(
-              color: Colors.grey[100],
+              color: Colours.kcardbgColor,
               child: Column(
                 children: <Widget>[
                   ScrollOnExpand(
@@ -297,32 +177,160 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   tickets[index].id,
                                   style: const TextStyle(
                                     fontSize: 14.0,
-                                    color: Color(0xffFFA500),
+                                    color: Colours.kheadertext,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'poppins',
                                   ),
                                 ),
-                                SizedBox(
-                                    height: 24,
-                                    width: 24,
-                                    child: Image(
-                                        image: AssetImage(tickets[index]
-                                                    .priority ==
-                                                "High"
-                                            ? "assets/highpriority.png"
-                                            : tickets[index].priority ==
-                                                    "Medium"
-                                                ? 'assets/medpriority.png'
-                                                : 'assets/lowpriority.png')))
+                                Row(
+                                  children: [
+                                    Container(
+                                      // width: 135.0,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: tickets[index].status == "New"
+                                              ? Color(0xff22B6D0)
+                                              : tickets[index].status ==
+                                                      "Assigned"
+                                                  ? Color(0xff52C41A)
+                                                  : tickets[index].status ==
+                                                          "Acknowledged"
+                                                      ? Color(0xff662C91)
+                                                      : tickets[index].status ==
+                                                              "In process"
+                                                          ? Color(0xffFFA500)
+                                                          : tickets[index]
+                                                                      .status ==
+                                                                  "Completed"
+                                                              ? Color(
+                                                                  0xff0DA12E)
+                                                              : tickets[index]
+                                                                          .status ==
+                                                                      "On Hold"
+                                                                  ? Color(
+                                                                      0xff007CBE)
+                                                                  : tickets[index]
+                                                                              .status ==
+                                                                          "Closed"
+                                                                      ? Color(
+                                                                          0xff15182E)
+                                                                      : tickets[index].status ==
+                                                                              "Cancelled"
+                                                                          ? Color(
+                                                                              0xffD92F1B)
+                                                                          : Colors
+                                                                              .black,
+                                        ),
+                                        color: tickets[index].status == "New"
+                                            ? Color(0xffF0FDFF)
+                                            : tickets[index].status ==
+                                                    "Assigned"
+                                                ? Color(0xffEDFFE4)
+                                                : tickets[index].status ==
+                                                        "Acknowledged"
+                                                    ? Color(0xffF8EFFF)
+                                                    : tickets[index].status ==
+                                                            "In process"
+                                                        ? Color(0xffFFF4DF)
+                                                        : tickets[index]
+                                                                    .status ==
+                                                                "Completed"
+                                                            ? Color(0xffE6FFEC)
+                                                            : tickets[index]
+                                                                        .status ==
+                                                                    "On Hold"
+                                                                ? Color(
+                                                                    0xffF3FBFF)
+                                                                : tickets[index]
+                                                                            .status ==
+                                                                        "Closed"
+                                                                    ? Color(
+                                                                        0xffF5F5F5)
+                                                                    : tickets[index].status ==
+                                                                            "Cancelled"
+                                                                        ? Color(
+                                                                            0xffFFF2F0)
+                                                                        : Colors
+                                                                            .white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0,
+                                            right: 8.0,
+                                            top: 5.0,
+                                            bottom: 5.0),
+                                        child: Container(
+                                          child: Text(
+                                            tickets[index].status,
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: tickets[index].status ==
+                                                      "New"
+                                                  ? Color(0xff22B6D0)
+                                                  : tickets[index].status ==
+                                                          "Assigned"
+                                                      ? Color(0xff52C41A)
+                                                      : tickets[index].status ==
+                                                              "Acknowledged"
+                                                          ? Color(0xff662C91)
+                                                          : tickets[index]
+                                                                      .status ==
+                                                                  "In process"
+                                                              ? Color(
+                                                                  0xffFFA500)
+                                                              : tickets[index]
+                                                                          .status ==
+                                                                      "Completed"
+                                                                  ? Color(
+                                                                      0xff0DA12E)
+                                                                  : tickets[index]
+                                                                              .status ==
+                                                                          "On Hold"
+                                                                      ? Color(
+                                                                          0xff007CBE)
+                                                                      : tickets[index].status ==
+                                                                              "Closed"
+                                                                          ? Color(
+                                                                              0xff15182E)
+                                                                          : tickets[index].status == "Cancelled"
+                                                                              ? Color(0xffD92F1B)
+                                                                              : Colors.black,
+                                              fontFamily: 'Poppins',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                        height: 24,
+                                        width: 24,
+                                        child: Image(
+                                            image: AssetImage(tickets[index]
+                                                        .priority ==
+                                                    "High"
+                                                ? "assets/highpriority.png"
+                                                : tickets[index].priority ==
+                                                        "Medium"
+                                                    ? 'assets/medpriority.png'
+                                                    : 'assets/lowpriority.png'))),
+                                  ],
+                                ),
                               ],
                             ),
                             Row(
                               children: [
                                 const Text(
-                                  "Customer Name   : ",
+                                  "Customer Name  :  ",
                                   style: TextStyle(
                                     fontSize: 14.0,
-                                    color: Colors.black,
+                                    color: Colours.ksubheadertext,
                                     fontFamily: 'poppins',
                                   ),
                                 ),
@@ -330,7 +338,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   tickets[index].assignedTo.toUpperCase(),
                                   style: const TextStyle(
                                     fontSize: 14.0,
-                                    color: Colors.black,
+                                    color: Colours.kheadertext,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'poppins',
                                   ),
@@ -343,10 +351,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Row(
                               children: [
                                 const Text(
-                                  "Raised By   : ",
+                                  "Raised By   :  ",
                                   style: TextStyle(
                                     fontSize: 14.0,
-                                    color: Colors.black,
+                                    color: Colours.ksubheadertext,
                                     fontFamily: 'poppins',
                                   ),
                                 ),
@@ -354,7 +362,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   tickets[index].raisedBy,
                                   style: const TextStyle(
                                     fontSize: 14.0,
-                                    color: Colors.black,
+                                    color: Colours.kheadertext,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'poppins',
                                   ),
@@ -368,7 +376,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               tickets[index].title,
                               style: const TextStyle(
                                 fontSize: 14.0,
-                                color: Colors.black,
+                                color: Colours.kheadertext,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'poppins',
                               ),
@@ -380,7 +388,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         "More details",
                         style: TextStyle(
                           fontSize: 10.0,
-                          color: Color(0xffFFA500),
+                          color: Colours.kheadertext,
                           fontFamily: 'poppins',
                         ),
                         softWrap: true,
@@ -403,10 +411,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Row(
                             children: [
                               const Text(
-                                "Assigned To         : ",
+                                "Assigned To   :   ",
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.black,
+                                  color: Colours.ksubheadertext,
                                   fontFamily: 'poppins',
                                 ),
                               ),
@@ -427,10 +435,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Row(
                             children: [
                               const Text(
-                                "Days Open            : ",
+                                "Days Open   :   ",
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.black,
+                                  color: Colours.ksubheadertext,
                                   fontFamily: 'poppins',
                                 ),
                               ),
@@ -451,10 +459,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Row(
                             children: [
                               const Text(
-                                "Created On           : ",
+                                "Created   :   ",
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.black,
+                                  color: Colours.ksubheadertext,
                                   fontFamily: 'poppins',
                                 ),
                               ),
@@ -475,10 +483,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           Row(
                             children: [
                               const Text(
-                                "Closed On             : ",
+                                "Closed   :   ",
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.black,
+                                  color: Colours.ksubheadertext,
                                   fontFamily: 'poppins',
                                 ),
                               ),
@@ -498,6 +506,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           const Divider(
                             height: 2.0,
+                            color: Colors.white,
                           ),
                           const SizedBox(
                             height: 4.0,
@@ -505,10 +514,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           const Row(
                             children: [
                               Text(
-                                " Category",
+                                "Category",
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.black,
+                                  color: Colours.kheadertext,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'poppins',
                                 ),
@@ -522,7 +531,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             tickets[index].category,
                             style: const TextStyle(
                               fontSize: 14.0,
-                              color: Colors.black,
+                              color: Colours.kheadertext,
                               fontFamily: 'poppins',
                             ),
                           ),
@@ -540,7 +549,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           const TicketTabView()),
                                 );
                               },
-                              color: Colors.orange,
+                              color: Colours.kbuttonpurple,
                               fontSize: 16,
                               fontWeight: FontWeight.w600),
                           const SizedBox(
@@ -569,32 +578,4 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
     );
   }
-}
-
-class Ticket {
-  final String id;
-  final String title;
-  late final String status;
-  final String priority;
-  final String assignedTo;
-  final String raisedBy;
-  late final String message;
-  final List<String> attachments;
-  final String dateTime;
-  final String category;
-  final String daysOpen;
-
-  Ticket({
-    required this.id,
-    required this.title,
-    required this.status,
-    required this.priority,
-    required this.assignedTo,
-    required this.raisedBy,
-    required this.message,
-    required this.attachments,
-    required this.dateTime,
-    required this.category,
-    required this.daysOpen,
-  });
 }
