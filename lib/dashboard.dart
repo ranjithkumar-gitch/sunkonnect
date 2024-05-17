@@ -56,7 +56,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       height: 40,
                       child: TextFormField(
                           decoration: InputDecoration(
-                        hintText: "Search by ID..",
+                        hintText: "Search by Ticket Id..",
                         contentPadding: const EdgeInsets.all(10),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -72,38 +72,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: const BorderSide(
-                            color: Colors.grey,
+                            color: Colours.kbuttonpurple,
                             width: 1.0,
                           ),
                         ),
                       ))),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton<String>(
-                    value: _selectedStatus,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedStatus = newValue!;
-                      });
-                    },
-                    items: [
-                      'All',
-                      'New',
-                      'Assigned',
-                      'Acknowledged',
-                      'In process',
-                      'Completed',
-                      "Cancelled",
-                      "On Hold",
-                      "Closed"
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
+                const SizedBox(
+                  width: 8,
+                ),
+                DropdownButton<String>(
+                  value: _selectedStatus,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedStatus = newValue!;
+                    });
+                  },
+                  items: [
+                    'All',
+                    'New',
+                    'Assigned',
+                    'Acknowledged',
+                    'In process',
+                    'Completed',
+                    "Cancelled",
+                    "On Hold",
+                    "Closed"
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          value,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colours.kheadertext,
+                            fontFamily: 'poppins',
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ],
             ),
@@ -564,7 +574,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Expandable(
                             collapsed: collapsed,
                             expanded: expanded,
-                            theme: const ExpandableThemeData(crossFadePoint: 0),
+                            theme:
+                                const ExpandableThemeData(crossFadePoint: 0.7),
                           ),
                         );
                       },
