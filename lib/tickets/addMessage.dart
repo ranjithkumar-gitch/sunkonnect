@@ -295,7 +295,7 @@ class _AddMessageState extends State<AddMessage> {
                       ),
                     ),
             const SizedBox(height: 15,),
-
+          
           if (selectedFiles.isNotEmpty)
                 SizedBox(
                   height: 200, width: double.infinity,

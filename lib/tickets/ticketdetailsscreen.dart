@@ -1,11 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sunkonnect/tickets/editticketscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 
 class TicketDetailsScreen extends StatelessWidget {
+  const TicketDetailsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class TicketDetailsScreen extends StatelessWidget {
               ),
               Card(
                 color: Colours.kcardbgColor,
-                elevation: 2,
+                elevation: 1,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -39,113 +40,154 @@ class TicketDetailsScreen extends StatelessWidget {
                     color: Colours.kcardbgColor,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            const Expanded(
-                                child: ContentCard(
-                                    title: 'Company', content: 'SunKpo')),
-                            SizedBox(
-                              height: 40,
-                              width: 100,
-                              child: OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EditTicketScreen()));
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                      color: Colours.kbuttonpurple,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
+
+                        Container(
+
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Colours.kcardborder,)),
+                          child: Container(
+                          margin: const EdgeInsets.only(right: 10,left: 10,top: 10),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const Expanded(
+                                        child: ContentCard(
+                                            title: 'Company', content: 'SunKpo')),
+                                    SizedBox(
+                                      height: 40,
+                                      width: 100,
+                                      child: OutlinedButton(
+                                          onPressed: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>EditTicketScreen()));
+                                          },
+                                          style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                              color: Colours.kbuttonpurple,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                          ),
+                                          child: const Row(
+                                            children: [
+                                              Icon(Icons.border_color,color: Colours.kbuttonpurple,size: 15,),
+                                            SizedBox(width: 5,),
+                                  CustomText(
+                                    text:
+                                        'Edit',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    textcolor: Colours.kresponsivetext,
                                   ),
-                                  child: const Row(
-                                    children: [
-                                      Icon(Icons.border_color,color: Colours.kbuttonpurple,size: 15,),
-                                    SizedBox(width: 5,),
-                          CustomText(
-                            text:
-                                'Edit',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            textcolor: Colours.kresponsivetext,
-                          ),
-                                    ],
-                                  )),
+                                            ],
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                 const ContentCard(
+                              title: 'Customer', content: 'REXEL USA '),
+                             const ContentCard(
+                              title: 'Branch Name',
+                              content: 'Rexel-Santa-Clara '),
+                               const ContentCard(
+                              title: 'Created On', content: '30-04-2024, 2:30 '),
+                             const ContentCard(
+                              title: 'Requested By', content: '31-05-2024 '),
+                           const ContentCard(
+                              title: 'Title',
+                              content:
+                                  'Test panelboard - 2nd revision required '),
+                              const ContentCard(
+                              title: 'Category',
+                              content: 'Panel Build - Shop Package '),
+                               const ContentCard(title: 'Priority', content: 'Medium'),
+                                                   
+                                const ContentCard(
+                              title: 'Raised By', content: 'Ranjith'),
+                              ],
                             ),
-                          ],
-                        ),
-                        const ContentCard(
-                            title: 'Customer', content: 'REXEL USA '),
-                        const ContentCard(
-                            title: 'Branch Name',
-                            content: 'Rexel-Santa-Clara '),
-                        const ContentCard(
-                            title: 'Created On', content: '30-04-2024, 2:30 '),
-                        const ContentCard(
-                            title: 'Requested By', content: '31-05-2024 '),
-                        const ContentCard(
-                            title: 'Title',
-                            content:
-                                'Test panelboard - 2nd revision required '),
-                        const ContentCard(
-                            title: 'Category',
-                            content: 'Panel Build - Shop Package '),
-                        const ContentCard(title: 'Priority', content: 'Medium'),
-                       
-                        const ContentCard(
-                            title: 'Raised By', content: 'Ranjith'),
-                             const ContentCard(title: 'Status', content: 'Closed'),
-                        const ContentCard(
-                            title: 'Assigned To', content: 'Uday Teja'),
-                        const ContentCard(
-                            title: 'Date Closed', content: '11-05-2024, 4:30'),
-                        const SizedBox(height: 10),
-                        const CustomText(
-                            text: 'Message',
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            textcolor: Colours.ksubheadertext),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const SizedBox(
-                          child: CustomText(
-                            text:
-                                'This is a sample ticket for demonstration purposes.',
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            textcolor: Colours.kresponsivetext,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        const CustomText(
-                            text: 'Attachments',
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            textcolor: Colours.ksubheadertext),
-                        const SizedBox(
-                          height: 10,
+
+                       const SizedBox(height: 15),
+
+                             Container(
+                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Colours.kcardborder)),
+                               child: Container(
+                                margin: const EdgeInsets.only(right: 10,left: 10,top: 10,bottom: 10),
+                                 child: const Column(
+                                   children: [
+                                      ContentCard(title: 'Status', content: 'Closed'),
+                                      ContentCard(
+                                      title: 'Assigned To', content: 'Uday Teja'),
+                                   ],
+                                 ),
+                               ),
+                             ),
+
+                             const SizedBox(height: 15),
+
+                        
+                        Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Colours.kcardborder)),
+                          child: Container(
+                             margin: const EdgeInsets.only(right: 10,left: 10,top: 10,bottom: 10),
+                            child: const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                 ContentCard(
+                            title: 'Date Closed', content: '11-05-2024, 4:30'),
+                             CustomText(
+                                text: 'Message',
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                textcolor: Colours.ksubheadertext),
+                             SizedBox(
+                              height: 5,
+                            ),
+                             SizedBox(
+                              child: CustomText(
+                                text:
+                                    'This is a sample ticket for demonstration purposes.',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                textcolor: Colours.kresponsivetext,
+                              ),
+                            ),
+                             SizedBox(height: 10),
+                             CustomText(
+                                text: 'Attachments',
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                textcolor: Colours.ksubheadertext),
+                             SizedBox(
+                              height: 5,
+                            ),
+                             CustomText(
+                              text: 'http://www.example.com/image1.jpg',
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              textcolor: Colours.kresponsivetext,
+                            ),
+                             SizedBox(
+                              height: 10,
+                            ),
+                             CustomText(
+                              text: 'http://www.example.com/image1.pdf',
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              textcolor: Colours.kresponsivetext,
+                            ),
+                              ],
+                            ),
+                          ),
                         ),
-                        const CustomText(
-                          text: 'http://www.example.com/image1.jpg',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          textcolor: Colours.kresponsivetext,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const CustomText(
-                          text: 'http://www.example.com/image1.pdf',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          textcolor: Colours.kresponsivetext,
-                        ),
+                        
+                        
                         const SizedBox(
                           height: 10,
                         ),

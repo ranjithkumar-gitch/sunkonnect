@@ -186,15 +186,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  tickets[index].id,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colours.kheadertext,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'poppins',
-                                  ),
-                                ),
+                            CustomText(text: tickets[index].id, fontSize: 14, fontWeight: FontWeight.bold, textcolor: Colours.kheadertext,),
+                                
                                 Row(
                                   children: [
                                     Container(
@@ -203,66 +196,66 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           color: tickets[index].status == "New"
-                                              ? Color(0xff22B6D0)
+                                              ? const Color(0xff22B6D0)
                                               : tickets[index].status ==
                                                       "Assigned"
-                                                  ? Color(0xff52C41A)
+                                                  ? const Color(0xff52C41A)
                                                   : tickets[index].status ==
                                                           "Acknowledged"
-                                                      ? Color(0xff662C91)
+                                                      ? const Color(0xff662C91)
                                                       : tickets[index].status ==
                                                               "In process"
-                                                          ? Color(0xffFFA500)
+                                                          ? const Color(0xffFFA500)
                                                           : tickets[index]
                                                                       .status ==
                                                                   "Completed"
-                                                              ? Color(
+                                                              ? const Color(
                                                                   0xff0DA12E)
                                                               : tickets[index]
                                                                           .status ==
                                                                       "On Hold"
-                                                                  ? Color(
+                                                                  ? const Color(
                                                                       0xff007CBE)
                                                                   : tickets[index]
                                                                               .status ==
                                                                           "Closed"
-                                                                      ? Color(
+                                                                      ? const Color(
                                                                           0xff15182E)
                                                                       : tickets[index].status ==
                                                                               "Cancelled"
-                                                                          ? Color(
+                                                                          ? const Color(
                                                                               0xffD92F1B)
                                                                           : Colors
                                                                               .black,
                                         ),
                                         color: tickets[index].status == "New"
-                                            ? Color(0xffF0FDFF)
+                                            ? const Color(0xffF0FDFF)
                                             : tickets[index].status ==
                                                     "Assigned"
-                                                ? Color(0xffEDFFE4)
+                                                ? const Color(0xffEDFFE4)
                                                 : tickets[index].status ==
                                                         "Acknowledged"
-                                                    ? Color(0xffF8EFFF)
+                                                    ? const Color(0xffF8EFFF)
                                                     : tickets[index].status ==
                                                             "In process"
-                                                        ? Color(0xffFFF4DF)
+                                                        ? const Color(0xffFFF4DF)
                                                         : tickets[index]
                                                                     .status ==
                                                                 "Completed"
-                                                            ? Color(0xffE6FFEC)
+                                                            ? const Color(0xffE6FFEC)
                                                             : tickets[index]
                                                                         .status ==
                                                                     "On Hold"
-                                                                ? Color(
+                                                                ? const Color(
                                                                     0xffF3FBFF)
                                                                 : tickets[index]
                                                                             .status ==
                                                                         "Closed"
-                                                                    ? Color(
+                                                                    ? const Color(
                                                                         0xffF5F5F5)
                                                                     : tickets[index].status ==
                                                                             "Cancelled"
-                                                                        ? Color(
+                                                                        ? const Color(
                                                                             0xffFFF2F0)
                                                                         : Colors
                                                                             .white,
@@ -276,45 +269,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             right: 8.0,
                                             top: 5.0,
                                             bottom: 5.0),
-                                        child: Container(
-                                          child: Text(
-                                            tickets[index].status,
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: tickets[index].status ==
-                                                      "New"
-                                                  ? Color(0xff22B6D0)
-                                                  : tickets[index].status ==
-                                                          "Assigned"
-                                                      ? Color(0xff52C41A)
-                                                      : tickets[index].status ==
-                                                              "Acknowledged"
-                                                          ? Color(0xff662C91)
-                                                          : tickets[index]
-                                                                      .status ==
-                                                                  "In process"
-                                                              ? Color(
-                                                                  0xffFFA500)
-                                                              : tickets[index]
-                                                                          .status ==
-                                                                      "Completed"
-                                                                  ? Color(
-                                                                      0xff0DA12E)
-                                                                  : tickets[index]
-                                                                              .status ==
-                                                                          "On Hold"
-                                                                      ? Color(
-                                                                          0xff007CBE)
-                                                                      : tickets[index].status ==
-                                                                              "Closed"
-                                                                          ? Color(
-                                                                              0xff15182E)
-                                                                          : tickets[index].status == "Cancelled"
-                                                                              ? Color(0xffD92F1B)
-                                                                              : Colors.black,
-                                              fontFamily: 'Poppins',
-                                            ),
-                                          ),
+                                        child: Text(
+                                         tickets[index].status,
+                                         style: TextStyle(
+                                           fontSize: 12.0,
+                                           color: tickets[index].status ==
+                                                   "New"
+                                               ? const Color(0xff22B6D0)
+                                               : tickets[index].status ==
+                                                       "Assigned"
+                                                   ? const Color(0xff52C41A)
+                                                   : tickets[index].status ==
+                                                           "Acknowledged"
+                                                       ? const Color(0xff662C91)
+                                                       : tickets[index]
+                                                                   .status ==
+                                                               "In process"
+                                                           ? const Color(
+                                                               0xffFFA500)
+                                                           : tickets[index]
+                                                                       .status ==
+                                                                   "Completed"
+                                                               ? const Color(
+                                                                   0xff0DA12E)
+                                                               : tickets[index]
+                                                                           .status ==
+                                                                       "On Hold"
+                                                                   ? const Color(
+                                                                       0xff007CBE)
+                                                                   : tickets[index].status ==
+                                                                           "Closed"
+                                                                       ? const Color(
+                                                                           0xff15182E)
+                                                                       : tickets[index].status == "Cancelled"
+                                                                           ? const Color(0xffD92F1B)
+                                                                           : Colors.black,
+                                           fontFamily: 'Poppins',
+                                         ),
                                         ),
                                       ),
                                     ),
@@ -339,6 +330,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             Row(
                               children: [
+                              
                                 const Text(
                                   "Customer Name  :  ",
                                   style: TextStyle(
@@ -349,7 +341,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ),
                                 Text(
                                   tickets[index].assignedTo.toUpperCase(),
-                                  style: const TextStyle(
+                                  style: const
+                                   TextStyle(
                                     fontSize: 14.0,
                                     color: Colours.kheadertext,
                                     fontWeight: FontWeight.bold,
