@@ -160,9 +160,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
+            elevation: 0,
+            color: Colours.ktextfeildbgColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),side:  const BorderSide(color: Colours.kcardborder,width: 0.7)),
             clipBehavior: Clip.antiAlias,
             child: Container(
-              color: Colours.kcardbgColor,
+              color: Colours.ktextfeildbgColor,
               child: Column(
                 children: <Widget>[
                   ScrollOnExpand(
@@ -172,7 +175,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       theme: const ExpandableThemeData(
                         headerAlignment: ExpandablePanelHeaderAlignment.center,
                         tapBodyToCollapse: true,
-                        iconColor: Color(0xffFFA500),
+                        iconColor: Colours.kbuttonpurple,
                       ),
                       header: Container(
                         margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
@@ -263,7 +266,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                             0xffFFF2F0)
                                                                         : Colors
                                                                             .white,
-                                        borderRadius: BorderRadius.all(
+                                        borderRadius: const BorderRadius.all(
                                           Radius.circular(8.0),
                                         ),
                                       ),

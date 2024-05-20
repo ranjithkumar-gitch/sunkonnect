@@ -96,9 +96,10 @@ class TicketDetailsScreen extends StatelessWidget {
                             title: 'Category',
                             content: 'Panel Build - Shop Package '),
                         const ContentCard(title: 'Priority', content: 'Medium'),
-                        const ContentCard(title: 'Status', content: 'Closed'),
+                       
                         const ContentCard(
                             title: 'Raised By', content: 'Ranjith'),
+                             const ContentCard(title: 'Status', content: 'Closed'),
                         const ContentCard(
                             title: 'Assigned To', content: 'Uday Teja'),
                         const ContentCard(
@@ -141,9 +142,9 @@ class TicketDetailsScreen extends StatelessWidget {
                         ),
                         const CustomText(
                           text: 'http://www.example.com/image1.pdf',
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          textcolor: Colors.black,
+                          textcolor: Colours.kresponsivetext,
                         ),
                         const SizedBox(
                           height: 10,
@@ -247,6 +248,7 @@ class AttachmentsGrid extends StatelessWidget {
 
 
 // previous code by ranjith 
+
 // import 'package:dotted_border/dotted_border.dart';
 // import 'package:flutter/material.dart';
 // import 'package:sunkonnect/dashboard.dart';

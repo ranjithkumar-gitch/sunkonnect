@@ -20,19 +20,12 @@ class _ResetpasswardState extends State<Resetpassward> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
+      appBar: const CustomAppbar(
         title: "Forgot Password",
       ),
-      // appBar: AppBar(
-      //   title: Text('Forgot Password',
-      //       style: GoogleFonts.poppins(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.w600,
-      //         color: Colours.kheadertext,
-      //       )),
-      // ),
+      
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
@@ -60,20 +53,10 @@ class _ResetpasswardState extends State<Resetpassward> {
                 ),
               ),
               const SizedBox(
-                height: 15,
+                height: 30,
               ),
-              // Text('Forgot Password',
-              //     style: GoogleFonts.poppins(
-              //       fontSize: 25,
-              //       fontWeight: FontWeight.w600,
-              //       color: Colours.kheadertext,
-              //     )),
-              SizedBox(
-                height: 10,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
+             
+           
               Text('New Password',
                   style: GoogleFonts.poppins(
                     fontSize: 16,
@@ -295,7 +278,7 @@ class _ResetpasswardState extends State<Resetpassward> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
         child: SizedBox(
-          height: 45,
+          height: 50,
           width: double.infinity,
           child: FloatingActionButton.extended(
             shape:
@@ -303,7 +286,7 @@ class _ResetpasswardState extends State<Resetpassward> {
             elevation: 0,
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
               //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
             },
             label: const CustomText(

@@ -1,10 +1,10 @@
 
 import 'dart:io';
  import 'package:file_picker/file_picker.dart';
+import 'package:flutter/widgets.dart';
  import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -20,7 +20,8 @@ class AddMessage extends StatefulWidget {
 class _AddMessageState extends State<AddMessage> {
 
    final ImagePicker picker = ImagePicker();
-    
+
+    List<File?> selectedFiles = []; 
   List<File> selectedImages = [];
    String? pdfFilePath;
 
@@ -293,58 +294,25 @@ class _AddMessageState extends State<AddMessage> {
                             )),
                       ),
                     ),
-       const SizedBox(height: 15,),
-     Container(
-    child: (pdfFilePath == null && file == null) || (pdfFilePath?.isEmpty ?? true)
-    ? Container() 
-    : Container(
-        height: 180,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey),
-        ),
-        child: pdfFilePath != null
-            ? ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Stack(
-                  children: [
-                    PDFView(
-                      filePath: pdfFilePath,
-                      autoSpacing: true,
-                      enableSwipe: true,
-                      pageSnap: true,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        deletePdf();
-                        setState(() {
-                          pdfFilePath = null;
-                        });
-                      },
-                      child: Container(
-                        height: 25,
-                        width: 25,
-                        margin: const EdgeInsets.all(7),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                        ),
-                        child: const Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : Center(
+            const SizedBox(height: 15,),
+
+          if (selectedFiles.isNotEmpty)
+                SizedBox(
+                  height: 200, width: double.infinity,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: selectedFiles.length,
+                    itemBuilder: (context, index) {
+                      return buildFileWidget(selectedFiles[index]!, index);
+                    },
+                  ),
+                )
+              else
+                 Center(
                 child: Container(),
-              ),
-      ),
-             ),
+                ),
+        
+    
                        const SizedBox(height: 20,),
                             
                                Row(
@@ -437,18 +405,81 @@ class _AddMessageState extends State<AddMessage> {
       media = null;
     });
   }
+
+
   void pickFile() async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles(
-    type: FileType.custom,
-    allowMultiple: true,
-    allowedExtensions: ['pdf'],
-  );
-  
-   if (result != null) {
-     setState(() {
-    pdfFilePath = result.files.single.path;
-      file = null;
-        });} }
+    FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      setState(() {
+        selectedFiles = result.paths.map((path) => path != null ? File(path) : null).toList();
+      });
+    }
+  }
+
+
+
+  void deleteFile(int index) {
+    setState(() {
+      selectedFiles.removeAt(index);
+    });
+  }
+
+   Widget buildFileWidget(File file, int index) {
+    String fileName = file.path.split('/').last;
+    String extension = fileName.split('.').last.toLowerCase();
+      IconData iconData;
+  switch (extension) {
+    case 'pdf':
+      iconData = Icons.picture_as_pdf;
+      break;
+    case 'docx':
+      iconData = Icons.description;
+      break;
+    case 'png':
+    case 'jpg':
+    case 'jpeg':
+      iconData = Icons.image;
+      break;
+    case 'mp3':
+      iconData = Icons.audiotrack;
+      break;
+    case 'mp4':
+      iconData = Icons.video_library;
+      break;
+    case 'xls':
+    case 'xlsx':
+      iconData = Icons.insert_drive_file;
+      break;
+    case 'ppt':
+    case 'pptx':
+      iconData = Icons.slideshow;
+      break;
+    default:
+      iconData = Icons.insert_drive_file;
+      break;
+  }
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colours.ktextfeildbgColor),
+          child: ListTile(
+             leading: Icon(iconData,color: Colours.kbuttonpurple,),
+            title: CustomText(text: file.path.split('/').last, fontSize: 13, fontWeight: FontWeight.w500, textcolor: Colours.kresponsivetext),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete, color: Colours.kbuttonpurple),
+              onPressed: () {
+                setState(() {
+                  selectedFiles.removeAt(index);
+                });
+              },
+            ),
+          ),
+        ),
+      const SizedBox(height: 10,)
+      ],
+    );
+  }
+
 
   void pickImageFromCamera() async {
     final XFile? photo = await picker.pickImage(source: ImageSource.camera);
@@ -563,3 +594,76 @@ class Heading extends StatelessWidget {
     );
   }
    }
+
+
+   // single pdf file pick code 
+
+  // meathod 
+    // void pickFile() async {
+  // FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //   type: FileType.custom,
+  //   allowMultiple: true,
+  //   allowedExtensions: ['pdf'],
+  // );
+  
+  //  if (result != null) {
+    
+  //    setState(() {
+  //   pdfFilePath = result.files.single.path;
+  //     file = null;
+  //       });
+  
+  //     } }
+
+  // block of code 
+   //  Container(
+    // child: (pdfFilePath == null && file == null) || (pdfFilePath?.isEmpty ?? true)
+    // ? Container() 
+    // : Container(
+    //     height: 180,
+    //     width: double.infinity,
+    //     decoration: BoxDecoration(
+    //       borderRadius: BorderRadius.circular(10),
+    //       border: Border.all(color: Colors.grey),
+    //     ),
+    //     child: pdfFilePath != null
+    //         ? ClipRRect(
+    //             borderRadius: BorderRadius.circular(10),
+    //             child: Stack(
+    //               children: [
+    //                 PDFView(
+    //                   filePath: pdfFilePath,
+    //                   autoSpacing: true,
+    //                   enableSwipe: true,
+    //                   pageSnap: true,
+    //                 ),
+    //                 GestureDetector(
+    //                   onTap: () {
+    //                     deletePdf();
+    //                     setState(() {
+    //                       pdfFilePath = null;
+    //                     });
+    //                   },
+    //                   child: Container(
+    //                     height: 25,
+    //                     width: 25,
+    //                     margin: const EdgeInsets.all(7),
+    //                     decoration: const BoxDecoration(
+    //                       shape: BoxShape.circle,
+    //                       color: Colors.black,
+    //                     ),
+    //                     child: const Icon(
+    //                       Icons.delete,
+    //                       color: Colors.white,
+    //                       size: 20,
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           )
+    //         : Center(
+    //             child: Container(),
+    //           ),
+    //   ),
+    //          ),

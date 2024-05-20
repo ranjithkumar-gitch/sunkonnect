@@ -1,77 +1,135 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 import 'package:sunkonnect/resetpassward.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
-// import 'package:sunkonnect/widgets/customtextviews.dart';
+
 
 class OTPScreen extends StatefulWidget {
+  const OTPScreen({super.key});
+
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  List<TextEditingController> _controllers =
-      List.generate(6, (_) => TextEditingController());
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
+      appBar: const CustomAppbar(
         title: "Verify OTP",
       ),
-      // appBar: AppBar(
-      //   title: Text('Verify OTP',
-      //       style: GoogleFonts.poppins(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.w600,
-      //         color: Colours.kheadertext,
-      //       )),
-      // ),
+      
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(right: 20,left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Enter OTP Code Sent To Your Email',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                6,
-                (index) => SizedBox(
-                  width: 50,
-                  child: TextFormField(
-                    controller: _controllers[index],
-                    keyboardType: TextInputType.number,
-                    maxLength: 1,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                    decoration: InputDecoration(
-                      counterText: "",
-                      border: OutlineInputBorder(),
-                    ),
-                    onChanged: (value) {
-                      if (value.length == 1 && index < 5) {
-                        FocusScope.of(context).nextFocus();
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20.0),
-            // SizedBox(
+            const CustomText(text: 'Enter OTP Code Sent To Your Email', fontSize: 16, fontWeight: FontWeight.w600, textcolor: Colours.kheadertext),
+            
+           const  SizedBox(height: 20.0),
+           
+                        Pinput(
+                        length: 6,
+                        showCursor: true,
+                        defaultPinTheme: PinTheme(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Colours.kbordergrey,
+                            ),
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onCompleted: (value) {
+                          
+                        },
+                      ),
+        
+            const SizedBox(height: 20.0),
+           
+          ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 15,
+          left: 25,
+        ),
+        child: SizedBox(
+          height: 50,
+          width: double.infinity,
+          child: FloatingActionButton.extended(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 0,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Resetpassward()));
+              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+            },
+            label: const CustomText(
+                text: 'Verify',
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                textcolor: Colors.white),
+            backgroundColor: Colours.kbuttonpurple,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+// ranjith previous code 
+
+// final List<TextEditingController> _controllers =
+//       List.generate(6, (_) => TextEditingController());
+
+         // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: List.generate(
+            //     6,
+            //     (index) => SizedBox(
+            //       width: 50,
+            //       child: TextFormField(
+            //         controller: _controllers[index],
+            //         keyboardType: TextInputType.number,
+            //         maxLength: 1,
+            //         textAlign: TextAlign.center,
+            //         style: const TextStyle(
+            //           fontSize: 20.0,
+            //         ),
+            //         decoration:const  InputDecoration(
+            //           counterText: "",
+            //           border: OutlineInputBorder(),
+            //         ),
+            //         onChanged: (value) {
+            //           if (value.length == 1 && index < 5) {
+            //             FocusScope.of(context).nextFocus();
+            //           }
+            //         },
+            //       ),
+            //     ),
+            //   ),
+            // ),
+           // SizedBox(
             //   height: 50,
             //   width: double.infinity,
             //   child: ElevatedButton(
@@ -92,35 +150,3 @@ class _OTPScreenState extends State<OTPScreen> {
             //             color: Colors.white,
             //           ))),
             // ),
-          ],
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 15,
-          left: 25,
-        ),
-        child: SizedBox(
-          height: 50,
-          width: double.infinity,
-          child: FloatingActionButton.extended(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 0,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Resetpassward()));
-              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
-            },
-            label: const CustomText(
-                text: 'Verify',
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                textcolor: Colors.white),
-            backgroundColor: Colours.kbuttonpurple,
-          ),
-        ),
-      ),
-    );
-  }
-}
