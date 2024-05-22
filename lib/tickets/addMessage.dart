@@ -454,6 +454,8 @@ class _AddMessageState extends State<AddMessage> {
     case 'pptx':
       iconData = Icons.slideshow;
       break;
+    case 'csv': 
+      iconData = Icons.table_chart;
     default:
       iconData = Icons.insert_drive_file;
       break;

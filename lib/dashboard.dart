@@ -6,6 +6,7 @@ import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:expandable/expandable.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -124,11 +125,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       drawer: const SideMenu(),
+      
+
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xff464667),
+        backgroundColor: Colours.kbuttonpurple,
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.white,
-        // selectedLabelStyle: TextStyle(color: Colors.white),
+        selectedItemColor: Colours.kwhiteColor,
+        unselectedItemColor: Colors.grey.shade400,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -149,6 +152,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
+
+
+     
     );
   }
 
