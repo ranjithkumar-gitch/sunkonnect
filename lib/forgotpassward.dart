@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/otpscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -50,7 +49,7 @@ class _ForgotpasswardState extends State<Forgotpassward> {
                   size: 22,
                 ),
               ),
-              //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+             
               contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
           
               border: OutlineInputBorder(
@@ -80,8 +79,8 @@ class _ForgotpasswardState extends State<Forgotpassward> {
             elevation: 0,
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => OTPScreen()));
-              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+                  MaterialPageRoute(builder: (context) => const OTPScreen()));
+             
             },
             label: const CustomText(
                 text: 'Send OTP',

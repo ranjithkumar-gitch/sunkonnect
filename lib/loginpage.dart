@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/forgotpassward.dart';
@@ -19,10 +18,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const Padding(
@@ -36,37 +34,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 45,
                     ),
-                    // Text(
-                    //   'Konnect @ Sun Kpo',
-                    //   style: TextStyle(
-                    //       color: Colours.korange,
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.w600),
-                    // ),
+                  
                   ],
                 ),
               ),
               const SizedBox(
                 height: 15,
               ),
-              Text('Login',
-                  style: GoogleFonts.poppins(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colours.kheadertext,
-                  )),
-              SizedBox(
+              const CustomText(text: 'Login', fontSize: 25, fontWeight:  FontWeight.w600, textcolor: Colours.kheadertext),
+              
+              const SizedBox(
                 height: 10,
               ),
               const SizedBox(
                 height: 15,
               ),
-              // Text('Email Address',
-              //     style: GoogleFonts.poppins(
-              //       fontSize: 16,
-              //       fontWeight: FontWeight.w400,
-              //       color: Colors.black,
-              //     )),
+              
               const SizedBox(
                 height: 10,
               ),
@@ -97,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         size: 22,
                       ),
                     ),
-                    //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+                    
                     contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
 
                     border: OutlineInputBorder(
@@ -162,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         size: 22,
                       ),
                     ),
-                    //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+                 
                     contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -188,9 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Forgotpassward()));
+                          builder: (context) => const Forgotpassward()));
                 },
-                child: Text("Forgot Password?",
+                child:  Text("Forgot Password?",
                     textAlign: TextAlign.right,
                     style: GoogleFonts.montserrat(
                       color: Colours.korange,

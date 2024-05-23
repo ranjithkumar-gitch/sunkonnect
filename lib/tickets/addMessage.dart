@@ -1,8 +1,6 @@
 
 import 'dart:io';
  import 'package:file_picker/file_picker.dart';
-import 'package:flutter/widgets.dart';
- import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -284,22 +282,17 @@ class _AddMessageState extends State<AddMessage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.circular(10))),
-                            child: const Text(
-                              "Add Attachments +",
-                              style: TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontSize: 16.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                            child: const CustomText(text: "Add Attachments +", fontSize: 16,fontWeight: FontWeight.w500, textcolor: Colours.kwhiteColor) 
+                            ),
                       ),
                     ),
             const SizedBox(height: 15,),
           
           if (selectedFiles.isNotEmpty)
                 SizedBox(
-                  height: 200, width: double.infinity,
+                width: double.infinity,
                   child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: selectedFiles.length,
                     itemBuilder: (context, index) {
@@ -329,7 +322,7 @@ class _AddMessageState extends State<AddMessage> {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                   ),
-                                  child: const Text(
+                                  child:  const Text(
                                     "Cancel",
                                     style: TextStyle(color: Colours.kbuttonpurple,),
                                   )),
@@ -342,14 +335,14 @@ class _AddMessageState extends State<AddMessage> {
                                 ],
                                ),
                                   const SizedBox(height: 15,),
-        ]),
+          ]),
       
-    )));
-  }  
+       )));
+     }  
   
 
      void deletePdf() {
-    setState(() {
+     setState(() {
       pdfFilePath = null;
     });
   }
@@ -359,12 +352,7 @@ class _AddMessageState extends State<AddMessage> {
     children: [
       GestureDetector(
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => FullImageView(image: imageFile),
-          //   ),
-          // );
+         
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -544,7 +532,7 @@ Future<void> getImages() async {
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                      // pickImageFromGallery();
+                     
                       getImages();
                     },
                     child: Column(

@@ -28,7 +28,7 @@ class _ResetpasswardState extends State<Resetpassward> {
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
+           
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const Padding(
@@ -42,79 +42,20 @@ class _ResetpasswardState extends State<Resetpassward> {
                     SizedBox(
                       height: 45,
                     ),
-                    // Text(
-                    //   'Konnect @ Sun Kpo',
-                    //   style: TextStyle(
-                    //       color: Colours.korange,
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.w600),
-                    // ),
+                    
                   ],
                 ),
               ),
               const SizedBox(
                 height: 30,
               ),
-             
+              const CustomText(text: 'New Password', fontSize: 16, fontWeight: FontWeight.w400, textcolor: Colours.klightgrey),
            
-              Text('New Password',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colours.klightgrey,
-                  )),
+              
               const SizedBox(
                 height: 10,
               ),
-              // SizedBox(
-              //   height: 70,
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.emailAddress,
-              //     textAlignVertical: TextAlignVertical.center,
-              //     validator: (value) {
-              //       if (value!.isEmpty) {
-              //         return "Please Enter a Email";
-              //       } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-              //         return "Please Enter a Valid Email";
-              //       }
-              //       return null;
-              //     },
-              //     decoration: InputDecoration(
-              //       hintText: "Email",
-              //       hintStyle: GoogleFonts.montserrat(
-              //           color: Colours.klightgrey,
-              //           fontSize: 16,
-              //           fontWeight: FontWeight.w400),
-              //       prefixIcon: const Padding(
-              //         padding: EdgeInsets.fromLTRB(12, 12, 10, 15),
-              //         child: Icon(
-              //           Icons.email,
-              //           color: Colours.klightgrey,
-              //           size: 22,
-              //         ),
-              //       ),
-              //       //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
-              //       contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
-
-              //       border: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //           borderSide:
-              //               const BorderSide(color: Colours.kbordergrey)),
-              //       enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //           borderSide:
-              //               const BorderSide(color: Colours.kbordergrey)),
-              //       focusedBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //           borderSide:
-              //               const BorderSide(color: Colours.kbordergrey)),
-              //       errorBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //           borderSide:
-              //               const BorderSide(color: Colours.kbordergrey)),
-              //     ),
-              //   ),
-              // ),
+              
               SizedBox(
                 height: 70,
                 child: TextFormField(
@@ -149,7 +90,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                         size: 22,
                       ),
                     ),
-                    //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+                    
                     contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -170,12 +111,8 @@ class _ResetpasswardState extends State<Resetpassward> {
                   ),
                 ),
               ),
-              Text('Confirm New Password',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colours.klightgrey,
-                  )),
+              const CustomText(text: 'Confirm New Password', fontSize: 16, fontWeight: FontWeight.w400, textcolor: Colours.klightgrey),
+              
               const SizedBox(
                 height: 10,
               ),
@@ -213,7 +150,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                         size: 22,
                       ),
                     ),
-                    //  contentPadding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
+                   
                     contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -234,43 +171,9 @@ class _ResetpasswardState extends State<Resetpassward> {
                   ),
                 ),
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //             builder: (context) => Forgotpassward()));
-              //   },
-              //   child: Text("Forgot Password?",
-              //       textAlign: TextAlign.right,
-              //       style: GoogleFonts.montserrat(
-              //         color: Colours.korange,
-              //         fontSize: 16,
-              //         fontWeight: FontWeight.w600,
-              //       )),
-              // ),
+              
               const SizedBox(height: 30),
-              // SizedBox(
-              //   height: 50,
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => LoginScreen()));
-              //       },
-              //       style: ElevatedButton.styleFrom(
-              //           backgroundColor: Colours.kbuttonpurple,
-              //           shape: RoundedRectangleBorder(
-              //               borderRadius: BorderRadius.circular(10))),
-              //       child: Text('Change',
-              //           style: GoogleFonts.poppins(
-              //             fontSize: 16,
-              //             fontWeight: FontWeight.w500,
-              //             color: Colors.white,
-              //           ))),
-              // ),
+             
             ],
           ),
         ),
@@ -287,7 +190,7 @@ class _ResetpasswardState extends State<Resetpassward> {
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginScreen()));
-              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+             
             },
             label: const CustomText(
                 text: 'Change',
@@ -302,3 +205,4 @@ class _ResetpasswardState extends State<Resetpassward> {
     );
   }
 }
+               

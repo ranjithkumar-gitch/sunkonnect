@@ -1,4 +1,4 @@
-import 'package:dotted_border/dotted_border.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -143,12 +143,7 @@ class ContentCard extends StatelessWidget {
                   );
                 }).toList(),
               ),
-                      // CustomText(
-                      //   text: content,
-                      //   fontSize: 13,
-                      //   fontWeight: FontWeight.w500,
-                      //   textcolor: Colours.kresponsivetext,
-                      // ),
+                     
                       const SizedBox(
                         height: 10,
                       ),

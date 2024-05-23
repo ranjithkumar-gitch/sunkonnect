@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/ticketdata.dart';
@@ -6,11 +7,14 @@ import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:expandable/expandable.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+
 
 class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
+  
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
@@ -22,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffFFA500),
+        backgroundColor: Colours.korange,
         iconTheme: const IconThemeData(color: Colors.white),
         title: const CustomText(
             text: 'Konnect @ Sun KPO',
@@ -35,11 +39,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Icons.notifications,
             ),
             onPressed: () {
-              // Add notification functionality here
+             
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => NotificationListScreen()),
+                    builder: (context) => const NotificationListScreen()),
               );
             },
           ),
@@ -104,13 +108,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       value: value,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
+                        child: 
+                        Text(
                           value,
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            color: Colours.kheadertext,
-                            fontFamily: 'poppins',
-                          ),
+                          style:  GoogleFonts.poppins(fontSize: 14, color: Colours.kheadertext) 
+                         
                         ),
                       ),
                     );
@@ -197,7 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 Row(
                                   children: [
                                     Container(
-                                      // width: 135.0,
+                                     
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         border: Border.all(
@@ -362,51 +364,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             Row(
                               children: [
-                                const Text(
-                                  "Raised By   :  ",
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colours.ksubheadertext,
-                                    fontFamily: 'poppins',
-                                  ),
-                                ),
-                                Text(
-                                  tickets[index].raisedBy,
-                                  style: const TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colours.kheadertext,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'poppins',
-                                  ),
-                                ),
+                         
+                           Text("Raised By   :  ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
+                        
+                          Text(tickets[index].raisedBy,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colours.kheadertext) ),
+                         
+                                
                               ],
                             ),
                             const SizedBox(
                               height: 6.0,
                             ),
-                            Text(
-                              tickets[index].title,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                color: Colours.kheadertext,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'poppins',
-                              ),
-                            ),
+                          Text(tickets[index].title,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colours.kheadertext) ),
+                            
                           ],
                         ),
                       ),
-                      collapsed: const Text(
-                        "More details",
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: Colours.kheadertext,
-                          fontFamily: 'poppins',
-                        ),
-                        softWrap: true,
+                      collapsed: Text("More details",style:  GoogleFonts.poppins(fontSize: 10, color: Colours.kheadertext), softWrap: true,
                         maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                        overflow: TextOverflow.ellipsis,),
+                        
+                     
                       expanded: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -422,23 +400,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           Row(
                             children: [
-                              const Text(
-                                "Assigned To   :   ",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colours.ksubheadertext,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
-                              Text(
-                                tickets[index].assignedTo,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
+                              Text("Assigned To   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
+                             Text(tickets[index].assignedTo,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
+                              
                             ],
                           ),
                           const SizedBox(
@@ -446,23 +410,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           Row(
                             children: [
-                              const Text(
-                                "Days Open   :   ",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colours.ksubheadertext,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
-                              Text(
-                                tickets[index].daysOpen,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
+                               Text("Days Open   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
+                             Text(tickets[index].daysOpen,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
+                            
                             ],
                           ),
                           const SizedBox(
@@ -470,23 +420,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           Row(
                             children: [
-                              const Text(
-                                "Created   :   ",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colours.ksubheadertext,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
-                              Text(
-                                tickets[index].dateTime,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
+                                Text("Created   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
+                             Text(tickets[index].dateTime,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
+                            
                             ],
                           ),
                           const SizedBox(
@@ -494,23 +430,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           Row(
                             children: [
-                              const Text(
-                                "Closed   :   ",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colours.ksubheadertext,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
-                              Text(
-                                tickets[index].dateTime,
-                                style: const TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
+                             Text("Closed   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
+                             Text(tickets[index].dateTime,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
+                             
                             ],
                           ),
                           const SizedBox(
@@ -523,30 +445,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           const SizedBox(
                             height: 4.0,
                           ),
-                          const Row(
+                           Row(
                             children: [
-                              Text(
-                                "Category",
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colours.kheadertext,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'poppins',
-                                ),
-                              ),
+                            Text("Category",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.kheadertext, fontWeight: FontWeight.bold,) ),
+                              
                             ],
                           ),
                           const SizedBox(
                             height: 4.0,
                           ),
-                          Text(
-                            tickets[index].category,
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              color: Colours.kheadertext,
-                              fontFamily: 'poppins',
-                            ),
-                          ),
+                          Text(tickets[index].category,style:  GoogleFonts.poppins(fontSize: 14,color: Colours.kheadertext) ),
+                          
                           const SizedBox(
                             height: 6.0,
                           ),

@@ -57,10 +57,11 @@ class _TicketTabViewState extends State<TicketTabView>
                           )
                         ]),
                     Expanded(
-                        child: TabBarView(controller: tabController, children: [
-                      TicketDetailsScreen(),
-                      const MessageLogScreen(),
-                      const TicketLogScreen()
+                        child:  TabBarView(controller: tabController, 
+                        children: const[
+                       TicketDetailsScreen(),
+                       MessageLogScreen(),
+                       TicketLogScreen()
                     ]))
                   ])),
         ));

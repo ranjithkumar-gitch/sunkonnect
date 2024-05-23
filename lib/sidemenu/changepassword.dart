@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
-import 'package:sunkonnect/widgets/customtext.dart';
 
 
 class ChangePassword extends StatefulWidget {
@@ -49,10 +46,10 @@ class _ChangePasswordState extends State<ChangePassword> {
             Center(
               child: Card( elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              color: Color(0XffF6F7F7),
+              color: const Color(0XffF6F7F7),
               child: Container(
                 height: 60,width: 60,
-               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: Color(0XffF6F7F7),),
+               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: const Color(0XffF6F7F7),),
                child: const Center(
                 child: Icon(Icons.password,color: Colours.kbuttonpurple,size: 30,)
                ),
@@ -102,7 +99,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         height: 10,),
      
                          Text(' Old Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w500, color: Colours.ksubheadertext, ),),   
-                        //  fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black
+                       
                     const SizedBox(
                       height: 10,
                     ),

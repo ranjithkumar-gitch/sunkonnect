@@ -10,7 +10,8 @@ class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
 
   @override
-  _OTPScreenState createState() => _OTPScreenState();
+    State<OTPScreen> createState() => _OTPScreenState();
+  
 }
 
 class _OTPScreenState extends State<OTPScreen> {
@@ -75,7 +76,7 @@ class _OTPScreenState extends State<OTPScreen> {
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Resetpassward()));
-              //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+              
             },
             label: const CustomText(
                 text: 'Verify',
@@ -89,6 +90,9 @@ class _OTPScreenState extends State<OTPScreen> {
     );
   }
 }
+
+
+
 
 
 

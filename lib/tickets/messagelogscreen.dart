@@ -1,7 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/tickets/addMessage.dart';
 import 'package:sunkonnect/tickets/viewMessage.dart';
@@ -102,7 +100,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 0,
             onPressed: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMessage()));
+             Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddMessage()));
             },
             label: const CustomText(text: 'Add Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colours.kwhiteColor),
             icon: const Icon(Icons.add,color: Colours.kwhiteColor,),
@@ -133,7 +131,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> ViewMessage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const ViewMessage()));
           },
           child: Card(
             elevation: 1,
