@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/loginpage.dart';
+import 'package:sunkonnect/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -15,13 +16,19 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
+
     Timer(
         const Duration(seconds: 5),
-        () => Navigator.pushReplacement(
+        () 
+        { setState(() {
+          SharedPrefServices.setStatus(false);
+          SharedPrefServices.setroleCode('company');
+        });
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => const LoginScreen(),
-            )));
+            ));} );
   }
 
   @override

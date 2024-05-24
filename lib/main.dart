@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sunkonnect/sharedprefences.dart';
 import 'package:sunkonnect/splashscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async{ 
+  WidgetsFlutterBinding.ensureInitialized();
+   await SharedPrefServices.init();
   runApp(const MyApp());
 } 
 

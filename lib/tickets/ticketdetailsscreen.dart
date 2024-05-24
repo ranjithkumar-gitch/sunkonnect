@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/dashboard.dart';
+import 'package:sunkonnect/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 
@@ -182,6 +183,35 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                 SharedPrefServices.getroleCode().toString() == 'customer' && isEdited  ?    Column(
+                   children: [
+                     Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                 color:  Colours.kcardbgColor,
+                                border: Border.all(color: Colours.kcardborder)),
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  right: 10, left: 10, top: 10, bottom: 10),
+                              child: 
+                                  
+                                const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                       
+                                        ContentCard(
+                                            title: 'Assigned To',
+                                            content: 'Uday Teja'),
+                                      ],
+                                    ),
+                            ),
+                          ),
+                           SizedBox(height: 20,),
+                   ],
+                 ) : Container(),
+                 // todo//
+                 
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -256,17 +286,21 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 }).toList(),
                                               )))),
                                       const SizedBox(height: 10),
-                                      const Row(
-                                        children: [
-                                           CustomText(
-                                              text: ' Assigned To ',
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              textcolor: Colours.ksubheadertext), SizedBox(width: 10,),
-                                             Icon(Icons.edit,color: Colours.ksubheadertext,size: 12,),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5),
+                                       SharedPrefServices.getroleCode().toString() == 'company'  ?    Container(
+                                         child: Column(
+                                           children: [
+                                             const Row(
+                                              children: [
+                                                 CustomText(
+                                                    text: ' Assigned To ',
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                    textcolor: Colours.ksubheadertext), SizedBox(width: 10,),
+                                                   Icon(Icons.edit,color: Colours.ksubheadertext,size: 12,),
+                                              ],
+                                             ),
+
+                                     const SizedBox(height: 5),
                                       SizedBox(
                                           height: 40,
                                           width: double.infinity,
@@ -316,6 +350,10 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       ));
                                                 }).toList(),
                                               )))),
+                                           ],
+                                         ),
+                                       ): Container(),
+                                     
                                       const SizedBox(height: 5),
                                     ])
                               : const Column(
@@ -408,6 +446,8 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
       ),
     );
   }
+  
+
 }
 
 class ContentCard extends StatelessWidget {

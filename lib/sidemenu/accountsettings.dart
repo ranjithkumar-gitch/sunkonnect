@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunkonnect/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -13,6 +14,7 @@ class AccountSettings extends StatefulWidget {
 
 class _AccountSettingsState extends State<AccountSettings> {
   bool isSubscribed = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,12 +102,44 @@ class _AccountSettingsState extends State<AccountSettings> {
        ),
 
          const SizedBox(height: 40,),
-                            
+            //                 Row(
+            //    children: [
+            //      const SizedBox(width: 20),
+                
+         
+            //      AdvancedSwitch(
+            //        width: 55,
+            //        height: 25,
+            //        activeColor: Colours.kbuttonpurple,
+            //        initialValue: SharedPrefServices.getStatus()!,
+            //        inactiveColor: Colors.grey,
+            //        onChanged: (value) {
+            //      updateRolecode();
+            //        },
+            //      ),
+            //      const SizedBox(width: 15),
+            //        CustomText(
+            //      text: SharedPrefServices.getroleCode().toString(),
+            //       fontSize: 14,
+            //       fontWeight: FontWeight.w500,
+            //      textcolor: Colors.black),
+                
+                 
+            //    ],
+            //  ),
                               
             ],
           ),
         )),
     );
+  }
+  updateRolecode(){
+    setState(() {
+      SharedPrefServices.getStatus() == false ? SharedPrefServices.setStatus(true) : SharedPrefServices.setStatus(false);
+         SharedPrefServices.getroleCode().toString() == 'company' ? SharedPrefServices.setroleCode('customer') 
+      : SharedPrefServices.getroleCode().toString() == 'customer' ? SharedPrefServices.setroleCode('company') : SharedPrefServices.setroleCode('company');
+        });
+    
   }
 }
 

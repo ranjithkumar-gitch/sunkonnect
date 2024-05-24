@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:sunkonnect/loginpage.dart';
 import 'package:sunkonnect/myprofilepage.dart';
+import 'package:sunkonnect/sharedprefences.dart';
 import 'package:sunkonnect/sidemenu/accountsettings.dart';
 import 'package:sunkonnect/sidemenu/changepassword.dart';
 import 'package:sunkonnect/sidemenu/contactus.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 
-class SideMenu extends StatelessWidget {
+class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
 
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -34,6 +41,33 @@ class SideMenu extends StatelessWidget {
                 ],
               ),
             ),
+             const SizedBox(height: 10),
+             Row(
+               children: [
+                 const SizedBox(width: 20),
+                
+         
+                 AdvancedSwitch(
+                   width: 55,
+                   height: 25,
+                   activeColor: Colours.kbuttonpurple,
+                   initialValue: SharedPrefServices.getStatus()!,
+                   inactiveColor: Colors.grey,
+                   onChanged: (value) {
+                 updateRolecode();
+                   },
+                 ),
+                 const SizedBox(width: 15),
+                   CustomText(
+                 text: SharedPrefServices.getroleCode().toString(),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                 textcolor: Colors.black),
+                
+                 
+               ],
+             ),
+              const SizedBox(height: 10),
             ListTile(
               leading: const Icon(
               Icons.person,
@@ -173,9 +207,20 @@ class SideMenu extends StatelessWidget {
                
               ),
             ),
+
+            
+            
             // Add more list items as needed
           ],
         ),
       );
+  }
+    updateRolecode(){
+    setState(() {
+      SharedPrefServices.getStatus() == false ? SharedPrefServices.setStatus(true) : SharedPrefServices.setStatus(false);
+         SharedPrefServices.getroleCode().toString() == 'company' ? SharedPrefServices.setroleCode('customer') 
+      : SharedPrefServices.getroleCode().toString() == 'customer' ? SharedPrefServices.setroleCode('company') : SharedPrefServices.setroleCode('company');
+        });
+    
   }
 }
