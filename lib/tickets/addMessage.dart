@@ -100,30 +100,11 @@ class _AddMessageState extends State<AddMessage> {
               color: Colors.black,
               fontFamily: 'Poppins',
             ),
+           readOnly: true,
             controller: dateController,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(10.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  color: Color(0xffFDFDFD),
-                  // #FFF7F7
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Color(0xffFDFDFD),
-                ),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              hintStyle: const TextStyle(
-                fontSize: 14.0,
-                color: Color(0xff979797),
-                fontFamily: 'Poppins',
-              ),
-            ),
-            onTap: () async {
-              DateTime? pickeddate = await showDatePicker(
+              suffixIcon: IconButton(onPressed: () async {
+                 DateTime? pickeddate = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(1950),
@@ -150,6 +131,29 @@ class _AddMessageState extends State<AddMessage> {
                   });
                 }
               }
+              }, icon: const Icon(Icons.calendar_month,color: Colours.kbuttonpurple,)),
+              contentPadding: const EdgeInsets.all(10.0),
+             focusedBorder: OutlineInputBorder(
+                                  borderSide:  const BorderSide(
+                                    color: Colours.kbordergrey,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const  BorderSide(
+                                  color: Colours.kbordergrey,
+                                  width: 1.0,
+                                ),
+                              ),
+                             
+              hintStyle: const TextStyle(
+                fontSize: 14.0,
+                color: Color(0xff979797),
+                fontFamily: 'Poppins',
+              ),
+            ),
+            onTap: () async {
+              
             },
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,

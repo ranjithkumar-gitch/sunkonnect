@@ -26,11 +26,11 @@ class NotificationListScreen extends StatelessWidget {
                 ),
                 child: ListTile(
                  
-                  title:const  Row(
+                  title:const   Row(
                     children: [
                        CircleAvatar(
                         radius: 12,
-                    backgroundColor: Colors.orange,
+                    backgroundColor: Colours.kbuttonpurple,
                     child: Icon(
                       Icons.notifications,
                       color: Colors.white, size: 16,
