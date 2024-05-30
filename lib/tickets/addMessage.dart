@@ -2,12 +2,14 @@
 import 'dart:io';
  import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sunkonnect/widgets/progressbar.dart';
 class AddMessage extends StatefulWidget {
   const AddMessage({super.key});
 
@@ -19,12 +21,14 @@ class _AddMessageState extends State<AddMessage> {
 
    final ImagePicker picker = ImagePicker();
 
-    List<File?> selectedFiles = []; 
+  List<File?> selectedFiles = []; 
   List<File> selectedImages = [];
-   String? pdfFilePath;
 
+  // String? pdfFilePath;
+ 
   File? file;
    File? media;
+   bool isLoading = false;
     late TextEditingController dateController = TextEditingController();
 
     @override
@@ -47,309 +51,318 @@ class _AddMessageState extends State<AddMessage> {
     return Scaffold(
     backgroundColor: Colors.white,
     appBar: const CustomAppbar(title: 'Add Message'),
-        body: Container(
-          margin: const EdgeInsets.only(right: 10,left: 10),
-          child:  SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-             children: [
-             const SizedBox(height: 15,),
-          
-           const Heading(title: 'Sender'),
-             Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                color: Colours.ktextfeildbgColor,
-                elevation: 0,
-              child: Container(
-                width: double.infinity,height: 45,
-                margin: const EdgeInsets.only(right: 10,left: 10),
-                color: Colours.ktextfeildbgColor,
-                child: 
-                   
-                  const Padding(
-                    padding:  EdgeInsets.only(top: 15,),
-                    child: CustomText(
-                      text: 'Vishal K.',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textcolor:Colors.black,),
-                  ),
-                
-                )),
-                 const SizedBox(height: 10,),
+        body: Stack(
+          children:[
+            Container(
+            margin: const EdgeInsets.only(right: 10,left: 10),
+            child:  SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+               const SizedBox(height: 15,),
             
-             const Heading(title: 'Date'),
-                     Card(
-                  elevation: 0.0,
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-            color: Colours.kbordergrey,
+             const Heading(title: 'Sender'),
+               Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  color: Colours.ktextfeildbgColor,
+                  elevation: 0,
+                child: Container(
+                  width: double.infinity,height: 45,
+                  margin: const EdgeInsets.only(right: 10,left: 10),
+                  color: Colours.ktextfeildbgColor,
+                  child: 
+                     
+                    const Padding(
+                      padding:  EdgeInsets.only(top: 15,),
+                      child: CustomText(
+                        text: 'Vishal K.',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        textcolor:Colors.black,),
                     ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-            color: Colours.ktextfeildbgColor,
-            borderRadius:  BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-                    ),
-                    child: TextFormField(
-            style: const TextStyle(
-              fontSize: 14.0,
-              color: Colors.black,
-              fontFamily: 'Poppins',
-            ),
-           readOnly: true,
-            controller: dateController,
-            decoration: InputDecoration(
-              suffixIcon: IconButton(onPressed: () async {
-                 DateTime? pickeddate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1950),
-                lastDate: DateTime.now(),
-              );
-              if (pickeddate != null) {
-                TimeOfDay? pickedTime = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (pickedTime != null) {
-                  setState(() {
-                    String formattedDate = DateFormat('dd-MM-yyyy').format(pickeddate);
-                    String formattedTime = DateFormat('HH:mm a').format(
-                      DateTime(
-                        pickeddate.year,
-                        pickeddate.month,
-                        pickeddate.day,
-                        pickedTime.hour,
-                        pickedTime.minute,
+                  
+                  )),
+                   const SizedBox(height: 10,),
+              
+               const Heading(title: 'Date'),
+                       Card(
+                    elevation: 0.0,
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+              color: Colours.kbordergrey,
                       ),
-                    );
-                    dateController.text = '$formattedDate, $formattedTime';
-                  });
-                }
-              }
-              }, icon: const Icon(Icons.calendar_month,color: Colours.kbuttonpurple,)),
-              contentPadding: const EdgeInsets.all(10.0),
-             focusedBorder: OutlineInputBorder(
-                                  borderSide:  const BorderSide(
-                                    color: Colours.kbordergrey,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const  BorderSide(
-                                  color: Colours.kbordergrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                             
-              hintStyle: const TextStyle(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      decoration: const BoxDecoration(
+              color: Colours.ktextfeildbgColor,
+              borderRadius:  BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+                      ),
+                      child: TextFormField(
+              style: const TextStyle(
                 fontSize: 14.0,
-                color: Color(0xff979797),
+                color: Colors.black,
                 fontFamily: 'Poppins',
               ),
-            ),
-            onTap: () async {
-              
-            },
-            keyboardType: TextInputType.name,
-            textInputAction: TextInputAction.next,
+             readOnly: true,
+              controller: dateController,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(onPressed: () async {
+                   DateTime? pickeddate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1950),
+                  lastDate: DateTime.now(),
+                );
+                if (pickeddate != null) {
+                  TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (pickedTime != null) {
+                    setState(() {
+                      String formattedDate = DateFormat('dd-MM-yyyy').format(pickeddate);
+                      String formattedTime = DateFormat('HH:mm a').format(
+                        DateTime(
+                          pickeddate.year,
+                          pickeddate.month,
+                          pickeddate.day,
+                          pickedTime.hour,
+                          pickedTime.minute,
+                        ),
+                      );
+                      dateController.text = '$formattedDate, $formattedTime';
+                    });
+                  }
+                }
+                }, icon: const Icon(Icons.calendar_month,color: Colours.kbuttonpurple,)),
+                contentPadding: const EdgeInsets.all(10.0),
+               focusedBorder: OutlineInputBorder(
+                                    borderSide:  const BorderSide(
+                                      color: Colours.kbordergrey,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: const  BorderSide(
+                                    color: Colours.kbordergrey,
+                                    width: 1.0,
+                                  ),
+                                ),
+                               
+                hintStyle: const TextStyle(
+                  fontSize: 14.0,
+                  color: Color(0xff979797),
+                  fontFamily: 'Poppins',
+                ),
+              ),
+              onTap: () async {
+                
+              },
+              keyboardType: TextInputType.name,
+              textInputAction: TextInputAction.next,
+                      ),
                     ),
                   ),
-                ),
-            
-                    const SizedBox(height: 10,),
-                    
-            
-               const Heading(title: 'Message'),
-            
-               const SizedBox(height: 5,),
-            
-                   Container(
-                        width: double.infinity,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: Colours.ktextfeildbgColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                          minLines: 6,
-                          maxLines: null,
-                          keyboardType: TextInputType.multiline,
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                              alignLabelWithHint: true,
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide:  const BorderSide(
+              
+                      const SizedBox(height: 10,),
+                      
+              
+                 const Heading(title: 'Message'),
+              
+                 const SizedBox(height: 5,),
+              
+                     Container(
+                          width: double.infinity,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            color: Colours.ktextfeildbgColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextFormField(
+                            minLines: 6,
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                                alignLabelWithHint: true,
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:  const BorderSide(
+                                      color: Colours.kbordergrey,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: const  BorderSide(
                                     color: Colours.kbordergrey,
+                                    width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const  BorderSide(
-                                  color: Colours.kbordergrey,
-                                  width: 1.0,
                                 ),
-                              ),
-                             
-                              hintStyle: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
+                               
+                                hintStyle: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                          ),
+                        ),
+              
+                // 
+                  const SizedBox(height: 10,),
+          
+                     const Heading(title: 'Add Images'),
+              
+                 const SizedBox(height: 15,),
+               
+                      Center(
+                        child: SizedBox(
+                          height: 35,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                imagePicker();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colours.kbuttonpurple,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10))),
+                              child: const Text(
+                                "Add Images +",
+                                style: TextStyle(
+                                    fontFamily: 'poppins',
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
                               )),
                         ),
                       ),
-            
-              // 
-                const SizedBox(height: 10,),
-
-                   const Heading(title: 'Add Images'),
-            
-               const SizedBox(height: 15,),
-             
-                    Center(
-                      child: SizedBox(
-                        height: 35,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              imagePicker();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colours.kbuttonpurple,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(10))),
-                            child: const Text(
-                              "Add Images +",
-                              style: TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontSize: 16.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            )),
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  SizedBox( height: (selectedImages.isNotEmpty || media != null) ? 10 : 0,
-                     child: Container(),
-                     ), 
-                            
-                     Container(
-                      child: selectedImages.isEmpty && media == null 
-                    ? Container()
-                    : SizedBox(
-                        height: ((selectedImages.length + (media != null ? 1 : 0)) <= 3) ? 130 : 250,
-                        child: GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: selectedImages.length + (media != null ? 1 : 0),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
+                    SizedBox( height: (selectedImages.isNotEmpty || media != null) ? 10 : 0,
+                       child: Container(),
+                       ), 
+                              
+                       Container(
+                        child: selectedImages.isEmpty && media == null 
+                      ? Container()
+                      : SizedBox(
+                          height: ((selectedImages.length + (media != null ? 1 : 0)) <= 3) ? 130 : 250,
+                          child: GridView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: selectedImages.length + (media != null ? 1 : 0),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 15,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              if (index == selectedImages.length) {
+                                return buildImageWidget(media!, onDelete: () {
+                                  deleteImage();
+                                });
+                              } else {
+                                return buildImageWidget(selectedImages[index], onDelete: () {
+                                  deleteMultiImage(index);
+                                });
+                              }
+                            },
                           ),
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index == selectedImages.length) {
-                              return buildImageWidget(media!, onDelete: () {
-                                deleteImage();
-                              });
-                            } else {
-                              return buildImageWidget(selectedImages[index], onDelete: () {
-                                deleteMultiImage(index);
-                              });
-                            }
-                          },
+                        ),
+                       ),
+          
+                        const SizedBox(height: 10,),
+          
+                     const Heading(title: 'Add Attachments/Documents'),
+              
+                 const SizedBox(height: 15,),
+          
+          
+          
+                 Center(
+                        child: SizedBox(
+                          height: 35,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                pickFile();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colours.kbuttonpurple,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10))),
+                              child: const CustomText(text: "Add Attachments +", fontSize: 16,fontWeight: FontWeight.w500, textcolor: Colours.kwhiteColor) 
+                              ),
                         ),
                       ),
-                     ),
-
-                      const SizedBox(height: 10,),
-
-                   const Heading(title: 'Add Attachments/Documents'),
+              const SizedBox(height: 15,),
             
-               const SizedBox(height: 15,),
-
-
-
-               Center(
-                      child: SizedBox(
-                        height: 35,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              pickFile();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colours.kbuttonpurple,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(10))),
-                            child: const CustomText(text: "Add Attachments +", fontSize: 16,fontWeight: FontWeight.w500, textcolor: Colours.kwhiteColor) 
-                            ),
-                      ),
+            if (selectedFiles.isNotEmpty)
+                  SizedBox(
+                  width: double.infinity,
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: selectedFiles.length,
+                      itemBuilder: (context, index) {
+                        return buildFileWidget(selectedFiles[index]!, index);
+                      },
                     ),
-            const SizedBox(height: 15,),
-          
-          if (selectedFiles.isNotEmpty)
-                SizedBox(
-                width: double.infinity,
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: selectedFiles.length,
-                    itemBuilder: (context, index) {
-                      return buildFileWidget(selectedFiles[index]!, index);
-                    },
+                  )
+                else
+                   Center(
+                  child: Container(),
                   ),
-                )
-              else
-                 Center(
-                child: Container(),
-                ),
-        
-    
-                       const SizedBox(height: 20,),
-                            
-                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    side:
-                                        const BorderSide(color: Colours.kbuttonpurple,),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                  ),
-                                  child:  const Text(
-                                    "Cancel",
-                                    style: TextStyle(color: Colours.kbuttonpurple,),
-                                  )),
-                                  SizedBox(
-                                    height: 40, width: 100,
-                                    child: ElevatedButton(onPressed: (){}, 
-                                    style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                                      child: const CustomText(text: 'Add', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
-                                  )
-                                ],
-                               ),
-                                  const SizedBox(height: 15,),
-          ]),
-      
-       )));
+          
+              
+                         const SizedBox(height: 20,),
+                              
+                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                  OutlinedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      side:
+                                          const BorderSide(color: Colours.kbuttonpurple,),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    child:  const Text(
+                                      "Cancel",
+                                      style: TextStyle(color: Colours.kbuttonpurple,),
+                                    )),
+                                    SizedBox(
+                                      height: 40, width: 100,
+                                      child: ElevatedButton(onPressed: (){}, 
+                                      style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                        child: const CustomText(text: 'Add', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
+                                    )
+                                  ],
+                                 ),
+                                    const SizedBox(height: 15,),
+            ]),
+                
+                 )),
+         if (isLoading) 
+            const Center(
+              child: ProgressBarHUD(),
+            ),
+        ]
+        )
+        );
      }  
   
 
-     void deletePdf() {
-     setState(() {
-      pdfFilePath = null;
-    });
-  }
+  //    void deletePdf() {
+  //    setState(() {
+  //     pdfFilePath = null;
+  //   });
+  // }
 
    Widget buildImageWidget(File imageFile, {required VoidCallback onDelete}) {
   return Stack(
@@ -399,12 +412,33 @@ class _AddMessageState extends State<AddMessage> {
   }
 
 
+  
+
+
   void pickFile() async {
+    setState(() {
+      isLoading = true; 
+    });
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true);
+
+    setState(() {
+      isLoading = false;
+    });
+
     if (result != null) {
-      setState(() {
-        selectedFiles = result.paths.map((path) => path != null ? File(path) : null).toList();
-      });
+      int totalFiles = selectedFiles.length + result.paths.length;
+      if (totalFiles > 10) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('You can only select up to 10 files.'))
+        );
+      } else {
+        setState(() {
+          selectedFiles.addAll(
+            result.paths.map((path) => path != null ? File(path) : null).toList()
+          );
+        });
+      }
     }
   }
 
@@ -436,6 +470,12 @@ class _AddMessageState extends State<AddMessage> {
       iconData = Icons.audiotrack;
       break;
     case 'mp4':
+    case 'mkv':
+    case 'avi':
+    case '3gp':
+    case 'wmv':
+    case 'mov':
+    case 'm4v':
       iconData = Icons.video_library;
       break;
     case 'xls':

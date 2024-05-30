@@ -43,7 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const NotificationListScreen()),
+                    builder: (context) =>  const NotificationListScreen()),
               );
             },
           ),

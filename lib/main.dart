@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 void main() async{ 
   WidgetsFlutterBinding.ensureInitialized();
-   await SharedPrefServices.init();
+   await SharedPrefServices.init(); 
   runApp(const MyApp());
 } 
 
