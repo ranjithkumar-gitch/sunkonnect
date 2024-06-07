@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:sunkonnect/resetpassward.dart';
+import 'package:sunkonnect/loginflow/resetpassward.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:open_file/open_file.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -13,7 +14,7 @@ class ViewMessage extends StatefulWidget {
   State<ViewMessage> createState() => _ViewMessageState();
 }
 
-class _ViewMessageState extends State<ViewMessage> {
+ class _ViewMessageState extends State<ViewMessage> {
   
   @override
   Widget build(BuildContext context) {
@@ -52,14 +53,16 @@ class _ViewMessageState extends State<ViewMessage> {
              
               UrlCard(title: 'Attachments', 
               urls: [
+              
+              'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7'
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKoU0Y0Uo7Nn4E0t8ce3SYKeqGZDoWQ-CAjw&s',
               'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
               'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
               'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
               
               ],),
+              
 
-           
-             
                SizedBox(
                 height: 10,
               ),
@@ -241,7 +244,7 @@ void initState() {
                       overflow: TextOverflow.ellipsis,
                     ),
                      trailing: downloadedFiles.containsKey(url)
-                        ? Icon(fileIcons[downloadedFiles[url]])
+                        ? Icon(fileIcons[downloadedFiles[url]] ?? Icons.insert_drive_file) 
                         : _buildDownloadButton(url),
                   ),
                const  SizedBox(height: 5),
@@ -256,9 +259,17 @@ void initState() {
   // 
 
 
+
   Widget _buildDownloadButton(String url) {
     return downloadedFiles.containsKey(url)
-        ? Icon(fileIcons[downloadedFiles[url]])
+       ? GestureDetector(
+            onTap: () {
+              String? localFilePath = downloadedFiles[url];
+              if (localFilePath != null) {
+                OpenFile.open(localFilePath);
+              }
+            },
+        child: Icon(fileIcons[downloadedFiles[url]] ?? Icons.insert_drive_file)) 
         : _progressMap.containsKey(url) && _progressMap[url] != null
             ? CircularProgressIndicator(
               color: Colours.kbuttonpurple,
@@ -276,26 +287,40 @@ void initState() {
 
 
   void _downloadFile(String url) {
-    FileDownloader.downloadFile(
-      url: url,
-      onProgress: (name, progress) {
-        setState(() {
-          _progressMap[url] = progress;
-        });
-      },
-      onDownloadCompleted: (value) {
-        setState(() {
-          _progressMap.remove(url);
-          String extension = value.split('.').last;
-          downloadedFiles[url] = extension;
-        });
-      },
-      onDownloadError: (String error) {
-        print('Download error: $error');
+  FileDownloader.downloadFile(
+    url: url,
+    onProgress: (name, progress) {
+      setState(() {
+        _progressMap[url] = progress;
+      });
+    },
+    onDownloadCompleted: (filePath) {
+      setState(() {
+        _progressMap.remove(url);
+        String extension = filePath.split('.').last;
+        downloadedFiles[url] = extension;
+        OpenFile.open(filePath);
         
-      },
-    );
-  }
+      print(filePath.split('/').last);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('File downloaded : ${filePath.split('/').last}'),
+            duration: const Duration(seconds: 2), 
+          ),
+        );
+      });
+    },
+    onDownloadError: (String error) {
+      print('Download error: $error');
+    },
+  );
+}
+
+
+ 
+
+
+
 
 }
 

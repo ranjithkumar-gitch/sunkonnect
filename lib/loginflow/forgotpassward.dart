@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sunkonnect/otpscreen.dart';
+import 'package:sunkonnect/loginflow/otpscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';

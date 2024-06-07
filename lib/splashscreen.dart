@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sunkonnect/loginpage.dart';
+import 'package:sunkonnect/loginflow/loginpage.dart';
 import 'package:sunkonnect/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 
