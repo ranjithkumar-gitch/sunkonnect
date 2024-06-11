@@ -8,6 +8,7 @@ import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progressbar.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,19 +18,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   bool _isValidPassword(String password) {
     RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{7,}$');
     return regex.hasMatch(password);
   }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-   final emailController = TextEditingController();
+  final emailController = TextEditingController(text: "vishal.k@sunkpo.com");
 
-  final passwordController =  TextEditingController();
+  final passwordController = TextEditingController(text: "Sunkpo.@123");
 
- late Loginrequestauth requestModelId;
+  late Loginrequestauth requestModelId;
 
   bool password = true;
 
@@ -39,12 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     requestModelId = Loginrequestauth(
-       
-        userId: "",
-        password: "",
-        );
-     }
-       @override
+      userId: "",
+      password: "",
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ProgressBar(
       inAsyncCall: isApiCallProcess,
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -75,22 +76,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 45,
                       ),
-                    
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                const CustomText(text: 'Login', fontSize: 25, fontWeight:  FontWeight.w600, textcolor: Colours.kheadertext),
-                
+                const CustomText(
+                    text: 'Login',
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    textcolor: Colours.kheadertext),
+
                 const SizedBox(
                   height: 10,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -102,16 +106,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlignVertical: TextAlignVertical.center,
                     controller: emailController,
                     autofillHints: const [AutofillHints.email],
-                 validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter a Email";
-                            } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                              return "Please Enter a Valid Email";
-                            }
-                            return null;
-                          },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter a Email";
+                      } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                        return "Please Enter a Valid Email";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
-                      
                       hintText: "Email",
                       hintStyle: GoogleFonts.montserrat(
                           color: Colours.klightgrey,
@@ -125,9 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           size: 22,
                         ),
                       ),
-                      
                       contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
-            
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide:
@@ -160,15 +161,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 70,
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                     controller: passwordController,
-                     validator: (value) {
-                        if (value!.isEmpty) {
-                     return "Please Enter a Password";
-                        } else if (!_isValidPassword(value)) {
-                       return "Password must be at least 7 characters, along special ,numeric , one Uppercase ";
-                         }
-                        return null;
-                            },
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Please Enter a Password";
+                      } else if (!_isValidPassword(value)) {
+                        return "Password must be at least 7 characters, along special ,numeric , one Uppercase ";
+                      }
+                      return null;
+                    },
                     obscureText: password,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
@@ -199,7 +200,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           size: 22,
                         ),
                       ),
-                     
                       contentPadding: const EdgeInsets.fromLTRB(12, 12, 10, 15),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         MaterialPageRoute(
                             builder: (context) => const Forgotpassward()));
                   },
-                  child:  Text("Forgot Password?",
+                  child: Text("Forgot Password?",
                       textAlign: TextAlign.right,
                       style: GoogleFonts.montserrat(
                         color: Colours.korange,
@@ -242,101 +242,88 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-      
-      requestModelId.userId = emailController.text;
-      requestModelId.password = passwordController.text;
+                          requestModelId.userId = emailController.text;
+                          requestModelId.password = passwordController.text;
 
-      
-     setState(() {
-       isApiCallProcess = true;
-     });
-   
+                          setState(() {
+                            isApiCallProcess = true;
+                          });
 
-      print('Payload Data:');
-      print('Email: ${requestModelId.userId}');
-      print('Password: ${requestModelId.password}');
+                          print('Payload Data:');
+                          print('Email: ${requestModelId.userId}');
+                          print('Password: ${requestModelId.password}');
 
-      ApiService apiService = ApiService();
+                          ApiService apiService = ApiService();
 
-      apiService.loginauth(requestModelId).then((value) { 
-       if (value.status == 203) {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                  } else if (value.status == 401) {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                   const SnackBar(content: Text('Please Enter valid email or password'));
+                          apiService.loginauth(requestModelId).then((value) {
+                            if (value.status == 203) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                            } else if (value.status == 401) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
 
-                    // showToast("Please Enter valid email or password");
-                  } else if (value.status == 400) {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                    const SnackBar(content: Text('Invalid Password. Please try again'));
-                   
-                  } else if (value.status == 404) {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                  const SnackBar(content: Text('Invalid Email. Please try again'));
-                    
-                  } else if (value.status == 200 || value.status == 201) {
-                    // print("login url is working perfect uday");
-                        //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
-                    SharedPrefServices.setloginId(
-                        value.data?.data?.id ?? "");
-                    SharedPrefServices.setuserId(
-                        value.data?.data?.userId  ?? "");
-                    SharedPrefServices.setname(
-                        value.data?.data?.name ?? "");
+                              showToast("Please Enter valid email or password");
+                            } else if (value.status == 400) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                              showToast("Please Enter valid email or password");
+                            } else if (value.status == 404) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
 
-                      SharedPrefServices.setstatus(
-                        value.data?.data?.status ?? "");
+                              showToast("Please Enter valid email or password");
+                            } else if (value.status == 200 ||
+                                value.status == 201) {
+                              showToast("Login Successful");
+                              // print("login url is working perfect uday");
+                              //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
+                              SharedPrefServices.setloginId(
+                                  value.data?.data?.id ?? "");
+                              SharedPrefServices.setuserId(
+                                  value.data?.data?.userId ?? "");
+                              SharedPrefServices.setname(
+                                  value.data?.data?.name ?? "");
 
-                     SharedPrefServices.setaccessToken(
-                        value.data?.accessToken ?? "");
+                              SharedPrefServices.setstatus(
+                                  value.data?.data?.status ?? "");
 
-                       SharedPrefServices.setrefreshToken(
-                        value.data?.refreshToken ?? "");
+                              SharedPrefServices.setaccessToken(
+                                  value.data?.accessToken ?? "");
 
-                         SharedPrefServices.setuserObjId(
-                        value.data?.userObjId ?? "");
+                              SharedPrefServices.setrefreshToken(
+                                  value.data?.refreshToken ?? "");
 
-                         SharedPrefServices.setroleCode(
-                        value.data?.data?.rbac?[0].roleCode ?? "");
+                              SharedPrefServices.setuserObjId(
+                                  value.data?.userObjId ?? "");
 
-                        SharedPrefServices.setroleDescription(
-                        value.data?.data?.rbac?[0].roleDescription ?? "");
+                              SharedPrefServices.setroleCode(
+                                  value.data?.data?.rbac?[0].roleCode ?? "");
 
-                        SharedPrefServices.setisLoggedIn(true);
-                   
-                   const SnackBar(content: Text('Login Successfull'));
-                    
-                    
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return const DashboardScreen();
-                        },
-                      ),
-                    );
-                  } else {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                  }
-      });
+                              SharedPrefServices.setroleDescription(
+                                  value.data?.data?.rbac?[0].roleDescription ??
+                                      "");
 
-      
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const DashboardScreen(),
-      //   ),
-      // );
-    }
+                              SharedPrefServices.setisLoggedIn(true);
+
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const DashboardScreen();
+                                  },
+                                ),
+                              );
+                            } else {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                            }
+                          });
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colours.kbuttonpurple,

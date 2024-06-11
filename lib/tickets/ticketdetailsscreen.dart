@@ -68,7 +68,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                 ),
                 child: Container(
                   margin: const EdgeInsets.only(
-                    right: 10, left: 10, top: 10, bottom: 10),
+                      right: 10, left: 10, top: 10, bottom: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -88,8 +88,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                 children: [
                                   const Expanded(
                                       child: ContentCard(
-                                          title: 'Company',
-                                          content: 'SunKpo')),
+                                          title: 'Company', content: 'SunKpo')),
                                   SizedBox(
                                     height: 40,
                                     width: 110,
@@ -100,7 +99,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                      const  DashboardScreen()),
+                                                        const DashboardScreen()),
                                               );
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -137,8 +136,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                               children: [
                                                 Icon(
                                                   Icons.border_color,
-                                                  color:
-                                                      Colours.kbuttonpurple,
+                                                  color: Colours.kbuttonpurple,
                                                   size: 15,
                                                 ),
                                                 SizedBox(
@@ -183,56 +181,75 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                 SharedPrefServices.getroleCode().toString() == 'customer' && isEdited  ?    Column(
-                   children: [
-                     Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                 color:  Colours.kcardbgColor,
-                                border: Border.all(color: Colours.kcardborder)),
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  right: 10, left: 10, top: 10, bottom: 10),
-                              child: 
-                                  
-                                const Column(
+
+                      SharedPrefServices.getroleCode().toString() ==
+                                  'CUSTOMER ADMIN' ||
+                              SharedPrefServices.getroleCode().toString() ==
+                                      'CUSTOMER USER' &&
+                                  isEdited
+                          ? Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colours.kcardbgColor,
+                                      border: Border.all(
+                                          color: Colours.kcardborder)),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        right: 10,
+                                        left: 10,
+                                        top: 10,
+                                        bottom: 10),
+                                    child: const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                       
                                         ContentCard(
                                             title: 'Assigned To',
                                             content: 'Uday Teja'),
                                       ],
                                     ),
-                            ),
-                          ),
-                           SizedBox(height: 20,),
-                   ],
-                 ) : Container(),
-                 // todo//
-                 
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      // todo//
+
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                             color: isEdited == true ?  Colours.kwhiteColor : Colours.kcardbgColor,
+                            color: isEdited == true
+                                ? Colours.kwhiteColor
+                                : Colours.kcardbgColor,
                             border: Border.all(color: Colours.kcardborder)),
                         child: Container(
                           margin: const EdgeInsets.only(
                               right: 10, left: 10, top: 10, bottom: 10),
                           child: isEdited
                               ? Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                       const Row(
                                         children: [
-                                           CustomText(
+                                          CustomText(
                                               text: ' Status ',
                                               fontSize: 10,
                                               fontWeight: FontWeight.w400,
-                                              textcolor: Colours.ksubheadertext), SizedBox(width: 10,),
-                                             Icon(Icons.edit,color: Colours.ksubheadertext,size: 12,),
+                                              textcolor:
+                                                  Colours.ksubheadertext),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Icon(
+                                            Icons.edit,
+                                            color: Colours.ksubheadertext,
+                                            size: 12,
+                                          ),
                                         ],
                                       ),
                                       const SizedBox(height: 5),
@@ -263,8 +280,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                     status = newvalue!;
                                                   });
                                                 },
-                                                items:
-                                                    items.map((String item) {
+                                                items: items.map((String item) {
                                                   return DropdownMenuItem<
                                                           String>(
                                                       value: item,
@@ -286,79 +302,104 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 }).toList(),
                                               )))),
                                       const SizedBox(height: 10),
-                                       SharedPrefServices.getroleCode().toString() == 'company'  ?    Container(
-                                         child: Column(
-                                           children: [
-                                             const Row(
-                                              children: [
-                                                 CustomText(
-                                                    text: ' Assigned To ',
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    textcolor: Colours.ksubheadertext), SizedBox(width: 10,),
-                                                   Icon(Icons.edit,color: Colours.ksubheadertext,size: 12,),
-                                              ],
-                                             ),
-
-                                     const SizedBox(height: 5),
-                                      SizedBox(
-                                          height: 40,
-                                          width: double.infinity,
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                border: Border.all(
-                                                  color: Colours.kbordergrey,
-                                                  width: 1.0,
-                                                ),
-                                              ),
-                                              child:
-                                                  DropdownButtonHideUnderline(
-                                                      child: DropdownButton<
-                                                          String>(
-                                                icon: const Icon(
-                                                  Icons.arrow_drop_down,
-                                                  color: Colours.kheadertext,
-                                                  size: 40,
-                                                ),
-                                                value: assigned,
-                                                onChanged: (newvalue) {
-                                                  setState(() {
-                                                    assigned = newvalue!;
-                                                  });
-                                                },
-                                                items:
-                                                    name.map((String item) {
-                                                  return DropdownMenuItem<
-                                                          String>(
-                                                      value: item,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Text(
-                                                          item,
-                                                          style: const TextStyle(
+                                      SharedPrefServices.getroleCode()
+                                                      .toString() ==
+                                                  'COMPANY USER' ||
+                                              SharedPrefServices.getroleCode()
+                                                      .toString() ==
+                                                  'COMPANY ADMIN'
+                                          ? Container(
+                                              child: Column(
+                                                children: [
+                                                  const Row(
+                                                    children: [
+                                                      CustomText(
+                                                          text: ' Assigned To ',
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          textcolor: Colours
+                                                              .ksubheadertext),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Icon(
+                                                        Icons.edit,
+                                                        color: Colours
+                                                            .ksubheadertext,
+                                                        size: 12,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  SizedBox(
+                                                      height: 40,
+                                                      width: double.infinity,
+                                                      child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            border: Border.all(
                                                               color: Colours
-                                                                  .kresponsivetext,
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                        ),
-                                                      ));
-                                                }).toList(),
-                                              )))),
-                                           ],
-                                         ),
-                                       ): Container(),
-                                     
+                                                                  .kbordergrey,
+                                                              width: 1.0,
+                                                            ),
+                                                          ),
+                                                          child:
+                                                              DropdownButtonHideUnderline(
+                                                                  child:
+                                                                      DropdownButton<
+                                                                          String>(
+                                                            icon: const Icon(
+                                                              Icons
+                                                                  .arrow_drop_down,
+                                                              color: Colours
+                                                                  .kheadertext,
+                                                              size: 40,
+                                                            ),
+                                                            value: assigned,
+                                                            onChanged:
+                                                                (newvalue) {
+                                                              setState(() {
+                                                                assigned =
+                                                                    newvalue!;
+                                                              });
+                                                            },
+                                                            items: name.map(
+                                                                (String item) {
+                                                              return DropdownMenuItem<
+                                                                      String>(
+                                                                  value: item,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                      item,
+                                                                      style: const TextStyle(
+                                                                          color: Colours
+                                                                              .kresponsivetext,
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight:
+                                                                              FontWeight.w400),
+                                                                    ),
+                                                                  ));
+                                                            }).toList(),
+                                                          )))),
+                                                ],
+                                              ),
+                                            )
+                                          : Container(),
                                       const SizedBox(height: 5),
                                     ])
                               : const Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ContentCard(
                                         title: 'Status', content: 'Closed'),
@@ -372,7 +413,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                       const SizedBox(height: 15),
                       Container(
                         decoration: BoxDecoration(
-                           color: Colours.kcardbgColor,
+                            color: Colours.kcardbgColor,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Colours.kcardborder)),
                         child: Container(
@@ -446,8 +487,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
       ),
     );
   }
-  
-
 }
 
 class ContentCard extends StatelessWidget {
@@ -509,5 +548,3 @@ class AttachmentsGrid extends StatelessWidget {
     );
   }
 }
-
-
