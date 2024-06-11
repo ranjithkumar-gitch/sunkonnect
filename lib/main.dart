@@ -1,7 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:sunkonnect/sharedprefences.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/splashscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+// class MyHttpOverrides extends HttpOverrides{
+//   @override
+//   HttpClient createHttpClient(SecurityContext context){
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+//   }
+// }
 
 void main() async{ 
   WidgetsFlutterBinding.ensureInitialized();

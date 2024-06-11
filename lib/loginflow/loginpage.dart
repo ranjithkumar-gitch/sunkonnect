@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/loginflow/forgotpassward.dart';
 import 'package:sunkonnect/loginflow/model/login_request_model.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
+import 'package:sunkonnect/widgets/progressbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,17 +33,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool password = true;
 
+  bool isApiCallProcess = false;
+
   @override
   void initState() {
     super.initState();
     requestModelId = Loginrequestauth(
-        role: "User",
-        emailId: "",
+       
+        userId: "",
         password: "",
         );
      }
-  @override
+       @override
   Widget build(BuildContext context) {
+    return ProgressBar(
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.3,
+      child: uiSetup(context),
+    );
+  }
+
+  Widget uiSetup(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -230,21 +243,99 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
       
-      requestModelId.emailId = emailController.text;
+      requestModelId.userId = emailController.text;
       requestModelId.password = passwordController.text;
 
       
+     setState(() {
+       isApiCallProcess = true;
+     });
+   
+
       print('Payload Data:');
-      print('Email: ${requestModelId.emailId}');
+      print('Email: ${requestModelId.userId}');
       print('Password: ${requestModelId.password}');
 
+      ApiService apiService = ApiService();
+
+      apiService.loginauth(requestModelId).then((value) { 
+       if (value.status == 203) {
+                    setState(() {
+                      isApiCallProcess = false;
+                    });
+                  } else if (value.status == 401) {
+                    setState(() {
+                      isApiCallProcess = false;
+                    });
+                   const SnackBar(content: Text('Please Enter valid email or password'));
+
+                    // showToast("Please Enter valid email or password");
+                  } else if (value.status == 400) {
+                    setState(() {
+                      isApiCallProcess = false;
+                    });
+                    const SnackBar(content: Text('Invalid Password. Please try again'));
+                   
+                  } else if (value.status == 404) {
+                    setState(() {
+                      isApiCallProcess = false;
+                    });
+                  const SnackBar(content: Text('Invalid Email. Please try again'));
+                    
+                  } else if (value.status == 200 || value.status == 201) {
+                    // print("login url is working perfect uday");
+                        //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
+                    SharedPrefServices.setloginId(
+                        value.data?.data?.id ?? "");
+                    SharedPrefServices.setuserId(
+                        value.data?.data?.userId  ?? "");
+                    SharedPrefServices.setname(
+                        value.data?.data?.name ?? "");
+
+                      SharedPrefServices.setstatus(
+                        value.data?.data?.status ?? "");
+
+                     SharedPrefServices.setaccessToken(
+                        value.data?.accessToken ?? "");
+
+                       SharedPrefServices.setrefreshToken(
+                        value.data?.refreshToken ?? "");
+
+                         SharedPrefServices.setuserObjId(
+                        value.data?.userObjId ?? "");
+
+                         SharedPrefServices.setroleCode(
+                        value.data?.data?.rbac?[0].roleCode ?? "");
+
+                        SharedPrefServices.setroleDescription(
+                        value.data?.data?.rbac?[0].roleDescription ?? "");
+
+                        SharedPrefServices.setisLoggedIn(true);
+                   
+                   const SnackBar(content: Text('Login Successfull'));
+                    
+                    
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const DashboardScreen();
+                        },
+                      ),
+                    );
+                  } else {
+                    setState(() {
+                      isApiCallProcess = false;
+                    });
+                  }
+      });
+
       
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DashboardScreen(),
-        ),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const DashboardScreen(),
+      //   ),
+      // );
     }
                       },
                       style: ElevatedButton.styleFrom(

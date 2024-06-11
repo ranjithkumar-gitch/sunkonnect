@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sunkonnect/sharedprefences.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';

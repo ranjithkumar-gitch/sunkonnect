@@ -1,6 +1,7 @@
 
 import 'dart:io';
  import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -349,8 +350,8 @@ class _AddMessageState extends State<AddMessage> {
                 
                  )),
          if (isLoading) 
-            const Center(
-              child: ProgressBarHUD(),
+             Center(
+              child: Container(), // run progressbar later //
             ),
         ]
         )

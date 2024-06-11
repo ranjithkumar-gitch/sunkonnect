@@ -54,8 +54,8 @@ class ViewMessage extends StatefulWidget {
               UrlCard(title: 'Attachments', 
               urls: [
               
-              'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7'
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKoU0Y0Uo7Nn4E0t8ce3SYKeqGZDoWQ-CAjw&s',
+              'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
+              'https://www.clickdimensions.com/links/TestPDFfile.pdf',
               'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
               'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
               'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
@@ -188,6 +188,7 @@ class _UrlCardState extends State<UrlCard> {
     'jpg': Icons.image,
     'png': Icons.image,
     'mp4': Icons.video_collection,
+    'mp3': Icons.music_note,
     
   };
 

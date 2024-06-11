@@ -3,31 +3,53 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 
 
-class ProgressBarHUD extends StatelessWidget {
-  const ProgressBarHUD({super.key});
+class ProgressBar extends StatelessWidget {
+  final Widget child;
+  final bool inAsyncCall;
+  final double opacity;
+  final Color color;
+  // final Animation<Color> valueColor;
+
+  const ProgressBar({
+    super.key,
+    // required Key key,
+    required this.child,
+    required this.inAsyncCall,
+    this.opacity = 0.3,
+    this.color = Colors.grey,
+    //  this.valueColor,
+  });
+  //  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  const SizedBox(
-      child: Stack(
+    List<Widget> widgetList = [];
+    widgetList.add(child);
+    if (inAsyncCall) {
+      final modal = Stack(
         children: [
           Opacity(
-            opacity: 0.3,
+            opacity: opacity,
             child: ModalBarrier(
               dismissible: false,
-              color: Colors.white,
+              color: color,
             ),
           ),
-          Center(
+         const  Center(
             child: SpinKitSpinningLines(
               itemCount: 5,
-              color: Colours.kbuttonpurple,
+              color: Colours.korange,
               lineWidth: 5,
               size: 100,
             ),
           ),
         ],
-      ),
+      );
+      widgetList.add(modal);
+    }
+    return Stack(
+      children: widgetList,
     );
   }
 }
+
