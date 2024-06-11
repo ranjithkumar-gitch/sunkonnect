@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
+import 'package:pinput/pin_put/pin_put.dart';
 import 'package:sunkonnect/loginflow/resetpassward.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
+import 'package:sunkonnect/widgets/progressbar.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+
+  String VerificationCode;
+
+   OTPScreen({
+    required this.VerificationCode,
+    super.key});
+
 
   @override
     State<OTPScreen> createState() => _OTPScreenState();
@@ -15,10 +23,33 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  
+  bool isApiCallProcess = false;
+final TextEditingController _pinPutController = TextEditingController();
 
+final FocusNode _pinPutFocusNode = FocusNode();
+
+ BoxDecoration get _pinPutDecoration {
+    return BoxDecoration(
+      border: Border.all(color: Colors.deepPurpleAccent),
+      borderRadius: BorderRadius.circular(15.0),
+    );
+  }
+
+   @override
+  void initState() {
+    super.initState();
+   
+  }
   @override
   Widget build(BuildContext context) {
+    return ProgressBar(
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.3,
+      child: uiSetup(context),
+    );
+  }
+
+  Widget uiSetup(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(
         title: "Verify OTP",
@@ -34,27 +65,40 @@ class _OTPScreenState extends State<OTPScreen> {
             
            const  SizedBox(height: 20.0),
            
-                        Pinput(
-                        length: 6,
-                        showCursor: true,
-                        defaultPinTheme: PinTheme(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Colours.kbordergrey,
-                            ),
-                          ),
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        onCompleted: (value) {
-                          
-                        },
-                      ),
+                        Container(
+                                margin:
+                                    EdgeInsets.only(left: 20.0, right: 20.0),
+                                child: PinPut(
+                                  fieldsCount: 6,
+                                  textStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                  ),
+                                  onSubmit: (String pin) =>
+                                      (pin, context),
+                                  focusNode: _pinPutFocusNode,
+                                  controller: _pinPutController,
+                                  keyboardType: TextInputType.numberWithOptions(
+                                      signed: true),
+                                  submittedFieldDecoration:
+                                      _pinPutDecoration.copyWith(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    border: Border.all(
+                                      color: Color(0xFFFF6700),
+                                    ),
+                                  ),
+                                  selectedFieldDecoration: _pinPutDecoration,
+                                  followingFieldDecoration:
+                                      _pinPutDecoration.copyWith(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    border: Border.all(
+                                      color: Color(0xFFFF6700),
+                                    ),
+                                  ),
+                                ),
+                              ),
         
             const SizedBox(height: 20.0),
            
@@ -74,8 +118,13 @@ class _OTPScreenState extends State<OTPScreen> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             elevation: 0,
             onPressed: () {
+              if(widget.VerificationCode == _pinPutController.text.toString()){
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Resetpassward()));
+              }else{
+                showToast('Incorrect Verification Code');
+              }
+             
               
             },
             label: const CustomText(

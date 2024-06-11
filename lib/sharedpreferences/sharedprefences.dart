@@ -36,13 +36,22 @@ class SharedPrefServices {
   static const _keyrefreshToken = 'refreshToken';
   static const _keyuserObjId = 'userObjId';
   static const _keyisLoggedIn = 'true';
+  static const _keypassword = 'password';
+  static const _keypasswordtwo = 'passwordtwo';
   static const _keybool = 'true';
+
  
 
   static Future init() async => prefs = await SharedPreferences.getInstance();
  
     static Future setloginId(String loginId) async =>
       await prefs!.setString(_keyloginId, loginId);
+
+       static Future setpassword(String password) async =>
+      await prefs!.setString(_keypassword, password);
+
+             static Future setpasswordtwo(String passwordtwo) async =>
+      await prefs!.setString(_keypasswordtwo, passwordtwo);
 
     static Future setuserId(String userId) async =>
       await prefs!.setString(_keyuserId, userId);
@@ -79,6 +88,8 @@ class SharedPrefServices {
 
 // getters
 static String? getloginId() => prefs!.getString(_keyloginId);
+static String? getpassword() => prefs!.getString(_keypassword);
+static String? getpasswordtwo() => prefs!.getString(_keypasswordtwo);
 static String? getuserId() => prefs!.getString(_keyuserId);
 static String? getname() => prefs!.getString(_keyname);
 static String? getroleCode() => prefs!.getString(_keyroleCode);
