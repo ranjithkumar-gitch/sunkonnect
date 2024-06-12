@@ -21,25 +21,19 @@ class Resetpassward extends StatefulWidget {
 }
 
 class _ResetpasswardState extends State<Resetpassward> {
-   bool _isValidPassword(String password) {
+  bool _isValidPassword(String password) {
     RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{7,}$');
     return regex.hasMatch(password);
-  } 
-     TextEditingController confirmPasswordController =   TextEditingController(); 
-  TextEditingController newPasswordController =   TextEditingController(); 
+  }
+
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
 
   String _pass = "";
 
   bool isApiCallProcess = false;
 
-
-   
-
-  
-
- 
-
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   GlobalKey<FormState> globalFormKey = new GlobalKey<FormState>();
   final _passwprdonecontroller = TextEditingController();
   final _passwprdtwocontroller = TextEditingController();
@@ -49,22 +43,22 @@ class _ResetpasswardState extends State<Resetpassward> {
 
   late Passwordupdaterequestmodel requestmodel;
 
-
-
- @override
+  @override
   void initState() {
     super.initState();
 
-    requestmodel =
-        new Passwordupdaterequestmodel(userId: '', password: '', );
+    requestmodel = new Passwordupdaterequestmodel(
+      userId: '',
+      password: '',
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     key: scaffoldKey,
+      key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-       body: Stack(
+      body: Stack(
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -72,20 +66,18 @@ class _ResetpasswardState extends State<Resetpassward> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Color(0xffFFFFFF), Color(0xff808080)])),
-            
           ),
-           Container(
+          Container(
             margin: const EdgeInsets.only(top: 250.0),
             height: double.infinity,
-            decoration: const  BoxDecoration(
-              image:  DecorationImage(
-                image:  AssetImage("assets/sunkpo.png"),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/sunkpo.png"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          
-           Center(
+          Center(
             child: Container(
               alignment: Alignment.center,
               width: double.infinity,
@@ -115,7 +107,8 @@ class _ResetpasswardState extends State<Resetpassward> {
                           ),
                           const SizedBox(height: 15.0),
                           Container(
-                            margin: const EdgeInsets.only(left: 23.0, right: 23.0),
+                            margin:
+                                const EdgeInsets.only(left: 23.0, right: 23.0),
                             child: const Text(
                               "* Create password for your account so you can login and access all the features.",
                               style: TextStyle(
@@ -127,10 +120,11 @@ class _ResetpasswardState extends State<Resetpassward> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                         const  SizedBox(height: 15.0),
+                          const SizedBox(height: 15.0),
 
                           Card(
-                            margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+                            margin:
+                                const EdgeInsets.only(left: 15.0, right: 15.0),
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
                               side: const BorderSide(
@@ -200,7 +194,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                                       });
                                     },
                                   ),
-                                  hintStyle:const  TextStyle(
+                                  hintStyle: const TextStyle(
                                     fontSize: 14.0,
                                     color: Color(0xff979797),
                                     fontFamily: 'Poppins',
@@ -219,16 +213,17 @@ class _ResetpasswardState extends State<Resetpassward> {
                           ///////////////////////
                           const SizedBox(height: 10.0),
                           Card(
-                            margin:const EdgeInsets.only(left: 15.0, right: 15.0),
+                            margin:
+                                const EdgeInsets.only(left: 15.0, right: 15.0),
                             elevation: 0.0,
                             shape: RoundedRectangleBorder(
-                              side:const BorderSide(
+                              side: const BorderSide(
                                 color: Color(0xffCCCCCC),
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Container(
-                              decoration:const BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0xffFFF7F7),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10.0),
@@ -250,7 +245,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                                     contentPadding: const EdgeInsets.all(10.0),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      borderSide:const BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         // #FFF7F7
                                       ),
@@ -263,7 +258,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     hintText: "Confirm Password",
-                                    prefixIcon:const Icon(
+                                    prefixIcon: const Icon(
                                       Icons.lock_outline,
                                       color: Color(0xff979797),
                                     ),
@@ -273,7 +268,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                                         _passwordVisibletwo
                                             ? Icons.visibility
                                             : Icons.visibility_off,
-                                        color:const Color(0xff979797),
+                                        color: const Color(0xff979797),
                                       ),
                                       onPressed: () {
                                         // Update the state i.e. toogle the state of passwordVisible variable
@@ -330,14 +325,15 @@ class _ResetpasswardState extends State<Resetpassward> {
                             requirementText:
                                 "have at least one special character",
                           ),
-                        const  SizedBox(height: 45.0),
+                          const SizedBox(height: 45.0),
                           Container(
                             width: double.infinity,
                             height: 48.0,
-                            margin:const  EdgeInsets.only(left: 37.0, right: 37.0),
-                            child:  ElevatedButton(
-                              style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple),
-                              
+                            margin:
+                                const EdgeInsets.only(left: 37.0, right: 37.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colours.kbuttonpurple),
                               child: const Text(
                                 "Create",
                                 style: TextStyle(
@@ -347,91 +343,98 @@ class _ResetpasswardState extends State<Resetpassward> {
                                 ),
                               ),
                               onPressed: () async {
-                                setState(() {
-                                  isApiCallProcess = true;
-                                });
-                                if (_passwprdonecontroller.text
-                                        .toString()
-                                        .trim() ==
-                                    _passwprdtwocontroller.text
-                                        .toString()
-                                        .trim()) {
+                                if (_pass.length >= 8 &&
+                                    _pass.length <= 15 &&
+                                    _pass.contains(RegExp(r'[A-Z]')) &&
+                                    _pass.contains(RegExp(r'[a-z]')) &&
+                                    _pass.contains(RegExp(r'[0-9]')) &&
+                                    _pass.contains(
+                                        RegExp(r'[!@#$%^&*(),.?":{}|<>]')) &&
+                                    _passwprdonecontroller.text
+                                            .toString()
+                                            .trim() ==
+                                        _passwprdtwocontroller.text
+                                            .toString()
+                                            .trim()) {
                                   setState(() {
-                                  
                                     SharedPrefServices.setpassword(
                                         _passwprdonecontroller.text
                                             .toString()
                                             .trim());
 
                                     isApiCallProcess = true;
-                                      requestmodel.userId = SharedPrefServices.getuserId().toString();
-                                      requestmodel.password = SharedPrefServices.getpassword().toString();
-                                      ApiService apiService = ApiService();
+                                    requestmodel.userId =
+                                        SharedPrefServices.getuserId()
+                                            .toString();
+                                    requestmodel.password =
+                                        SharedPrefServices.getpassword()
+                                            .toString();
+                                    ApiService apiService = ApiService();
 
-                          apiService.changePassword(requestmodel).then((value) {
-                            if (value.status == 203) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                            } else if (value.status == 401) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
+                                    apiService
+                                        .changePassword(requestmodel)
+                                        .then((value) {
+                                      if (value.status == 203) {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
+                                      } else if (value.status == 401) {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
 
-                              ;
-                            } else if (value.status == 400) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                              ;
-                            } else if (value.status == 404) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
+                                        ;
+                                      } else if (value.status == 400) {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
+                                        ;
+                                      } else if (value.status == 404) {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
 
-                              ;
-                            } else if (value.status == 200 ||
-                                value.status == 201) {
-                              showToast("Password Updated  Successfully ");
-                              // print("login url is working perfect uday");
-                              //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
-                             
+                                        ;
+                                      } else if (value.status == 200 ||
+                                          value.status == 201) {
+                                        showToast(
+                                            "Password Updated  Successfully ");
+                                        // print("login url is working perfect uday");
+                                        //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
 
-                             
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) {
+                                              return const LoginScreen();
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        setState(() {
+                                          isApiCallProcess = false;
+                                        });
+                                      }
+                                    });
 
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return const LoginScreen();
-                                  },
-                                ),
-                              );
-                            } else {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                            }
-                          });
-                                    
-
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (BuildContext context) {
-                                  //       return VerificationcodePage(
-                                  //           matchingproModel:
-                                  //               this.widget.matchingproModel,
-                                  //           data: this.widget.data);
-                                  //     },
-                                  //   ),
-                                  // );
-                                   }); } else {
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(
+                                    //     builder: (BuildContext context) {
+                                    //       return VerificationcodePage(
+                                    //           matchingproModel:
+                                    //               this.widget.matchingproModel,
+                                    //           data: this.widget.data);
+                                    //     },
+                                    //   ),
+                                    // );
+                                  });
+                                } else {
                                   setState(() {
                                     isApiCallProcess = false;
                                   });
                                   showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                              title:const  Text(
+                                              title: const Text(
                                                 'Password mismatch. Please try again.',
                                                 style: TextStyle(
                                                   fontSize: 15.0,
@@ -449,13 +452,14 @@ class _ResetpasswardState extends State<Resetpassward> {
                                                     'OK',
                                                     style: TextStyle(
                                                       fontSize: 15.0,
-                                                      color: Color(0xFFFF6700),
+                                                      color:
+                                                          Colours.kbuttonpurple,
                                                       fontFamily: 'Poppins',
                                                     ),
                                                   ),
                                                 ),
                                               ]));
-                                   ScaffoldMessenger.of(context).showSnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content: Text(
                                               'Password is not matching!')));
@@ -477,4 +481,3 @@ class _ResetpasswardState extends State<Resetpassward> {
     );
   }
 }
-               
