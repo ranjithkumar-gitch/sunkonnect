@@ -249,10 +249,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             isApiCallProcess = true;
                           });
 
-                          print('Payload Data:');
-                          print('Email: ${requestModelId.userId}');
-                          print('Password: ${requestModelId.password}');
-
                           ApiService apiService = ApiService();
 
                           apiService.loginauth(requestModelId).then((value) {
