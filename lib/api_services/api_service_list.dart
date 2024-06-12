@@ -1,4 +1,8 @@
-import 'package:sunkonnect/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
+import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/widgets/constant.dart';
 import 'package:sunkonnect/loginflow/model/change_password_response_model.dart';
 import 'package:sunkonnect/loginflow/model/forgot_request_model.dart';
 import 'package:sunkonnect/loginflow/model/login_request_model.dart';
@@ -10,6 +14,10 @@ import 'package:sunkonnect/loginflow/model/secret_response_model.dart';
 
 class ApiService {
   // loginservice //
+  Map<String, String> accessheaders = {
+   
+    "Authorization": SharedPrefServices.getaccessToken().toString(),
+  };
 
   Future<Loginauth> loginauth(Loginrequestauth requestModel) async {
     String url = "${AppConstant.sunkonnectDevUrl}login/login-to-dashboard";
@@ -172,6 +180,49 @@ class ApiService {
         return changePasswordResponseModelFromJson(response.body);
       } else
         return changePasswordResponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
+
+    print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+  // get tickets list by POST Service //
+
+  Future<GetTicketListResponseModel> getTicketList(GetTicketListRequestModel requestModel) async {
+    String url = "${AppConstant.sunkonnectDevUrl}Ticket/get-tickets-list";
+    print(url);
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: requestModel.toJson(), headers: accessheaders
+      );
+
+      print("response.body requestModel ${requestModel.toJson()}");
+      print("response.body signin ${response.body}");
+      print("response.body statusCode ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return getTicketListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return getTicketListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return getTicketListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return getTicketListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return getTicketListResponseModelFromJson(response.body);
+      } else
+        return getTicketListResponseModelFromJson(response.body);
       // print(response.statusCode);
     } catch (e) {
       print(e.toString());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/editprofilepage.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -50,11 +51,9 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
-                const CustomText(
-                    text: "Full Name",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w100,
-                    textcolor: Colours.korange),
+
+                 Text('Full Name',style: GoogleFonts.poppins(fontSize: 13,color: Colours.korange),),
+                
                 const SizedBox(
                   height: 4.0,
                 ),
@@ -93,11 +92,8 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const CustomText(
-                    text: "Email",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colours.korange),
+                 Text('Email',style: GoogleFonts.poppins(fontSize: 13,color: Colours.korange),),
+                
                 const SizedBox(
                   height: 4.0,
                 ),
@@ -136,11 +132,8 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const CustomText(
-                    text: "Role",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colours.korange),
+                 Text('Role',style: GoogleFonts.poppins(fontSize: 13,color: Colours.korange),),
+                
                 const SizedBox(
                   height: 4.0,
                 ),
@@ -179,11 +172,8 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const CustomText(
-                    text: "Designation",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colours.korange),
+                Text('Designation',style: GoogleFonts.poppins(fontSize: 13,color: Colours.korange),),
+                
                 const SizedBox(
                   height: 4.0,
                 ),
@@ -223,11 +213,8 @@ class ProfilePage extends StatelessWidget {
                  const SizedBox(
                   height: 10.0,
                 ),
-                const CustomText(
-                    text: "Account Status",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    textcolor: Colours.korange),
+                Text('Account Status',style: GoogleFonts.poppins(fontSize: 13,color: Colours.korange),),
+                
                 const SizedBox(
                   height: 4.0,
                 ),

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
+import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/notification.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/ticketdata.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:expandable/expandable.dart';
+import 'package:sunkonnect/widgets/progressbar.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 
 class DashboardScreen extends StatefulWidget {
@@ -22,8 +27,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   String _selectedStatus = 'All';
 
+  late GetTicketListRequestModel requestModelId;
+
+bool isApiCallProcess = false;
+
   @override
+  void initState() {
+    super.initState();
+   
+    requestModelId = GetTicketListRequestModel(
+      userId: SharedPrefServices.getuserId().toString(),
+      roleCode: SharedPrefServices.getroleCode().toString(),
+      selectedDropdownValue: "",
+      searchKey: "",
+      pageSize: "10",
+      pageNo: "1",
+      ticketId: "",
+      status: "",
+      severity: "",
+      startDate: "",
+      category: "",
+      daysOpen: "",
+      limit: "20",
+      page: "2",
+
+    );
+     getTicketsList();
+  }
+
+  
+
+   @override
   Widget build(BuildContext context) {
+    return ProgressBar(
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.3,
+      child: uiSetup(context),
+    );
+  }
+
+  
+  Widget uiSetup(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colours.korange,
@@ -191,10 +235,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                            CustomText(text: tickets[index].id, fontSize: 14, fontWeight: FontWeight.bold, textcolor: Colours.kheadertext,),
+                            GestureDetector( 
+                              onTap: () {
+                                getTicketsList();
+                              },
+                              child: CustomText(text: tickets[index].id, fontSize: 14, fontWeight: FontWeight.bold, textcolor: Colours.kheadertext,)),
                                 
                                 Row(
                                   children: [
@@ -500,4 +549,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
     );
   }
-}
+
+                               getTicketsList() {
+                               ApiService apiService = ApiService();
+
+                          apiService.getTicketList(requestModelId).then((value) {
+                            if (value.status == 203) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                            } else if (value.status == 401) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+
+                            
+                            } else if (value.status == 400) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                            
+                            } else if (value.status == 404) {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+
+                            
+                            } else if (value.status == 200 ||
+                                value.status == 201) {
+                              showToast("Tickets Show Successfully");
+                              
+                               setState(() {
+                               print( value.data?.currentPage ?? "");
+                                isApiCallProcess = false;
+
+                              });
+
+                  //              Navigator.push(context,
+                  // MaterialPageRoute(builder: (context) =>  OTPScreen(VerificationCode: value.data!.token.toString(),)));
+                            } else {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                            }
+                          });
+}}
