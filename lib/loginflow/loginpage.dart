@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final emailController = TextEditingController(text: "vishal.k@sunkpo.com");
 
-  final passwordController = TextEditingController(text: "Sunkpo.@123");
+  final passwordController = TextEditingController(text: "Sunkpo@123");
 
   late Loginrequestauth requestModelId;
 

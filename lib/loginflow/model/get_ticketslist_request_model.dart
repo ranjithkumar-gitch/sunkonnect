@@ -17,44 +17,62 @@ class GetTicketListRequestModel {
   String limit;
   String page;
 
-
   GetTicketListRequestModel({
-    required this.userId,
-    required this.roleCode,
-    required this.selectedDropdownValue,
-    required this.searchKey,
-    required this.pageSize,
-    required this.pageNo,
-    required this.ticketId,
-    required this.status,
-    required this.severity,
-    required this.startDate,
-    required this.category,
-    required this.daysOpen,
-    required this.limit,
-    required this.page,
-  
-    
+    this.userId = "",
+    this.roleCode = "",
+    this.selectedDropdownValue = "",
+    this.searchKey = "",
+    this.pageSize = "",
+    this.pageNo = "",
+    this.ticketId = "",
+    this.status = "",
+    this.severity = "",
+    this.startDate = "",
+    this.category = "",
+    this.daysOpen = "",
+    this.limit = "",
+    this.page = "",
   });
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> map = {
-      'userId': userId.toString().trim(),
-      'roleCode': roleCode.toString().trim(),
-      'selectedDropdownValue' : selectedDropdownValue.toString().trim(),
-      'searchKey': searchKey.toString().trim(),
-      'pageSize': pageSize.toString().trim(),
-      'pageNo': pageNo.toString().trim(),
-      'ticketId': ticketId.toString().trim(),
-      'status': status.toString().trim(),
-      'severity': severity.toString().trim(),
-      'startDate': startDate.toString().trim(),
-      'category': category.toString().trim(),
-      'daysOpen': daysOpen.toString().trim(),
-      'limit': limit.toString().trim(),
-      'page': page.toString().trim(),
-      
-    };
-    return map;
-  }
+  factory GetTicketListRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$GetTicketListRequestModelFromJson(json);
+  Map<String, dynamic> toJson() => _$GetTicketListRequestModelToJson(this);
 }
+
+GetTicketListRequestModel _$GetTicketListRequestModelFromJson(
+    Map<String, dynamic> json) {
+  return GetTicketListRequestModel(
+    userId: (json['data'] as String),
+    roleCode: (json['data'] as String),
+    selectedDropdownValue: (json['data'] as String),
+    searchKey: (json['data'] as String),
+    ticketId: (json['data'] as String),
+    status: (json['data'] as String),
+    severity: (json['data'] as String),
+    startDate: (json['data'] as String),
+    category: (json['data'] as String),
+    daysOpen: (json['data'] as String),
+    pageSize: (json['data'] as String),
+    pageNo: (json['data'] as String),
+    limit: (json['data'] as String),
+    page: (json['data'] as String),
+  );
+}
+
+Map<String, dynamic> _$GetTicketListRequestModelToJson(
+        GetTicketListRequestModel instance) =>
+    <String, dynamic>{
+      'userId': instance.userId,
+      'roleCode': instance.roleCode,
+      'selectedDropdownValue': instance.selectedDropdownValue,
+      'searchKey': instance.searchKey,
+      'pageSize': instance.pageSize,
+      'pageNo': instance.pageNo,
+      'ticketId': instance.ticketId,
+      'status': instance.status,
+      'severity': instance.severity,
+      'startDate': instance.startDate,
+      'category': instance.category,
+      'daysOpen': instance.daysOpen,
+      'limit': instance.limit,
+      'page': instance.page,
+    };

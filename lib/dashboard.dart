@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
+import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
@@ -13,13 +16,11 @@ import 'package:expandable/expandable.dart';
 import 'package:sunkonnect/widgets/progressbar.dart';
 import 'package:sunkonnect/widgets/snackbar.dart';
 
-
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
-  
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
@@ -29,12 +30,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   late GetTicketListRequestModel requestModelId;
 
-bool isApiCallProcess = false;
+  bool isApiCallProcess = false;
 
   @override
   void initState() {
     super.initState();
-   
+
     requestModelId = GetTicketListRequestModel(
       userId: SharedPrefServices.getuserId().toString(),
       roleCode: SharedPrefServices.getroleCode().toString(),
@@ -49,15 +50,12 @@ bool isApiCallProcess = false;
       category: "",
       daysOpen: "",
       limit: "20",
-      page: "2",
-
+      page: "1",
     );
-     getTicketsList();
+    // getTicketsList();
   }
 
-  
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return ProgressBar(
       inAsyncCall: isApiCallProcess,
@@ -66,7 +64,6 @@ bool isApiCallProcess = false;
     );
   }
 
-  
   Widget uiSetup(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -83,11 +80,10 @@ bool isApiCallProcess = false;
               Icons.notifications,
             ),
             onPressed: () {
-             
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>  const NotificationListScreen()),
+                    builder: (context) => const NotificationListScreen()),
               );
             },
           ),
@@ -152,12 +148,9 @@ bool isApiCallProcess = false;
                       value: value,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: 
-                        Text(
-                          value,
-                          style:  GoogleFonts.poppins(fontSize: 14, color: Colours.kheadertext) 
-                         
-                        ),
+                        child: Text(value,
+                            style: GoogleFonts.poppins(
+                                fontSize: 14, color: Colours.kheadertext)),
                       ),
                     );
                   }).toList(),
@@ -171,8 +164,6 @@ bool isApiCallProcess = false;
         ],
       ),
       drawer: const SideMenu(),
-      
-
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colours.kbuttonpurple,
         currentIndex: _currentIndex,
@@ -198,399 +189,466 @@ bool isApiCallProcess = false;
           ),
         ],
       ),
-
-
-     
     );
   }
 
   Widget _buildTicketList(List<Ticket> tickets) {
-    return ListView.builder(
-      itemCount: tickets.length,
-      itemBuilder: (context, index) {
-        return ExpandableNotifier(
-            child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Card(
-            elevation: 0,
-            color: Colours.ktextfeildbgColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),side:  const BorderSide(color: Colours.kcardborder,width: 0.7)),
-            clipBehavior: Clip.antiAlias,
-            child: Container(
-              color: Colours.ktextfeildbgColor,
-              child: Column(
-                children: <Widget>[
-                  ScrollOnExpand(
-                    scrollOnExpand: true,
-                    scrollOnCollapse: false,
-                    child: ExpandablePanel(
-                      theme: const ExpandableThemeData(
-                        headerAlignment: ExpandablePanelHeaderAlignment.center,
-                        tapBodyToCollapse: true,
-                        iconColor: Colours.kbuttonpurple,
-                      ),
-                      header: Container(
-                        margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+    return Container(
+      child: FutureBuilder<GetTicketListResponseModel>(
+        future: getTicketsList(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text(
+                "No data found",
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
+              ),
+            );
+          } else if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data!.data!.data!.length,
+                itemBuilder: (context, index) {
+                  return ExpandableNotifier(
+                      child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Card(
+                      elevation: 0,
+                      color: Colours.ktextfeildbgColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                              color: Colours.kcardborder, width: 0.7)),
+                      clipBehavior: Clip.antiAlias,
+                      child: Container(
+                        color: Colours.ktextfeildbgColor,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                            GestureDetector( 
-                              onTap: () {
-                                getTicketsList();
-                              },
-                              child: CustomText(text: tickets[index].id, fontSize: 14, fontWeight: FontWeight.bold, textcolor: Colours.kheadertext,)),
-                                
-                                Row(
-                                  children: [
-                                    Container(
-                                     
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: tickets[index].status == "New"
-                                              ? const Color(0xff22B6D0)
-                                              : tickets[index].status ==
-                                                      "Assigned"
-                                                  ? const Color(0xff52C41A)
-                                                  : tickets[index].status ==
-                                                          "Acknowledged"
-                                                      ? const Color(0xff662C91)
-                                                      : tickets[index].status ==
-                                                              "In process"
-                                                          ? const Color(0xffFFA500)
-                                                          : tickets[index]
-                                                                      .status ==
-                                                                  "Completed"
-                                                              ? const Color(
-                                                                  0xff0DA12E)
-                                                              : tickets[index]
-                                                                          .status ==
-                                                                      "On Hold"
-                                                                  ? const Color(
-                                                                      0xff007CBE)
-                                                                  : tickets[index]
-                                                                              .status ==
-                                                                          "Closed"
-                                                                      ? const Color(
-                                                                          0xff15182E)
-                                                                      : tickets[index].status ==
-                                                                              "Cancelled"
-                                                                          ? const Color(
-                                                                              0xffD92F1B)
-                                                                          : Colors
-                                                                              .black,
-                                        ),
-                                        color: tickets[index].status == "New"
-                                            ? const Color(0xffF0FDFF)
-                                            : tickets[index].status ==
-                                                    "Assigned"
-                                                ? const Color(0xffEDFFE4)
-                                                : tickets[index].status ==
-                                                        "Acknowledged"
-                                                    ? const Color(0xffF8EFFF)
-                                                    : tickets[index].status ==
-                                                            "In process"
-                                                        ? const Color(0xffFFF4DF)
+                          children: <Widget>[
+                            ScrollOnExpand(
+                              scrollOnExpand: true,
+                              scrollOnCollapse: false,
+                              child: ExpandablePanel(
+                                theme: const ExpandableThemeData(
+                                  headerAlignment:
+                                      ExpandablePanelHeaderAlignment.center,
+                                  tapBodyToCollapse: true,
+                                  iconColor: Colours.kbuttonpurple,
+                                ),
+                                header: Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          CustomText(
+                                            text: snapshot.data!.data!
+                                                .data![index].ticketId
+                                                .toString(),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            textcolor: Colours.kheadertext,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: tickets[index]
+                                                                .status ==
+                                                            "New"
+                                                        ? const Color(
+                                                            0xff22B6D0)
                                                         : tickets[index]
                                                                     .status ==
-                                                                "Completed"
-                                                            ? const Color(0xffE6FFEC)
+                                                                "Assigned"
+                                                            ? const Color(
+                                                                0xff52C41A)
                                                             : tickets[index]
                                                                         .status ==
-                                                                    "On Hold"
+                                                                    "Acknowledged"
                                                                 ? const Color(
-                                                                    0xffF3FBFF)
+                                                                    0xff662C91)
                                                                 : tickets[index]
                                                                             .status ==
-                                                                        "Closed"
+                                                                        "In process"
                                                                     ? const Color(
-                                                                        0xffF5F5F5)
+                                                                        0xffFFA500)
                                                                     : tickets[index].status ==
-                                                                            "Cancelled"
+                                                                            "Completed"
                                                                         ? const Color(
-                                                                            0xffFFF2F0)
-                                                                        : Colors
-                                                                            .white,
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(8.0),
-                                        ),
+                                                                            0xff0DA12E)
+                                                                        : tickets[index].status ==
+                                                                                "On Hold"
+                                                                            ? const Color(0xff007CBE)
+                                                                            : tickets[index].status == "Closed"
+                                                                                ? const Color(0xff15182E)
+                                                                                : tickets[index].status == "Cancelled"
+                                                                                    ? const Color(0xffD92F1B)
+                                                                                    : Colors.black,
+                                                  ),
+                                                  color: tickets[index]
+                                                              .status ==
+                                                          "New"
+                                                      ? const Color(0xffF0FDFF)
+                                                      : tickets[index].status ==
+                                                              "Assigned"
+                                                          ? const Color(
+                                                              0xffEDFFE4)
+                                                          : tickets[index]
+                                                                      .status ==
+                                                                  "Acknowledged"
+                                                              ? const Color(
+                                                                  0xffF8EFFF)
+                                                              : tickets[index]
+                                                                          .status ==
+                                                                      "In process"
+                                                                  ? const Color(
+                                                                      0xffFFF4DF)
+                                                                  : tickets[index]
+                                                                              .status ==
+                                                                          "Completed"
+                                                                      ? const Color(
+                                                                          0xffE6FFEC)
+                                                                      : tickets[index].status ==
+                                                                              "On Hold"
+                                                                          ? const Color(
+                                                                              0xffF3FBFF)
+                                                                          : tickets[index].status == "Closed"
+                                                                              ? const Color(0xffF5F5F5)
+                                                                              : tickets[index].status == "Cancelled"
+                                                                                  ? const Color(0xffFFF2F0)
+                                                                                  : Colors.white,
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                    Radius.circular(8.0),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8.0,
+                                                          right: 8.0,
+                                                          top: 5.0,
+                                                          bottom: 5.0),
+                                                  child: Text(
+                                                    tickets[index].status,
+                                                    style: TextStyle(
+                                                      fontSize: 12.0,
+                                                      color: tickets[index]
+                                                                  .status ==
+                                                              "New"
+                                                          ? const Color(
+                                                              0xff22B6D0)
+                                                          : tickets[index]
+                                                                      .status ==
+                                                                  "Assigned"
+                                                              ? const Color(
+                                                                  0xff52C41A)
+                                                              : tickets[index]
+                                                                          .status ==
+                                                                      "Acknowledged"
+                                                                  ? const Color(
+                                                                      0xff662C91)
+                                                                  : tickets[index]
+                                                                              .status ==
+                                                                          "In process"
+                                                                      ? const Color(
+                                                                          0xffFFA500)
+                                                                      : tickets[index].status ==
+                                                                              "Completed"
+                                                                          ? const Color(
+                                                                              0xff0DA12E)
+                                                                          : tickets[index].status == "On Hold"
+                                                                              ? const Color(0xff007CBE)
+                                                                              : tickets[index].status == "Closed"
+                                                                                  ? const Color(0xff15182E)
+                                                                                  : tickets[index].status == "Cancelled"
+                                                                                      ? const Color(0xffD92F1B)
+                                                                                      : Colors.black,
+                                                      fontFamily: 'Poppins',
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              // SizedBox(
+                                              //     height: 24,
+                                              //     width: 24,
+                                              //     child: Image(
+                                              //         image: AssetImage(tickets[
+                                              //                         index]
+                                              //                     .priority ==
+                                              //                 "High"
+                                              //             ? "assets/highpriority.png"
+                                              //             : tickets[index]
+                                              //                         .priority ==
+                                              //                     "Medium"
+                                              //                 ? 'assets/medpriority.png'
+                                              //                 : 'assets/lowpriority.png'))),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8.0,
-                                            right: 8.0,
-                                            top: 5.0,
-                                            bottom: 5.0),
-                                        child: Text(
-                                         tickets[index].status,
-                                         style: TextStyle(
-                                           fontSize: 12.0,
-                                           color: tickets[index].status ==
-                                                   "New"
-                                               ? const Color(0xff22B6D0)
-                                               : tickets[index].status ==
-                                                       "Assigned"
-                                                   ? const Color(0xff52C41A)
-                                                   : tickets[index].status ==
-                                                           "Acknowledged"
-                                                       ? const Color(0xff662C91)
-                                                       : tickets[index]
-                                                                   .status ==
-                                                               "In process"
-                                                           ? const Color(
-                                                               0xffFFA500)
-                                                           : tickets[index]
-                                                                       .status ==
-                                                                   "Completed"
-                                                               ? const Color(
-                                                                   0xff0DA12E)
-                                                               : tickets[index]
-                                                                           .status ==
-                                                                       "On Hold"
-                                                                   ? const Color(
-                                                                       0xff007CBE)
-                                                                   : tickets[index].status ==
-                                                                           "Closed"
-                                                                       ? const Color(
-                                                                           0xff15182E)
-                                                                       : tickets[index].status == "Cancelled"
-                                                                           ? const Color(0xffD92F1B)
-                                                                           : Colors.black,
-                                           fontFamily: 'Poppins',
-                                         ),
-                                        ),
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            "Customer Name  :  ",
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colours.ksubheadertext,
+                                              fontFamily: 'poppins',
+                                            ),
+                                          ),
+                                          Text(
+                                            tickets[index]
+                                                .assignedTo
+                                                .toUpperCase(),
+                                            style: const TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colours.kheadertext,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'poppins',
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                      const SizedBox(
+                                        height: 6.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text("Raised By   :  ",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 14,
+                                                  color:
+                                                      Colours.ksubheadertext)),
+                                          Text(tickets[index].raisedBy,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colours.kheadertext)),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 6.0,
+                                      ),
+                                      Text(tickets[index].title,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colours.kheadertext)),
+                                    ],
+                                  ),
+                                ),
+                                collapsed: Text(
+                                  "More details",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 10, color: Colours.kheadertext),
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                expanded: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    const SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    const Divider(
+                                      thickness: 1,
+                                      color: Color(0xffCCCCCC),
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      height: 4.0,
                                     ),
-                                    SizedBox(
-                                        height: 24,
-                                        width: 24,
-                                        child: Image(
-                                            image: AssetImage(tickets[index]
-                                                        .priority ==
-                                                    "High"
-                                                ? "assets/highpriority.png"
-                                                : tickets[index].priority ==
-                                                        "Medium"
-                                                    ? 'assets/medpriority.png'
-                                                    : 'assets/lowpriority.png'))),
+                                    Row(
+                                      children: [
+                                        Text("Assigned To   :   ",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                color: Colours.ksubheadertext)),
+                                        Text(tickets[index].assignedTo,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Days Open   :   ",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                color: Colours.ksubheadertext)),
+                                        Text(tickets[index].daysOpen,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Created   :   ",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                color: Colours.ksubheadertext)),
+                                        Text(tickets[index].dateTime,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Closed   :   ",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                color: Colours.ksubheadertext)),
+                                        Text(tickets[index].dateTime,
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    const Divider(
+                                      height: 2.0,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Category",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              color: Colours.kheadertext,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Text(tickets[index].category,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            color: Colours.kheadertext)),
+                                    const SizedBox(
+                                      height: 6.0,
+                                    ),
+                                    CustomButton(
+                                        text: "View Details",
+                                        textColor: Colors.white,
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const TicketTabView()),
+                                          );
+                                        },
+                                        color: Colours.kbuttonpurple,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                                    const SizedBox(
+                                      height: 4.0,
+                                    ),
                                   ],
                                 ),
-                              ],
+                                builder: (_, collapsed, expanded) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
+                                    child: Expandable(
+                                      collapsed: collapsed,
+                                      expanded: expanded,
+                                      theme: const ExpandableThemeData(
+                                          crossFadePoint: 0.7),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                            Row(
-                              children: [
-                              
-                                const Text(
-                                  "Customer Name  :  ",
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colours.ksubheadertext,
-                                    fontFamily: 'poppins',
-                                  ),
-                                ),
-                                Text(
-                                  tickets[index].assignedTo.toUpperCase(),
-                                  style: const
-                                   TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colours.kheadertext,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'poppins',
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 6.0,
-                            ),
-                            Row(
-                              children: [
-                         
-                           Text("Raised By   :  ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
-                        
-                          Text(tickets[index].raisedBy,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colours.kheadertext) ),
-                         
-                                
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 6.0,
-                            ),
-                          Text(tickets[index].title,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colours.kheadertext) ),
-                            
                           ],
                         ),
                       ),
-                      collapsed: Text("More details",style:  GoogleFonts.poppins(fontSize: 10, color: Colours.kheadertext), softWrap: true,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,),
-                        
-                     
-                      expanded: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                          const Divider(
-                            thickness: 1,
-                            color: Color(0xffCCCCCC),
-                          ),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                          Row(
-                            children: [
-                              Text("Assigned To   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
-                             Text(tickets[index].assignedTo,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
-                              
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 6.0,
-                          ),
-                          Row(
-                            children: [
-                               Text("Days Open   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
-                             Text(tickets[index].daysOpen,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
-                            
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 6.0,
-                          ),
-                          Row(
-                            children: [
-                                Text("Created   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
-                             Text(tickets[index].dateTime,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
-                            
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 6.0,
-                          ),
-                          Row(
-                            children: [
-                             Text("Closed   :   ",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.ksubheadertext) ),
-                             Text(tickets[index].dateTime,style:  GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold,color: Colors.black) ),
-                             
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                          const Divider(
-                            height: 2.0,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                           Row(
-                            children: [
-                            Text("Category",style:  GoogleFonts.poppins(fontSize: 14, color: Colours.kheadertext, fontWeight: FontWeight.bold,) ),
-                              
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                          Text(tickets[index].category,style:  GoogleFonts.poppins(fontSize: 14,color: Colours.kheadertext) ),
-                          
-                          const SizedBox(
-                            height: 6.0,
-                          ),
-                          CustomButton(
-                              text: "View Details",
-                              textColor: Colors.white,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TicketTabView()),
-                                );
-                              },
-                              color: Colours.kbuttonpurple,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                        ],
-                      ),
-                      builder: (_, collapsed, expanded) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, bottom: 10),
-                          child: Expandable(
-                            collapsed: collapsed,
-                            expanded: expanded,
-                            theme:
-                                const ExpandableThemeData(crossFadePoint: 0.7),
-                          ),
-                        );
-                      },
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ));
-      },
+                  ));
+                });
+          } else
+            return Container();
+        },
+      ),
     );
   }
 
-                               getTicketsList() {
-                               ApiService apiService = ApiService();
+  getTicketsList() {
+    ApiService apiService = ApiService();
 
-                          apiService.getTicketList(requestModelId).then((value) {
-                            if (value.status == 203) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                            } else if (value.status == 401) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
+    print(requestModelId);
+    inspect(requestModelId);
 
-                            
-                            } else if (value.status == 400) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                            
-                            } else if (value.status == 404) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
+    apiService.getTicketList(requestModelId).then((value) {
+      if (value.status == 203) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      } else if (value.status == 401) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      } else if (value.status == 400) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      } else if (value.status == 404) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      } else if (value.status == 200 || value.status == 201) {
+        showToast("Tickets Show Successfully");
 
-                            
-                            } else if (value.status == 200 ||
-                                value.status == 201) {
-                              showToast("Tickets Show Successfully");
-                              
-                               setState(() {
-                               print( value.data?.currentPage ?? "");
-                                isApiCallProcess = false;
+        setState(() {
+          print(value.data?.currentPage ?? "");
+          isApiCallProcess = false;
+        });
 
-                              });
-
-                  //              Navigator.push(context,
-                  // MaterialPageRoute(builder: (context) =>  OTPScreen(VerificationCode: value.data!.token.toString(),)));
-                            } else {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                            }
-                          });
-}}
+        //              Navigator.push(context,
+        // MaterialPageRoute(builder: (context) =>  OTPScreen(VerificationCode: value.data!.token.toString(),)));
+      } else {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      }
+    });
+  }
+}
