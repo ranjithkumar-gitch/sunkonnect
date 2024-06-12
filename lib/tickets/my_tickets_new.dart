@@ -16,6 +16,7 @@ import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
 import 'package:sunkonnect/widgets/progressbar.dart';
+import 'package:flutter/src/widgets/image.dart' as _image;
 
 class MyTicketsList extends StatefulWidget {
   const MyTicketsList({super.key});
@@ -80,6 +81,7 @@ class _MyTicketsListState extends State<MyTicketsList> {
                   print("now printing my tickts list data");
                   print(myTicketsListData);
                   inspect(myTicketsListData);
+                  
                   return myTicketsListData.isEmpty
                       ? const Column(
                           children: [
@@ -268,20 +270,15 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                             const SizedBox(
                                                               width: 10,
                                                             ),
-                                                            // SizedBox(
-                                                            //     height: 24,
-                                                            //     width: 24,
-                                                            //     child: Image(
-                                                            //         image: AssetImage(tickets[
-                                                            //                         index]
-                                                            //                     .priority ==
-                                                            //                 "High"
-                                                            //             ? "assets/highpriority.png"
-                                                            //             : tickets[index]
-                                                            //                         .priority ==
-                                                            //                     "Medium"
-                                                            //                 ? 'assets/medpriority.png'
-                                                            //                 : 'assets/lowpriority.png'))),
+                                                            SizedBox(
+                                                                height: 24,
+                                                                width: 24,
+                                                                child: _image.Image(
+                                                                    image: AssetImage(myTicketsListData[index]!.severity.toString() == "High"
+                                                                        ? "assets/highpriority.png"
+                                                                        : myTicketsListData[index]!.severity.toString() == "Medium"
+                                                                            ? 'assets/medpriority.png'
+                                                                            : 'assets/lowpriority.png'))),
                                                           ],
                                                         ),
                                                       ],
