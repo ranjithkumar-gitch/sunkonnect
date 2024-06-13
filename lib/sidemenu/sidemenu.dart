@@ -69,12 +69,12 @@ class _SideMenuState extends State<SideMenu> {
           ),
           ListTile(
             leading: const Icon(
-              Icons.settings,
+              Icons.email,
               color: Colors.black,
               size: 20,
             ),
             title: const CustomText(
-                text: 'Account Settings',
+                text: 'Email Preferences',
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
                 textcolor: Colors.black),

@@ -58,6 +58,7 @@ class _ResetpasswardState extends State<Resetpassward> {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
+      // appBar: AppBar(backgroundColor: Colors.orange,),
       body: Stack(
         children: [
           Container(
@@ -335,14 +336,25 @@ class _ResetpasswardState extends State<Resetpassward> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colours.kbuttonpurple),
                               child: const Text(
-                                "Create",
+                                "Change Password",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                               onPressed: () async {
+                                if (_passwprdonecontroller.text.isEmpty ||
+                       _passwprdtwocontroller.text.isEmpty) {
+                        
+                         ScaffoldMessenger.of(context).showSnackBar(
+                       const SnackBar(
+                       content: Text('Please fill the mandatory fields'),
+                            ),
+                            );
+                      return;
+                         }
+                    
                                 if (_pass.length >= 8 &&
                                     _pass.length <= 15 &&
                                     _pass.contains(RegExp(r'[A-Z]')) &&
@@ -393,8 +405,13 @@ class _ResetpasswardState extends State<Resetpassward> {
                                         setState(() {
                                           isApiCallProcess = false;
                                         });
-
-                                        ;
+                                         ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                       content: Text('UserId Not Matched With Records'),
+                                        ),
+                                        );
+                                      
+                                      
                                       } else if (value.status == 200 ||
                                           value.status == 201) {
                                         showToast(
