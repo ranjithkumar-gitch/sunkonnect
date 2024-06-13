@@ -81,7 +81,7 @@ class _MyTicketsListState extends State<MyTicketsList> {
                   print("now printing my tickts list data");
                   print(myTicketsListData);
                   inspect(myTicketsListData);
-                  
+
                   return myTicketsListData.isEmpty
                       ? const Column(
                           children: [
@@ -283,63 +283,86 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                         ),
                                                       ],
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        const Text(
-                                                          "Customer Name  :  ",
-                                                          style: TextStyle(
-                                                            fontSize: 14.0,
-                                                            color: Colours
-                                                                .ksubheadertext,
-                                                            fontFamily:
-                                                                'poppins',
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          myTicketsListData[
-                                                                  index]!
-                                                              .customerId!
-                                                              .customerName
-                                                              .toString(),
+                                                    RichText(
+                                                      text: TextSpan(
                                                           style:
                                                               const TextStyle(
-                                                            fontSize: 14.0,
-                                                            color: Colours
-                                                                .kheadertext,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontFamily:
-                                                                'poppins',
-                                                          ),
-                                                        ),
-                                                      ],
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 32),
+                                                          children: [
+                                                            const TextSpan(
+                                                              text:
+                                                                  "Customer Name  :  ",
+                                                              style: TextStyle(
+                                                                fontSize: 14.0,
+                                                                color: Colours
+                                                                    .ksubheadertext,
+                                                                fontFamily:
+                                                                    'poppins',
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: myTicketsListData[
+                                                                      index]!
+                                                                  .customerId!
+                                                                  .customerName
+                                                                  .toString(),
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 14.0,
+                                                                color: Colours
+                                                                    .kheadertext,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontFamily:
+                                                                    'poppins',
+                                                              ),
+                                                            )
+                                                          ]),
                                                     ),
                                                     const SizedBox(
                                                       height: 6.0,
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Text("Raised By   :  ",
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                                    fontSize:
-                                                                        14,
-                                                                    color: Colours
-                                                                        .ksubheadertext)),
-                                                        Text(
-                                                            myTicketsListData[
-                                                                    index]!
-                                                                .raisebyObjectId!
-                                                                .name
-                                                                .toString(),
-                                                            style: GoogleFonts.poppins(
-                                                                fontSize: 14,
+                                                    RichText(
+                                                      text: TextSpan(
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 32),
+                                                          children: [
+                                                            const TextSpan(
+                                                              text:
+                                                                  "Raised By  :  ",
+                                                              style: TextStyle(
+                                                                fontSize: 14.0,
+                                                                color: Colours
+                                                                    .ksubheadertext,
+                                                                fontFamily:
+                                                                    'poppins',
+                                                              ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: myTicketsListData[
+                                                                      index]!
+                                                                  .raisebyObjectId!
+                                                                  .name
+                                                                  .toString(),
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 14.0,
+                                                                color: Colours
+                                                                    .kheadertext,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                color: Colours
-                                                                    .kheadertext)),
-                                                      ],
+                                                                fontFamily:
+                                                                    'poppins',
+                                                              ),
+                                                            )
+                                                          ]),
                                                     ),
                                                     const SizedBox(
                                                       height: 6.0,
