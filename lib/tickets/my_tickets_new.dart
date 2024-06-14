@@ -55,15 +55,13 @@ class _MyTicketsListState extends State<MyTicketsList> {
     );
   }
 
-    String formatDate(String date) {
-   
+  String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
 
     DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
 
-    
     return formatter.format(dateTime);
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -295,20 +293,23 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                       ],
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets.only(top: 10),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 10),
                                                       child: RichText(
                                                         text: TextSpan(
-                                                            style:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize: 32),
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 32),
                                                             children: [
                                                               const TextSpan(
                                                                 text:
                                                                     "Customer Name  :  ",
-                                                                style: TextStyle(
-                                                                  fontSize: 14.0,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
                                                                   color: Colours
                                                                       .ksubheadertext,
                                                                   fontFamily:
@@ -323,7 +324,8 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                     .toString(),
                                                                 style:
                                                                     const TextStyle(
-                                                                  fontSize: 14.0,
+                                                                  fontSize:
+                                                                      14.0,
                                                                   color: Colours
                                                                       .kheadertext,
                                                                   fontWeight:
@@ -418,50 +420,46 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                   const SizedBox(
                                                     height: 4.0,
                                                   ),
-
                                                   RichText(
-                                                      text: const TextSpan(
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 32),
-                                                          children: [
-                                                            const TextSpan(
-                                                              text:
-                                                                  "Assigned To   :   ",
-                                                              style: TextStyle(
-                                                                fontSize: 14.0,
-                                                                color: Colours
-                                                                    .ksubheadertext,
-                                                                fontFamily:
-                                                                    'poppins',
-                                                              ),
+                                                    text: const TextSpan(
+                                                        style: const TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 32),
+                                                        children: [
+                                                          const TextSpan(
+                                                            text:
+                                                                "Assigned To   :   ",
+                                                            style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              color: Colours
+                                                                  .ksubheadertext,
+                                                              fontFamily:
+                                                                  'poppins',
                                                             ),
-                                                            TextSpan(
-                                                              text: '',
+                                                          ),
+                                                          TextSpan(
+                                                            text: '',
 
-                                                              // myTicketsListData[
-                                                              //     index]!
-                                                              // .assignedtoObjectId!
-                                                              // .name
-                                                              // .toString(),
-                                                          
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 14.0,
-                                                                color: Colours
-                                                                    .kheadertext,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontFamily:
-                                                                    'poppins',
-                                                              ),
-                                                            )
-                                                          ]),
-                                                    ),
-                                                 
+                                                            // myTicketsListData[
+                                                            //     index]!
+                                                            // .assignedtoObjectId!
+                                                            // .name
+                                                            // .toString(),
+
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 14.0,
+                                                              color: Colours
+                                                                  .kheadertext,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontFamily:
+                                                                  'poppins',
+                                                            ),
+                                                          )
+                                                        ]),
+                                                  ),
                                                   const SizedBox(
                                                     height: 6.0,
                                                   ),
@@ -492,75 +490,69 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                     height: 6.0,
                                                   ),
                                                   RichText(
-                                                      text:  TextSpan(
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 32),
-                                                          children: [
-                                                            const TextSpan(
-                                                              text:
-                                                                  "Created   :   ",
-                                                              style: TextStyle(
-                                                                fontSize: 14.0,
-                                                                color: Colours
-                                                                    .ksubheadertext,
-                                                                fontFamily:
-                                                                    'poppins',
-                                                              ),
+                                                    text: TextSpan(
+                                                        style: const TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 32),
+                                                        children: [
+                                                          const TextSpan(
+                                                            text:
+                                                                "Created   :   ",
+                                                            style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              color: Colours
+                                                                  .ksubheadertext,
+                                                              fontFamily:
+                                                                  'poppins',
                                                             ),
-                                                            TextSpan(
-                                                              text: formatDate(myTicketsListData[index]!.createdAt.toString()),
-                                                          style: GoogleFonts
-                                                              .poppins(
+                                                          ),
+                                                          TextSpan(
+                                                              text: formatDate(
+                                                                  myTicketsListData[
+                                                                          index]!
+                                                                      .createdAt
+                                                                      .toString()),
+                                                              style: GoogleFonts.poppins(
                                                                   fontSize: 14,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
                                                                   color: Colors
-                                                                      .black)
-                                                            )
-                                                          ]),
-                                                    ),
-                                                  
+                                                                      .black))
+                                                        ]),
+                                                  ),
                                                   const SizedBox(
                                                     height: 6.0,
                                                   ),
-
-                                                   RichText(
-                                                      text:  TextSpan(
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize: 32),
-                                                          children: [
-                                                            const TextSpan(
-                                                              text:
-                                                                  "Closed   :    ",
-                                                              style: TextStyle(
-                                                                fontSize: 14.0,
-                                                                color: Colours
-                                                                    .ksubheadertext,
-                                                                fontFamily:
-                                                                    'poppins',
-                                                              ),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                        style: const TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 32),
+                                                        children: [
+                                                          const TextSpan(
+                                                            text:
+                                                                "Closed   :    ",
+                                                            style: TextStyle(
+                                                              fontSize: 14.0,
+                                                              color: Colours
+                                                                  .ksubheadertext,
+                                                              fontFamily:
+                                                                  'poppins',
                                                             ),
-                                                            TextSpan(
-                                                             text: "need to fix",
-                                                          style: GoogleFonts
-                                                              .poppins(
+                                                          ),
+                                                          TextSpan(
+                                                              text:
+                                                                  "need to fix",
+                                                              style: GoogleFonts.poppins(
                                                                   fontSize: 14,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
                                                                   color: Colors
                                                                       .black)),
-                                                          
-                                                          ]),
-                                                    ),
-                                                  
+                                                        ]),
+                                                  ),
                                                   const SizedBox(
                                                     height: 4.0,
                                                   ),
@@ -602,11 +594,19 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                       text: "View Details",
                                                       textColor: Colors.white,
                                                       onPressed: () {
+                                                        setState(() {
+                                                          SharedPrefServices
+                                                              .setTicketId(
+                                                                  myTicketsListData[
+                                                                          index]!
+                                                                      .ticketId!
+                                                                      .toString());
+                                                        });
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  const TicketTabView()),
+                                                                  TicketTabView()),
                                                         );
                                                       },
                                                       color:

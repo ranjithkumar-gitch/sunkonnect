@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
+import 'package:sunkonnect/loginflow/model/verifyemail_response_model.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/constant.dart';
 import 'package:sunkonnect/loginflow/model/change_password_response_model.dart';
@@ -55,6 +56,44 @@ class ApiService {
     // return userloginfailureresponseFromJson(response.body);
 
     print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+  // verify email
+  Future<dynamic> verifyEmail(String email) async {
+    String url = "${AppConstant.sunkonnectDevUrl}login/get-login-data/$email";
+    print(url);
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+      );
+
+      print("response.body secretCode ${response.body}");
+      print("response.body statusCode ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return verifyEmailresponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return verifyEmailresponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return verifyEmailresponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return verifyEmailresponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return verifyEmailresponseModelFromJson(response.body);
+      } else
+        return verifyEmailresponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
 
     throw Exception('Failed to load Data');
   }

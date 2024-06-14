@@ -64,7 +64,9 @@ class HttpClient {
     return responseJson;
   }
 
-  Future<dynamic> get(String path, {Map<String, String>? params}) async {
+  Future<dynamic> get(String path,
+      {Map<String, String>? params,
+      required Map<String, String> headers}) async {
     var baseUrl = AppConstant.sunkonnectDevUrl + path;
     dynamic responseJson;
 

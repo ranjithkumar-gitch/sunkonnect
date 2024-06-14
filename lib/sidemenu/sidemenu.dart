@@ -165,6 +165,8 @@ class _SideMenuState extends State<SideMenu> {
                             SizedBox(
                                 child: ElevatedButton(
                                     onPressed: () {
+                                      SharedPrefServices
+                                          .clearUserFromSharedPrefs();
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

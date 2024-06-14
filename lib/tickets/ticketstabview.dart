@@ -9,7 +9,7 @@ import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class TicketTabView extends StatefulWidget {
-  const TicketTabView({super.key});
+  // const TicketTabView(, {super.key});
 
   @override
   State<TicketTabView> createState() => _TicketTabViewState();
@@ -57,12 +57,13 @@ class _TicketTabViewState extends State<TicketTabView>
                           )
                         ]),
                     Expanded(
-                        child:  TabBarView(controller: tabController, 
-                        children: const[
-                       TicketDetailsScreen(),
-                       MessageLogScreen(),
-                       TicketLogScreen()
-                    ]))
+                        child: TabBarView(
+                            controller: tabController,
+                            children: const [
+                          TicketDetailsScreen(),
+                          MessageLogScreen(),
+                          TicketLogScreen()
+                        ]))
                   ])),
         ));
   }
