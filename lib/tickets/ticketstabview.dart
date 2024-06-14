@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/ticketdetailsscreen.dart';
 import 'package:sunkonnect/tickets/messagelogscreen.dart';
 import 'package:sunkonnect/tickets/ticketlogscreen.dart';
@@ -23,7 +24,8 @@ class _TicketTabViewState extends State<TicketTabView>
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: const CustomAppbar(title: 'TICK-431'),
+        appBar:
+            CustomAppbar(title: SharedPrefServices.getTicketId().toString()),
         body: SafeArea(
           child: Container(
               margin: const EdgeInsets.only(right: 10, left: 10),
