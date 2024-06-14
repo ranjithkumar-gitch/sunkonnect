@@ -7,7 +7,7 @@ import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 
 import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
-import 'package:sunkonnect/providers/slected_my_ticket_provider.dart';
+import 'package:sunkonnect/providers/selected_my_ticket_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -62,7 +62,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
             Selector<SelectedMyticketsProvider,
                 ApiResponse<SelectedticketResponseModel>?>(
               selector: (_, apiResponse) =>
-                  apiResponse.selectedticketresponcemodel,
+                  apiResponse.selectedticketResponseModel,
               builder: (_, instance, __) {
                 if (instance?.status == Status.error) {
                   return FittedBox(

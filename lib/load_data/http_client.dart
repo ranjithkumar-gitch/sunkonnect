@@ -65,21 +65,18 @@ class HttpClient {
   }
 
   Future<dynamic> get(String path,
-      {Map<String, String>? params,
-      required Map<String, String> headers}) async {
+      {Map<String, String>? params, Map<String, String>? headers}) async {
     var baseUrl = AppConstant.sunkonnectDevUrl + path;
     dynamic responseJson;
 
-    // var header = {
-    //   // "Content-Type": "application/json",
-    //   'Authorization': SharedPrefServices.getjwtVerifiertoken().toString(),
-    // };
+    var header = {
+      // "Content-Type": "application/json",
+      'Authorization': SharedPrefServices.getaccessToken().toString(),
+    };
     printL("baseUrl:- $baseUrl");
     // printL("header:- $header");
     try {
-      final response = await http.get(
-        Uri.parse(baseUrl),
-      );
+      final response = await http.get(Uri.parse(baseUrl), headers: header);
       //  headers: header);
       printL(response.body.toString());
       printL("response.statusCode.toString()");

@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final SelectedticketResponseModel = SelectedticketResponseModelFromJson(jsonString);
+//     final selectedticketResponseModel = selectedticketResponseModelFromJson(jsonString);
 
 import 'dart:convert';
 
-SelectedticketResponseModel SelectedticketResponseModelFromJson(String str) =>
+SelectedticketResponseModel selectedticketResponseModelFromJson(String str) =>
     SelectedticketResponseModel.fromJson(json.decode(str));
 
-String SelectedticketResponseModelToJson(SelectedticketResponseModel data) =>
+String selectedticketResponseModelToJson(SelectedticketResponseModel data) =>
     json.encode(data.toJson());
 
 class SelectedticketResponseModel {
@@ -50,6 +50,7 @@ class Datum {
   final String? accountCode;
   final String? projectCode;
   final RaisebyObjectId? raisebyObjectId;
+  final String? assignedtoObjectId;
   final String? customerId;
   final String? companyId;
   final String? branchObjectId;
@@ -66,10 +67,6 @@ class Datum {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
-  final dynamic assignedtoObjectId;
-  final String? endDate;
-  final String? modifiedBy;
-  final String? endDateutcTimeZone;
 
   Datum({
     this.id,
@@ -78,6 +75,7 @@ class Datum {
     this.accountCode,
     this.projectCode,
     this.raisebyObjectId,
+    this.assignedtoObjectId,
     this.customerId,
     this.companyId,
     this.branchObjectId,
@@ -94,10 +92,6 @@ class Datum {
     this.createdAt,
     this.updatedAt,
     this.v,
-    this.assignedtoObjectId,
-    this.endDate,
-    this.modifiedBy,
-    this.endDateutcTimeZone,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -109,6 +103,7 @@ class Datum {
         raisebyObjectId: json["raisebyObjectId"] == null
             ? null
             : RaisebyObjectId.fromJson(json["raisebyObjectId"]),
+        assignedtoObjectId: json["assignedtoObjectId"],
         customerId: json["customerId"],
         companyId: json["companyId"],
         branchObjectId: json["branchObjectId"],
@@ -133,10 +128,6 @@ class Datum {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        assignedtoObjectId: json["assignedtoObjectId"],
-        endDate: json["endDate"],
-        modifiedBy: json["modifiedBy"],
-        endDateutcTimeZone: json["endDateutcTimeZone"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -146,6 +137,7 @@ class Datum {
         "AccountCode": accountCode,
         "projectCode": projectCode,
         "raisebyObjectId": raisebyObjectId?.toJson(),
+        "assignedtoObjectId": assignedtoObjectId,
         "customerId": customerId,
         "companyId": companyId,
         "branchObjectId": branchObjectId,
@@ -164,34 +156,22 @@ class Datum {
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
-        "assignedtoObjectId": assignedtoObjectId,
-        "endDate": endDate,
-        "modifiedBy": modifiedBy,
-        "endDateutcTimeZone": endDateutcTimeZone,
       };
 }
 
 class Image {
-  final String? fileName;
   final String? fileUrl;
-  final String? extension;
 
   Image({
-    this.fileName,
     this.fileUrl,
-    this.extension,
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
-        fileName: json["fileName"],
         fileUrl: json["fileUrl"],
-        extension: json["extension"],
       );
 
   Map<String, dynamic> toJson() => {
-        "fileName": fileName,
         "fileUrl": fileUrl,
-        "extension": extension,
       };
 }
 
