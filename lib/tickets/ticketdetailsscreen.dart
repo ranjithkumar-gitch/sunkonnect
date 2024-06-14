@@ -1,14 +1,11 @@
 import 'dart:developer';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 
 import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
-import 'package:sunkonnect/providers/selected_my_ticket_provider.dart';
-import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
@@ -52,14 +49,14 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var selectedMyticketsProvider = context.watch<SelectedMyticketsProvider>();
+    var selectedMyticketsProvider = context.watch<MyTicketsListProvider>();
 
     selectedMyticketsProvider.selectedmytickets();
     return SizedBox(
       child: Scaffold(
           key: scaffoldKey,
           body: Column(children: [
-            Selector<SelectedMyticketsProvider,
+            Selector<MyTicketsListProvider,
                 ApiResponse<SelectedticketResponseModel>?>(
               selector: (_, apiResponse) =>
                   apiResponse.selectedticketResponseModel,

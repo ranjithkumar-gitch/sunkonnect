@@ -8,15 +8,12 @@ import 'package:provider/provider.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
-import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
-import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
-import 'package:sunkonnect/widgets/progressbar.dart';
 import 'package:flutter/src/widgets/image.dart' as _image;
 
 class MyTicketsList extends StatefulWidget {
@@ -595,6 +592,9 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                       textColor: Colors.white,
                                                       onPressed: () {
                                                         setState(() {
+                                                          myTicketsListProvider
+                                                              .clearSelectedTicketDetails();
+
                                                           SharedPrefServices
                                                               .setTicketId(
                                                                   myTicketsListData[
