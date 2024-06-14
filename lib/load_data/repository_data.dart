@@ -14,7 +14,7 @@ class RepositoryData {
   }
 
   Future<SelectedticketResponseModel> selectedMyticket() async {
-    String url = "Ticket/patch-ticketInfo/${SharedPrefServices.getTicketId()}";
+    String url = "Ticket/get-ticket-info/${SharedPrefServices.getTicketId()}";
     print("uday get tkt url $url");
     print(
         "uday get tkt acccesstkn ${SharedPrefServices.getaccessToken().toString()}");

@@ -50,10 +50,9 @@ class Datum {
   final String? accountCode;
   final String? projectCode;
   final RaisebyObjectId? raisebyObjectId;
-  final String? assignedtoObjectId;
-  final String? customerId;
-  final String? companyId;
-  final String? branchObjectId;
+  final CustomerId? customerId;
+  final CompanyId? companyId;
+  final BranchObjectId? branchObjectId;
   final String? description;
   final DateTime? requestedBy;
   final int? daysOpen;
@@ -67,6 +66,10 @@ class Datum {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
+  final dynamic assignedtoObjectId;
+  final String? endDate;
+  final String? modifiedBy;
+  final String? endDateutcTimeZone;
 
   Datum({
     this.id,
@@ -75,7 +78,6 @@ class Datum {
     this.accountCode,
     this.projectCode,
     this.raisebyObjectId,
-    this.assignedtoObjectId,
     this.customerId,
     this.companyId,
     this.branchObjectId,
@@ -92,6 +94,10 @@ class Datum {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.assignedtoObjectId,
+    this.endDate,
+    this.modifiedBy,
+    this.endDateutcTimeZone,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -103,10 +109,15 @@ class Datum {
         raisebyObjectId: json["raisebyObjectId"] == null
             ? null
             : RaisebyObjectId.fromJson(json["raisebyObjectId"]),
-        assignedtoObjectId: json["assignedtoObjectId"],
-        customerId: json["customerId"],
-        companyId: json["companyId"],
-        branchObjectId: json["branchObjectId"],
+        customerId: json["customerId"] == null
+            ? null
+            : CustomerId.fromJson(json["customerId"]),
+        companyId: json["companyId"] == null
+            ? null
+            : CompanyId.fromJson(json["companyId"]),
+        branchObjectId: json["branchObjectId"] == null
+            ? null
+            : BranchObjectId.fromJson(json["branchObjectId"]),
         description: json["description"],
         requestedBy: json["requestedBY"] == null
             ? null
@@ -128,6 +139,10 @@ class Datum {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        assignedtoObjectId: json["assignedtoObjectId"],
+        endDate: json["endDate"],
+        modifiedBy: json["modifiedBy"],
+        endDateutcTimeZone: json["endDateutcTimeZone"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -137,10 +152,9 @@ class Datum {
         "AccountCode": accountCode,
         "projectCode": projectCode,
         "raisebyObjectId": raisebyObjectId?.toJson(),
-        "assignedtoObjectId": assignedtoObjectId,
-        "customerId": customerId,
-        "companyId": companyId,
-        "branchObjectId": branchObjectId,
+        "customerId": customerId?.toJson(),
+        "companyId": companyId?.toJson(),
+        "branchObjectId": branchObjectId?.toJson(),
         "description": description,
         "requestedBY": requestedBy?.toIso8601String(),
         "daysOpen": daysOpen,
@@ -156,22 +170,94 @@ class Datum {
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
+        "assignedtoObjectId": assignedtoObjectId,
+        "endDate": endDate,
+        "modifiedBy": modifiedBy,
+        "endDateutcTimeZone": endDateutcTimeZone,
+      };
+}
+
+class BranchObjectId {
+  final String? id;
+  final String? branchName;
+
+  BranchObjectId({
+    this.id,
+    this.branchName,
+  });
+
+  factory BranchObjectId.fromJson(Map<String, dynamic> json) => BranchObjectId(
+        id: json["_id"],
+        branchName: json["branchName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "branchName": branchName,
+      };
+}
+
+class CompanyId {
+  final String? id;
+  final String? companyName;
+
+  CompanyId({
+    this.id,
+    this.companyName,
+  });
+
+  factory CompanyId.fromJson(Map<String, dynamic> json) => CompanyId(
+        id: json["_id"],
+        companyName: json["companyName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "companyName": companyName,
+      };
+}
+
+class CustomerId {
+  final String? id;
+  final String? customerName;
+
+  CustomerId({
+    this.id,
+    this.customerName,
+  });
+
+  factory CustomerId.fromJson(Map<String, dynamic> json) => CustomerId(
+        id: json["_id"],
+        customerName: json["customerName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "customerName": customerName,
       };
 }
 
 class Image {
+  final String? fileName;
   final String? fileUrl;
+  final String? extension;
 
   Image({
+    this.fileName,
     this.fileUrl,
+    this.extension,
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
+        fileName: json["fileName"],
         fileUrl: json["fileUrl"],
+        extension: json["extension"],
       );
 
   Map<String, dynamic> toJson() => {
+        "fileName": fileName,
         "fileUrl": fileUrl,
+        "extension": extension,
       };
 }
 

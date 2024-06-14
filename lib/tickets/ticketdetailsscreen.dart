@@ -140,10 +140,16 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    const Expanded(
+                                                    Expanded(
                                                         child: ContentCard(
-                                                            title: 'Company',
-                                                            content: 'SunKpo')),
+                                                      title: 'Company',
+                                                      content:
+                                                          selectedmyticketview[
+                                                                  0]!
+                                                              .companyId!
+                                                              .companyName
+                                                              .toString(),
+                                                    )),
                                                     SizedBox(
                                                       height: 40,
                                                       width: 110,
@@ -232,13 +238,22 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                     ),
                                                   ],
                                                 ),
-                                                const ContentCard(
-                                                    title: 'Customer',
-                                                    content: 'REXEL USA '),
-                                                const ContentCard(
-                                                    title: 'Branch Name',
-                                                    content:
-                                                        'Rexel-Santa-Clara '),
+                                                ContentCard(
+                                                  title: 'Customer',
+                                                  content:
+                                                      selectedmyticketview[0]!
+                                                          .customerId!
+                                                          .customerName
+                                                          .toString(),
+                                                ),
+                                                ContentCard(
+                                                  title: 'Branch Name',
+                                                  content:
+                                                      selectedmyticketview[0]!
+                                                          .branchObjectId!
+                                                          .branchName
+                                                          .toString(),
+                                                ),
                                                 ContentCard(
                                                   title: 'Created On',
                                                   content:
@@ -246,9 +261,13 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                           .createdAt!
                                                           .toString(),
                                                 ),
-                                                const ContentCard(
-                                                    title: 'Requested By',
-                                                    content: '31-05-2024 '),
+                                                ContentCard(
+                                                  title: 'Requested By',
+                                                  content:
+                                                      selectedmyticketview[0]!
+                                                          .requestedBy
+                                                          .toString(),
+                                                ),
                                                 ContentCard(
                                                   title: 'Title',
                                                   content:
@@ -561,14 +580,17 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 left: 10,
                                                 top: 10,
                                                 bottom: 10),
-                                            child: const Column(
+                                            child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 ContentCard(
-                                                    title: 'Date Closed',
-                                                    content:
-                                                        '11-05-2024, 4:30'),
+                                                  title: 'Date Closed',
+                                                  content:
+                                                      selectedmyticketview[0]!
+                                                          .endDate
+                                                          .toString(),
+                                                ),
                                                 CustomText(
                                                     text: 'Message',
                                                     fontSize: 10,
@@ -581,7 +603,9 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 SizedBox(
                                                   child: CustomText(
                                                     text:
-                                                        'This is a sample ticket for demonstration purposes.',
+                                                        selectedmyticketview[0]!
+                                                            .description
+                                                            .toString(),
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w500,
                                                     textcolor:
@@ -598,20 +622,24 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 SizedBox(
                                                   height: 5,
                                                 ),
-                                                CustomText(
-                                                  text:
-                                                      'http://www.example.com/image1.jpg',
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w500,
-                                                  textcolor:
-                                                      Colours.kresponsivetext,
-                                                ),
+                                                // CustomText(
+                                                //   text: selectedmyticketview[0]!
+                                                //       .images![0]
+                                                //       .fileName
+                                                //       .toString(),
+                                                //   fontSize: 13,
+                                                //   fontWeight: FontWeight.w500,
+                                                //   textcolor:
+                                                //       Colours.kresponsivetext,
+                                                // ),
                                                 SizedBox(
                                                   height: 10,
                                                 ),
                                                 CustomText(
-                                                  text:
-                                                      'http://www.example.com/image1.pdf',
+                                                  text: selectedmyticketview[0]!
+                                                      .images![0]
+                                                      .fileName
+                                                      .toString(),
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w500,
                                                   textcolor:
