@@ -22,7 +22,7 @@ class SharedPrefServices {
 
     prefs!.setString('password', '');
     prefs!.setString('passwordtwo', '');
-    prefs!.setBool('true', '' as bool);
+    // prefs!.setBool('true', '' as bool);
   }
 
   //  static void saveLogoutUserInfo(String userFirstName, String userProfileImage) async {
@@ -48,7 +48,7 @@ class SharedPrefServices {
   static const _keyTicketobjId = 'ticketobjId';
   static const _keyDatumTicketId = 'datumticketid';
 
-  static const _keybool = 'true';
+  // static const _keybool = 'true';
 
   static Future init() async => prefs = await SharedPreferences.getInstance();
 
@@ -97,8 +97,8 @@ class SharedPrefServices {
   static Future setisLoggedIn(bool isLoggedIn) async =>
       await prefs!.setBool(_keyisLoggedIn, isLoggedIn);
 
-  static Future setStatus(bool status) async =>
-      await prefs!.setBool(_keybool, status);
+  // static Future setStatus(bool status) async =>
+  //     await prefs!.setBool(_keybool, status);
 
 // getters
   static String? getloginId() => prefs!.getString(_keyloginId);
@@ -118,5 +118,5 @@ class SharedPrefServices {
 
   static bool? getisLoggedIn() => prefs!.getBool(_keyisLoggedIn);
 
-  static bool? getStatus() => prefs!.getBool(_keybool);
+  // static bool? getStatus() => prefs!.getBool(_keybool);
 }

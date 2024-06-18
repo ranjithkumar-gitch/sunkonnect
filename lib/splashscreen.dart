@@ -17,18 +17,17 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
 
-    Timer(
-        const Duration(seconds: 5),
-        () 
-        { setState(() {
-          SharedPrefServices.setStatus(false);
-          SharedPrefServices.setroleCode('company');
-        });
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LoginScreen(),
-            ));} );
+    Timer(const Duration(seconds: 5), () {
+      //   setState(() {
+      //   // SharedPrefServices.setStatus(false);
+      //   // SharedPrefServices.setroleCode('company');
+      // });
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ));
+    });
   }
 
   @override

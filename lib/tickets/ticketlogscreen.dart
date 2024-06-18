@@ -20,12 +20,36 @@ class TicketLogScreen extends StatefulWidget {
 }
 
 class _TicketLogScreenState extends State<TicketLogScreen> {
-  String formatDate(String date) {
+
+  // String formatDate(String date) {
+  //   DateTime dateTime = DateTime.parse(date);
+
+  //   DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
+
+  //   return formatter.format(dateTime);
+  // }
+
+    String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
 
-    DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
-
-    return formatter.format(dateTime);
+    if (difference.inDays > 2) {
+      
+      return DateFormat('MM-dd-yyyy, HH:mm:ss ').format(dateTime);
+    } else if (difference.inDays > 0) {
+    
+      return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
+    } else if (difference.inHours > 0) {
+    
+      return '${difference.inHours} hr${difference.inHours > 1 ? 's' : ''} ago';
+    } else if (difference.inMinutes > 0) {
+      
+      return '${difference.inMinutes} min ago';
+    } else {
+      
+      return 'Just now';
+    }
   }
 
   bool isApiCallProcess = false;
@@ -37,9 +61,10 @@ class _TicketLogScreenState extends State<TicketLogScreen> {
     myTicketsListProvider.getticketlistLog();
     return SizedBox(
       child: Scaffold(
+          backgroundColor: Colors.white,
           key: scaffoldKey,
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             const CustomText(

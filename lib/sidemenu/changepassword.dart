@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
+import 'package:sunkonnect/widgets/customtext.dart';
 
 
 class ChangePassword extends StatefulWidget {
@@ -66,37 +68,39 @@ class _ChangePasswordState extends State<ChangePassword> {
                       height: 10,
                     ),
      
-                    SizedBox(
-                        height: 70,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(12, 12, 10, 15),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(color: Colours.kbordergrey,),
-                              ),
-                              prefixIcon: const Padding(
-                                padding:  EdgeInsets.fromLTRB(12, 10, 10, 10),
-                                child: Icon(
-                                  Icons.email,
-                                  color: Colors.grey,
-                                  size: 18,
-                                ),
-                              ), 
-                      
-                            hintText: "Email",
-                             hintStyle: const TextStyle( fontSize: 13, fontWeight: FontWeight.w400),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                  color: Colours.kbordergrey,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ))),
+                    const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colours.kcardbgColor,
+                      border: Border.all(color: Colours.kbordergrey),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 5),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.email,
+                          color: Colors.grey,
+                          size: 22,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        CustomText(
+                            text: SharedPrefServices.getuserId().toString(),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            textcolor: Colors.black)
+                      ],
+                    ),
+                  ),
+                ),
                   const SizedBox(
-                        height: 10,),
+                        height: 15,),
      
                          Text(' Old Password',style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w500, color: Colours.ksubheadertext, ),),   
                        

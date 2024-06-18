@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:sunkonnect/loginflow/loginpage.dart';
-import 'package:sunkonnect/myprofilepage.dart';
+import 'package:sunkonnect/sidemenu/myprofilepage.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/sidemenu/accountsettings.dart';
 import 'package:sunkonnect/sidemenu/changepassword.dart';

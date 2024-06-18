@@ -127,8 +127,8 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                   ),
                                   child: Container(
                                     margin: const EdgeInsets.only(
-                                        right: 10,
-                                        left: 10,
+                                        right: 0,
+                                        left: 0,
                                         top: 10,
                                         bottom: 10),
                                     child: Column(
@@ -353,7 +353,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                               const   SizedBox(
                                                     height: 20,
                                                   ),
                                                 ],
@@ -477,7 +477,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                             .getroleCode()
                                                                         .toString() ==
                                                                     'COMPANY ADMIN'
-                                                            ? Container(
+                                                            ?Container(
                                                                 child: Column(
                                                                   children: [
                                                                     const Row(
@@ -597,17 +597,17 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 ContentCard(
                                                   title: 'Date Closed',
                                                   content:
-                                                      selectedmyticketview[0]!
+                                                     formatDate( selectedmyticketview[0]!
                                                           .endDate
-                                                          .toString(),
+                                                          .toString(),),
                                                 ),
-                                                CustomText(
+                                                const CustomText(
                                                     text: 'Message',
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w400,
                                                     textcolor:
                                                         Colours.ksubheadertext),
-                                                SizedBox(
+                                             const   SizedBox(
                                                   height: 5,
                                                 ),
                                                 SizedBox(
@@ -622,14 +622,14 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                         Colours.kresponsivetext,
                                                   ),
                                                 ),
-                                                SizedBox(height: 10),
-                                                CustomText(
+                                               const SizedBox(height: 10),
+                                               const CustomText(
                                                     text: 'Attachments',
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w400,
                                                     textcolor:
                                                         Colours.ksubheadertext),
-                                                SizedBox(
+                                               const SizedBox(
                                                   height: 5,
                                                 ),
                                                 // CustomText(
@@ -642,7 +642,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 //   textcolor:
                                                 //       Colours.kresponsivetext,
                                                 // ),
-                                                SizedBox(
+                                               const SizedBox(
                                                   height: 10,
                                                 ),
                                                 CustomText(

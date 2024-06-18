@@ -1,12 +1,11 @@
 import 'dart:developer';
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
-
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/addMessage.dart';
@@ -25,6 +24,36 @@ class MessageLogScreen extends StatefulWidget {
 class _MessageLogScreenState extends State<MessageLogScreen> {
   bool isApiCallProcess = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // String formatDate(String date) {
+  //   DateTime dateTime = DateTime.parse(date);
+
+  //   DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
+
+  //   return formatter.format(dateTime);
+  // }
+  String formatDate(String date) {
+    DateTime dateTime = DateTime.parse(date);
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inDays > 2) {
+      
+      return DateFormat('MM-dd-yyyy, HH:mm:ss').format(dateTime);
+    } else if (difference.inDays > 0) {
+    
+      return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
+    } else if (difference.inHours > 0) {
+    
+      return '${difference.inHours} hr${difference.inHours > 1 ? 's' : ''} ago';
+    } else if (difference.inMinutes > 0) {
+      
+      return '${difference.inMinutes} min ago';
+    } else {
+      
+      return 'Just now';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var myTicketsListProvider = context.watch<MyTicketsListProvider>();
@@ -32,9 +61,40 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
     myTicketsListProvider.messageLog();
     return SizedBox(
       child: Scaffold(
+          backgroundColor: Colors.white,
           key: scaffoldKey,
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 15),
+            child: SizedBox(
+              height: 45,
+              width: double.infinity,
+              child: FloatingActionButton.extended(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                elevation: 0,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddMessage()));
+                },
+                label: const CustomText(
+                    text: 'Add Message',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    textcolor: Colours.kwhiteColor),
+                icon: const Icon(
+                  Icons.add,
+                  color: Colours.kwhiteColor,
+                ),
+                backgroundColor: Colours.kbuttonpurple,
+              ),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             const CustomText(
@@ -157,11 +217,11 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                                                             textcolor:
                                                                 Colors.black,
                                                           ),
-                                                          Text(
-                                                            messageloglistdata[
-                                                                    index]!
-                                                                .dateOfLog
-                                                                .toString(),
+                                                          Text(formatDate(
+                                                      messageloglistdata[index]!
+                                                          .dateOfLog
+                                                          .toString(),
+                                                          ),
                                                             style: GoogleFonts
                                                                 .poppins(
                                                                     fontSize:
@@ -223,24 +283,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                                       ),
                                     ),
                                   ),
-                                  //                               floatingActionButton:
-                                  //                               Padding(
-                                  //    padding: const EdgeInsets.only(bottom: 15),
-                                  //    child: SizedBox(
-                                  //     height: 45, width: double.infinity,
-                                  //      child: FloatingActionButton.extended(
-                                  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  //       elevation: 0,
-                                  //           onPressed: () {
-                                  //            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AddMessage()));
-                                  //           },
-                                  //           label: const CustomText(text: 'Add Message', fontSize: 15, fontWeight: FontWeight.w500, textcolor: Colours.kwhiteColor),
-                                  //           icon: const Icon(Icons.add,color: Colours.kwhiteColor,),
-                                  //           backgroundColor: Colours.kbuttonpurple,
-                                  //         ),
-                                  //    ),
-                                  //  ),
-                                  //     floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                                  //
                                 );
                               }),
                         );
