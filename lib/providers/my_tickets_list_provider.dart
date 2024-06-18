@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/load_data/repository_data.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
+import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
 import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
+import 'package:sunkonnect/loginflow/model/view_messagelog_response_model.dart';
 import 'package:sunkonnect/widgets/print_local.dart';
 
 class MyTicketsListProvider extends ChangeNotifier {
@@ -35,7 +37,7 @@ class MyTicketsListProvider extends ChangeNotifier {
     }
   }
 
-  clearReportsDetails() {
+  clearTicketList() {
     _getTicketListResponseModel = null;
     notifyListeners();
   }
@@ -69,6 +71,66 @@ class MyTicketsListProvider extends ChangeNotifier {
 
   clearSelectedTicketDetails() {
     _selectedticketResponseModel = null;
+    notifyListeners();
+  }
+//message log list
+
+  ApiResponse<MessageLogResponseModel>? _messageLogResponseModel;
+  ApiResponse<MessageLogResponseModel>? get messageLogResponseModel =>
+      _messageLogResponseModel;
+  Future<void> messageLog({
+    bool reload = false,
+    String? status,
+  }) async {
+    if (_messageLogResponseModel == null || reload == true) {
+      _messageLogResponseModel = ApiResponse.loading();
+
+      // notifyListeners();
+      try {
+        MessageLogResponseModel data = await _repositoryData.messageLog();
+        _messageLogResponseModel = ApiResponse.completed(data);
+        printL("message log recieved");
+      } catch (e) {
+        printL("loadProfile error $e");
+        _messageLogResponseModel = ApiResponse.error(e.toString());
+        notifyListeners();
+      }
+      notifyListeners();
+    }
+  }
+
+  clearmessagelogDetails() {
+    _messageLogResponseModel = null;
+    notifyListeners();
+  }
+
+  ApiResponse<ViewMessageLogResponseModel>? _viewMessageLogResponseModel;
+  ApiResponse<ViewMessageLogResponseModel>? get viewMessageLogResponseModel =>
+      _viewMessageLogResponseModel;
+  Future<void> viewmessageLog({
+    bool reload = false,
+    String? status,
+  }) async {
+    if (_viewMessageLogResponseModel == null || reload == true) {
+      _viewMessageLogResponseModel = ApiResponse.loading();
+
+      // notifyListeners();
+      try {
+        ViewMessageLogResponseModel data =
+            await _repositoryData.viewMessageLog();
+        _viewMessageLogResponseModel = ApiResponse.completed(data);
+        printL("view message log recieved");
+      } catch (e) {
+        printL("loadProfile error $e");
+        _viewMessageLogResponseModel = ApiResponse.error(e.toString());
+        notifyListeners();
+      }
+      notifyListeners();
+    }
+  }
+
+  clearviewmessagelogDetails() {
+    _viewMessageLogResponseModel = null;
     notifyListeners();
   }
 }

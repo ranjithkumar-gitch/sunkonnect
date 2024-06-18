@@ -45,6 +45,8 @@ class SharedPrefServices {
   static const _keypassword = 'password';
   static const _keypasswordtwo = 'passwordtwo';
   static const _keyTicketId = 'ticketId';
+  static const _keyTicketobjId = 'ticketobjId';
+  static const _keyDatumTicketId = 'datumticketid';
 
   static const _keybool = 'true';
 
@@ -86,6 +88,12 @@ class SharedPrefServices {
   static Future setTicketId(String setTicketId) async =>
       await prefs!.setString(_keyTicketId, setTicketId);
 
+  static Future setTicketobjId(String setTicketobjId) async =>
+      await prefs!.setString(_keyTicketobjId, setTicketobjId);
+
+  static Future setDatumTicketId(String setDatumTicketId) async =>
+      await prefs!.setString(_keyDatumTicketId, setDatumTicketId);
+
   static Future setisLoggedIn(bool isLoggedIn) async =>
       await prefs!.setBool(_keyisLoggedIn, isLoggedIn);
 
@@ -105,6 +113,8 @@ class SharedPrefServices {
   static String? getrefreshToken() => prefs!.getString(_keyrefreshToken);
   static String? getuserObjId() => prefs!.getString(_keyuserObjId);
   static String? getTicketId() => prefs!.getString(_keyTicketId);
+  static String? getTicketobjId() => prefs!.getString(_keyTicketobjId);
+  static String? getDatumTicketId() => prefs!.getString(_keyDatumTicketId);
 
   static bool? getisLoggedIn() => prefs!.getBool(_keyisLoggedIn);
 

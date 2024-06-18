@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
@@ -66,6 +67,7 @@ class _MyTicketsListState extends State<MyTicketsList> {
 
     myTicketsListProvider.loadMyTicketsList(
         requestmodel: requestModelId.toJson());
+
     return SizedBox(
       child: Scaffold(
           key: scaffoldKey,
@@ -163,8 +165,8 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                           fontSize: 14,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          textcolor: Colours
-                                                              .kheadertext,
+                                                          textcolor:
+                                                              Colours.korange,
                                                         ),
                                                         Row(
                                                           children: [
@@ -594,12 +596,20 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                         setState(() {
                                                           myTicketsListProvider
                                                               .clearSelectedTicketDetails();
+                                                          myTicketsListProvider
+                                                              .clearmessagelogDetails();
 
                                                           SharedPrefServices
                                                               .setTicketId(
                                                                   myTicketsListData[
                                                                           index]!
                                                                       .ticketId!
+                                                                      .toString());
+                                                          SharedPrefServices
+                                                              .setTicketobjId(
+                                                                  myTicketsListData[
+                                                                          index]!
+                                                                      .id!
                                                                       .toString());
                                                         });
                                                         Navigator.push(
