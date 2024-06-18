@@ -1,4 +1,5 @@
 import 'package:sunkonnect/load_data/http_client.dart';
+import 'package:sunkonnect/loginflow/model/get_ticket_log_responsemodel.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
 import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
@@ -19,9 +20,7 @@ class RepositoryData {
 
   Future<SelectedticketResponseModel> selectedMyticket() async {
     String url = "Ticket/get-ticket-info/${SharedPrefServices.getTicketId()}";
-    print("uday get tkt url $url");
-    print(
-        "uday get tkt acccesstkn ${SharedPrefServices.getaccessToken().toString()}");
+
     final response = await HttpClient.instance.get(
       url,
     );
@@ -32,9 +31,7 @@ class RepositoryData {
   Future<MessageLogResponseModel> messageLog() async {
     String url =
         "ticketLog/get-message-log-list/${SharedPrefServices.getTicketobjId()}";
-    print("uday get  url $url");
-    print(
-        "uday get tkt acccesstkn ${SharedPrefServices.getaccessToken().toString()}");
+
     final response = await HttpClient.instance.get(
       url,
     );
@@ -45,12 +42,23 @@ class RepositoryData {
   Future<ViewMessageLogResponseModel> viewMessageLog() async {
     String url =
         "ticketLog/patch-message-info/${SharedPrefServices.getDatumTicketId()}";
+
+    final response = await HttpClient.instance.get(
+      url,
+    );
+    return viewMessageLogResponseModelFromJson(response);
+  }
+
+  // ticket log
+  Future<GetticketLogResponseModel> getTicketLog() async {
+    String url =
+        "Ticket/get-email-log-for-tickets/${SharedPrefServices.getTicketId()}";
     print("uday get  url $url");
     print(
         "uday get message acccesstkn ${SharedPrefServices.getaccessToken().toString()}");
     final response = await HttpClient.instance.get(
       url,
     );
-    return viewMessageLogResponseModelFromJson(response);
+    return getticketLogResponseModelFromJson(response);
   }
 }

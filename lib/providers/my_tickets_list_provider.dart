@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/load_data/repository_data.dart';
+import 'package:sunkonnect/loginflow/model/get_ticket_log_responsemodel.dart';
 import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
 import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
@@ -103,6 +104,7 @@ class MyTicketsListProvider extends ChangeNotifier {
     _messageLogResponseModel = null;
     notifyListeners();
   }
+  //view messages
 
   ApiResponse<ViewMessageLogResponseModel>? _viewMessageLogResponseModel;
   ApiResponse<ViewMessageLogResponseModel>? get viewMessageLogResponseModel =>
@@ -131,6 +133,36 @@ class MyTicketsListProvider extends ChangeNotifier {
 
   clearviewmessagelogDetails() {
     _viewMessageLogResponseModel = null;
+    notifyListeners();
+  }
+
+//get ticket log
+  ApiResponse<GetticketLogResponseModel>? _getticketLogResponseModel;
+  ApiResponse<GetticketLogResponseModel>? get getticketLogResponseModel =>
+      _getticketLogResponseModel;
+  Future<void> getticketlistLog({
+    bool reload = false,
+    String? status,
+  }) async {
+    if (_getticketLogResponseModel == null || reload == true) {
+      _getticketLogResponseModel = ApiResponse.loading();
+
+      // notifyListeners();
+      try {
+        GetticketLogResponseModel data = await _repositoryData.getTicketLog();
+        _getticketLogResponseModel = ApiResponse.completed(data);
+        printL("view message log recieved");
+      } catch (e) {
+        printL("loadProfile error $e");
+        _getticketLogResponseModel = ApiResponse.error(e.toString());
+        notifyListeners();
+      }
+      notifyListeners();
+    }
+  }
+
+  clearticketlogDetails() {
+    _getticketLogResponseModel = null;
     notifyListeners();
   }
 }

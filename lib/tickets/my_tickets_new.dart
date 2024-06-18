@@ -598,6 +598,8 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                               .clearSelectedTicketDetails();
                                                           myTicketsListProvider
                                                               .clearmessagelogDetails();
+                                                          myTicketsListProvider
+                                                              .clearticketlogDetails();
 
                                                           SharedPrefServices
                                                               .setTicketId(
