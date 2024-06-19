@@ -77,7 +77,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
         companyId: "",
         createdBy: "",
         customerId: "",
-        daysOpen: "",
+        daysOpen: 0,
         description: "",
         endDate: "",
         images: [],
@@ -216,8 +216,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .assignedtoObjectId =
                                                                     selectedmyticketview[
                                                                             0]!
-                                                                        .assignedtoObjectId!
-                                                                        .toString();
+                                                                        .assignedtoObjectId!;
                                                                 editTicketRequestModel
                                                                         .branchObjectId =
                                                                     selectedmyticketview[
@@ -255,8 +254,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .daysOpen =
                                                                     selectedmyticketview[
                                                                             0]!
-                                                                        .daysOpen!
-                                                                        .toString();
+                                                                        .daysOpen!;
                                                                 editTicketRequestModel
                                                                         .description =
                                                                     selectedmyticketview[
@@ -270,12 +268,10 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .endDate!
                                                                         .toString();
                                                                 editTicketRequestModel
-                                                                    .images = [];
-                                                                // selectedmyticketview[
-                                                                //         0]!
-                                                                //     .images
-                                                                // as List<
-                                                                //     ImageList>?;
+                                                                        .images =
+                                                                    selectedmyticketview[0]!
+                                                                            .images!
+                                                                        as List;
                                                                 editTicketRequestModel
                                                                         .loginUser =
                                                                     SharedPrefServices
@@ -297,8 +293,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .raisebyObjectId =
                                                                     selectedmyticketview[
                                                                             0]!
-                                                                        .raisebyObjectId!
-                                                                        .toString();
+                                                                        .raisebyObjectId!;
                                                                 editTicketRequestModel
                                                                         .requestedBy =
                                                                     selectedmyticketview[

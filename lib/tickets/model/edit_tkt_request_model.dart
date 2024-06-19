@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -13,7 +14,7 @@ class EditTicketRequestModel {
   String accountCode;
   String projectCode;
   String requestedBy;
-  String daysOpen;
+  int daysOpen;
   String category;
   String severity;
   dynamic raisebyObjectId;
@@ -22,7 +23,7 @@ class EditTicketRequestModel {
   String status;
   String createdBy;
   String description;
-  List<ImageList>? images;
+  List images;
   String roleCode;
   String userId;
   String modifiedBy;
@@ -39,7 +40,7 @@ class EditTicketRequestModel {
     this.accountCode = "",
     this.projectCode = "",
     this.requestedBy = "",
-    this.daysOpen = "",
+    this.daysOpen = 0,
     this.category = "",
     this.severity = "",
     this.raisebyObjectId,
@@ -75,7 +76,7 @@ EditTicketRequestModel _$EditTicketRequestModelFromJson(
     category: json['data'],
     severity: json['data'],
     raisebyObjectId: json['data'],
-    assignedtoObjectId: json['data'] ?? '',
+    assignedtoObjectId: json['data'],
     endDate: json['data'] ?? '',
     status: json['data'],
     createdBy: json['data'],
@@ -116,18 +117,18 @@ Map<String, dynamic> _$EditTicketRequestModelToJson(
       'loginUser': instance.loginUser,
     };
 
-class ImageList {
+class Image {
   final String? fileName;
   final String? fileUrl;
   final String? extension;
 
-  ImageList({
+  Image({
     this.fileName,
     this.fileUrl,
     this.extension,
   });
 
-  factory ImageList.fromJson(Map<String, dynamic> json) => ImageList(
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
         fileName: json["fileName"],
         fileUrl: json["fileUrl"],
         extension: json["extension"],
