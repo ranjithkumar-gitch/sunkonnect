@@ -199,6 +199,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                           ? ElevatedButton(
                                                               onPressed: () {
                                                                 // editTicketRequestModel.ticketId = "add data from provider data"
+                                                                // fixed this page
                                                                 editTicketRequestModel
                                                                         .ticketId =
                                                                     selectedmyticketview[
