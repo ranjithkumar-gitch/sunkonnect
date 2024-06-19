@@ -360,10 +360,10 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                             ),
                                                             TextSpan(
                                                               text: myTicketsListData[
-                                                                      index]!
-                                                                  .raisebyObjectId!
-                                                                  .name
-                                                                  .toString(),
+                                                                          index]
+                                                                      ?.raisebyObjectId
+                                                                      ?.name ??
+                                                                  '',
                                                               style:
                                                                   const TextStyle(
                                                                 fontSize: 14.0,
@@ -376,6 +376,25 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                     'poppins',
                                                               ),
                                                             )
+
+                                                            // TextSpan(
+                                                            //   text: myTicketsListData[
+                                                            //           index]!
+                                                            //       .raisebyObjectId!
+                                                            //       .name
+                                                            //       .toString(),
+                                                            //   style:
+                                                            //       const TextStyle(
+                                                            //     fontSize: 14.0,
+                                                            //     color: Colours
+                                                            //         .kheadertext,
+                                                            //     fontWeight:
+                                                            //         FontWeight
+                                                            //             .bold,
+                                                            //     fontFamily:
+                                                            //         'poppins',
+                                                            //   ),
+                                                            // )
                                                           ]),
                                                     ),
                                                     const SizedBox(
@@ -539,18 +558,68 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                   'poppins',
                                                             ),
                                                           ),
+
+                                                          // TextSpan(
+                                                          //   text: myTicketsListData[
+                                                          //               index]
+                                                          //           ?.endDate
+                                                          //           ?.toString() ??
+                                                          //       '',
+                                                          //   style: GoogleFonts
+                                                          //       .poppins(
+                                                          //     fontSize: 14,
+                                                          //     fontWeight:
+                                                          //         FontWeight
+                                                          //             .bold,
+                                                          //     color:
+                                                          //         Colors.black,
+                                                          //   ),
+                                                          // ),
+
                                                           TextSpan(
-                                                              text:
-                                                                  "need to fix",
-                                                              style: GoogleFonts.poppins(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .black)),
+                                                            text: myTicketsListData[
+                                                                            index]!
+                                                                        .status ==
+                                                                    "Closed"
+                                                                ? myTicketsListData[
+                                                                        index]!
+                                                                    .endDate
+                                                                    .toString()
+                                                                : "Need to fix",
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
                                                         ]),
                                                   ),
+                                                  //         TextSpan(
+                                                  //             text:  myTicketsListData[
+                                                  //                         index]!
+                                                  //                 .endDate
+                                                  //                 .toString()
+                                                  //                 .isEmpty
+                                                  //             ?  "need to fix"
+                                                  //             : myTicketsListData[
+                                                  //                         index]!
+
+                                                  //                 .endDate
+                                                  //                 .toString(),
+
+                                                  //             style: GoogleFonts.poppins(
+                                                  //                 fontSize: 14,
+                                                  //                 fontWeight:
+                                                  //                     FontWeight
+                                                  //                         .bold,
+                                                  //                 color: Colors
+                                                  //                     .black)),
+                                                  //       ]),
+                                                  // ),
                                                   const SizedBox(
                                                     height: 4.0,
                                                   ),

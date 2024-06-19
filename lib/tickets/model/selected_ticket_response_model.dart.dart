@@ -140,10 +140,12 @@ class Datum {
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
         assignedtoObjectId: json["assignedtoObjectId"],
-        endDate: json["endDate"],
+        endDate:  json['endDate'],
+        // endDate: json["endDate"] == null ? '' : json["endDate"],
         modifiedBy: json["modifiedBy"],
         endDateutcTimeZone: json["endDateutcTimeZone"],
       );
+      
 
   Map<String, dynamic> toJson() => {
         "_id": id,
