@@ -583,10 +583,16 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       ),
                                                       ContentCard(
                                                           title: 'Assigned To',
-                                                          content:
-                                                              selectedmyticketview[
+                                                          content: selectedmyticketview[
                                                                       0]!
                                                                   .assignedtoObjectId
+                                                                  .toString()
+                                                                  .isEmpty
+                                                              ? ""
+                                                              : selectedmyticketview[
+                                                                      0]!
+                                                                  .assignedtoObjectId[
+                                                                      "name"]
                                                                   .toString()),
                                                     ],
                                                   ),
