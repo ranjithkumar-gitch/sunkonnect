@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
-import 'package:sunkonnect/loginflow/model/get_ticket_log_responsemodel.dart';
+import 'package:sunkonnect/tickets/model/get_ticket_log_responsemodel.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -20,7 +20,6 @@ class TicketLogScreen extends StatefulWidget {
 }
 
 class _TicketLogScreenState extends State<TicketLogScreen> {
-
   // String formatDate(String date) {
   //   DateTime dateTime = DateTime.parse(date);
 
@@ -29,25 +28,20 @@ class _TicketLogScreenState extends State<TicketLogScreen> {
   //   return formatter.format(dateTime);
   // }
 
-    String formatDate(String date) {
+  String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
     final now = DateTime.now();
     final difference = now.difference(dateTime);
 
     if (difference.inDays > 2) {
-      
       return DateFormat('MM-dd-yyyy, HH:mm:ss ').format(dateTime);
     } else if (difference.inDays > 0) {
-    
       return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
     } else if (difference.inHours > 0) {
-    
       return '${difference.inHours} hr${difference.inHours > 1 ? 's' : ''} ago';
     } else if (difference.inMinutes > 0) {
-      
       return '${difference.inMinutes} min ago';
     } else {
-      
       return 'Just now';
     }
   }

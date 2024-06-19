@@ -1,9 +1,9 @@
 import 'package:sunkonnect/load_data/http_client.dart';
-import 'package:sunkonnect/loginflow/model/get_ticket_log_responsemodel.dart';
-import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
+import 'package:sunkonnect/tickets/model/get_ticket_log_responsemodel.dart';
+import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
-import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
-import 'package:sunkonnect/loginflow/model/view_messagelog_response_model.dart';
+import 'package:sunkonnect/tickets/model/selected_ticket_response_model.dart.dart';
+import 'package:sunkonnect/tickets/model/view_messagelog_response_model.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/messagelogscreen.dart';
 

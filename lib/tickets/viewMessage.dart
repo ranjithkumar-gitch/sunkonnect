@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
-import 'package:sunkonnect/loginflow/model/view_messagelog_response_model.dart';
+import 'package:sunkonnect/tickets/model/view_messagelog_response_model.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
@@ -25,13 +25,13 @@ bool isApiCallProcess = false;
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
 String formatDate(String date) {
-    DateTime dateTime = DateTime.parse(date);
+  DateTime dateTime = DateTime.parse(date);
 
-    DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
+  DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
 
-    return formatter.format(dateTime);
-  }
-  
+  return formatter.format(dateTime);
+}
+
 class _ViewMessageState extends State<ViewMessage> {
   @override
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class _ViewMessageState extends State<ViewMessage> {
                                             content: viewmessagelog[0]!
                                                 .datumTicketId
                                                 .toString()),
-                                       const SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         ContentCard(
@@ -110,15 +110,16 @@ class _ViewMessageState extends State<ViewMessage> {
                                             content: viewmessagelog[0]!
                                                 .raisebyObjectId
                                                 .toString()),
-                                      const  SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         ContentCard(
                                             title: 'Date',
-                                            content: formatDate(viewmessagelog[0]!
-                                                .dateOfLog
-                                                .toString())),
-                                      const  SizedBox(
+                                            content: formatDate(
+                                                viewmessagelog[0]!
+                                                    .dateOfLog
+                                                    .toString())),
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         ContentCard(
@@ -126,10 +127,10 @@ class _ViewMessageState extends State<ViewMessage> {
                                             content: viewmessagelog[0]!
                                                 .description
                                                 .toString()),
-                                      const  SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
-                                      const  UrlCard(
+                                        const UrlCard(
                                           title: 'Attachments',
                                           urls: [
                                             'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
@@ -139,7 +140,7 @@ class _ViewMessageState extends State<ViewMessage> {
                                             'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
                                           ],
                                         ),
-                                     const   SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                       ],
@@ -168,61 +169,59 @@ class _ViewMessageState extends State<ViewMessage> {
             )
           ])),
     );
-
-    }
+  }
 }
 
-  //   return Scaffold(
-  //     backgroundColor: Colors.white,
-  //     appBar: const CustomAppbar(title: 'View Message'),
-  //     body: Container(
-  //       margin: const EdgeInsets.only(right: 10, left: 10),
-  //       child: const SingleChildScrollView(
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             SizedBox(
-  //               height: 20,
-  //             ),
-  //             ContentCard(title: 'Message Id', content: 'TLG202404151488'),
-  //             SizedBox(
-  //               height: 10,
-  //             ),
-  //             ContentCard(title: 'Sender', content: 'Sai Sharad Raj'),
-  //             SizedBox(
-  //               height: 10,
-  //             ),
-  //             ContentCard(title: 'Date', content: '05-09-2024 14:03:46'),
-  //             SizedBox(
-  //               height: 10,
-  //             ),
-  //             ContentCard(
-  //                 title: 'Message',
-  //                 content:
-  //                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. '),
-  //             SizedBox(
-  //               height: 10,
-  //             ),
-  //             UrlCard(
-  //               title: 'Attachments',
-  //               urls: [
-  //                 'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
-  //                 'https://www.clickdimensions.com/links/TestPDFfile.pdf',
-  //                 'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
-  //                 'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
-  //                 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
-  //               ],
-  //             ),
-  //             SizedBox(
-  //               height: 10,
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
+//   return Scaffold(
+//     backgroundColor: Colors.white,
+//     appBar: const CustomAppbar(title: 'View Message'),
+//     body: Container(
+//       margin: const EdgeInsets.only(right: 10, left: 10),
+//       child: const SingleChildScrollView(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             SizedBox(
+//               height: 20,
+//             ),
+//             ContentCard(title: 'Message Id', content: 'TLG202404151488'),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             ContentCard(title: 'Sender', content: 'Sai Sharad Raj'),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             ContentCard(title: 'Date', content: '05-09-2024 14:03:46'),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             ContentCard(
+//                 title: 'Message',
+//                 content:
+//                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. '),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             UrlCard(
+//               title: 'Attachments',
+//               urls: [
+//                 'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
+//                 'https://www.clickdimensions.com/links/TestPDFfile.pdf',
+//                 'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
+//                 'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
+//                 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
+//               ],
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }
 
 class ContentCard extends StatelessWidget {
   final String title;

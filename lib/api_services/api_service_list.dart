@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sunkonnect/loginflow/model/get_ticketlist_response_model.dart';
-import 'package:sunkonnect/loginflow/model/get_ticketslist_request_model.dart';
+import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
+import 'package:sunkonnect/tickets/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/loginflow/model/verifyemail_response_model.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/constant.dart';
