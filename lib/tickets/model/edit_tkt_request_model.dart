@@ -1,37 +1,58 @@
+import 'dart:ui';
+
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable()
 class EditTicketRequestModel {
-  String userId;
-  String roleCode;
-  String selectedDropdownValue;
-  String searchKey;
-  String pageSize;
-  String pageNo;
   String ticketId;
-  String status;
-  String severity;
+  String companyId;
+  String customerId;
+  String branchObjectId;
   String startDate;
-  String category;
+  String title;
+  String accountCode;
+  String projectCode;
+  String requestedBy;
   String daysOpen;
-  String limit;
-  String page;
+  String category;
+  String severity;
+  dynamic raisebyObjectId;
+  dynamic assignedtoObjectId;
+  String endDate;
+  String status;
+  String createdBy;
+  String description;
+  List<ImageList>? images;
+  String roleCode;
+  String userId;
+  String modifiedBy;
+
+  String loginUser;
 
   EditTicketRequestModel({
-    this.userId = "",
-    this.roleCode = "",
-    this.selectedDropdownValue = "",
-    this.searchKey = "",
-    this.pageSize = "",
-    this.pageNo = "",
     this.ticketId = "",
-    this.status = "",
-    this.severity = "",
+    this.companyId = "",
+    this.customerId = "",
+    this.branchObjectId = "",
     this.startDate = "",
-    this.category = "",
+    this.title = "",
+    this.accountCode = "",
+    this.projectCode = "",
+    this.requestedBy = "",
     this.daysOpen = "",
-    this.limit = "",
-    this.page = "",
+    this.category = "",
+    this.severity = "",
+    this.raisebyObjectId,
+    this.assignedtoObjectId,
+    this.endDate = "",
+    this.status = "",
+    this.createdBy = "",
+    this.description = "",
+    this.images = const [],
+    this.roleCode = "",
+    this.userId = "",
+    this.modifiedBy = "",
+    this.loginUser = "",
   });
   factory EditTicketRequestModel.fromJson(Map<String, dynamic> json) =>
       _$EditTicketRequestModelFromJson(json);
@@ -41,38 +62,80 @@ class EditTicketRequestModel {
 EditTicketRequestModel _$EditTicketRequestModelFromJson(
     Map<String, dynamic> json) {
   return EditTicketRequestModel(
-    userId: (json['data'] as String),
-    roleCode: (json['data'] as String),
-    selectedDropdownValue: (json['data'] as String),
-    searchKey: (json['data'] as String),
-    ticketId: (json['data'] as String),
-    status: (json['data'] as String),
-    severity: (json['data'] as String),
-    startDate: (json['data'] as String),
-    category: (json['data'] as String),
-    daysOpen: (json['data'] as String),
-    pageSize: (json['data'] as String),
-    pageNo: (json['data'] as String),
-    limit: (json['data'] as String),
-    page: (json['data'] as String),
+    ticketId: json['data'],
+    companyId: json['data'],
+    customerId: json['data'],
+    branchObjectId: json['data'],
+    startDate: json['data'],
+    title: json['data'],
+    accountCode: json['data'],
+    projectCode: json['data'],
+    requestedBy: json['data'],
+    daysOpen: json['data'],
+    category: json['data'],
+    severity: json['data'],
+    raisebyObjectId: json['data'],
+    assignedtoObjectId: json['data'] ?? '',
+    endDate: json['data'] ?? '',
+    status: json['data'],
+    createdBy: json['data'],
+    description: json['data'],
+    images: (json['data']),
+    roleCode: json['data'],
+    userId: json['data'],
+    modifiedBy: json['data'],
+    loginUser: json['data'],
   );
 }
 
 Map<String, dynamic> _$EditTicketRequestModelToJson(
         EditTicketRequestModel instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
-      'roleCode': instance.roleCode,
-      'selectedDropdownValue': instance.selectedDropdownValue,
-      'searchKey': instance.searchKey,
-      'pageSize': instance.pageSize,
-      'pageNo': instance.pageNo,
       'ticketId': instance.ticketId,
-      'status': instance.status,
-      'severity': instance.severity,
+      'companyId': instance.companyId,
+      'customerId': instance.customerId,
+      'branchObjectId': instance.branchObjectId,
       'startDate': instance.startDate,
-      'category': instance.category,
+      'title': instance.title,
+      'accountCode': instance.accountCode,
+      'projectCode': instance.projectCode,
+      'requestedBy': instance.requestedBy,
       'daysOpen': instance.daysOpen,
-      'limit': instance.limit,
-      'page': instance.page,
+      'category': instance.category,
+      'severity': instance.severity,
+      'raisebyObjectId': instance.raisebyObjectId,
+      'assignedtoObjectId': instance.assignedtoObjectId,
+      'endDate': instance.endDate,
+      'status': instance.status,
+      'createdBy': instance.createdBy,
+      'description': instance.description,
+      'images': instance.images,
+      'roleCode': instance.roleCode,
+      'userId': instance.userId,
+      'modifiedBy': instance.modifiedBy,
+      'loginUser': instance.loginUser,
     };
+
+class ImageList {
+  final String? fileName;
+  final String? fileUrl;
+  final String? extension;
+
+  ImageList({
+    this.fileName,
+    this.fileUrl,
+    this.extension,
+  });
+
+  factory ImageList.fromJson(Map<String, dynamic> json) => ImageList(
+        fileName: json["fileName"],
+        fileUrl: json["fileUrl"],
+        extension: json["extension"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "fileName": fileName,
+        "fileUrl": fileUrl,
+        "extension": extension,
+      };
+}

@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -62,12 +65,34 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   //todo
   // write Init state and initialize editTicketRequestModel model
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   editTicketRequestModel = EditTicketRequestModel(
-  // ticketId; "");
-  // }
+  @override
+  void initState() {
+    super.initState();
+    editTicketRequestModel = EditTicketRequestModel(
+        ticketId: "",
+        accountCode: "",
+        assignedtoObjectId: null,
+        branchObjectId: "",
+        category: "",
+        companyId: "",
+        createdBy: "",
+        customerId: "",
+        daysOpen: "",
+        description: "",
+        endDate: "",
+        images: [],
+        loginUser: "",
+        modifiedBy: "",
+        projectCode: "",
+        raisebyObjectId: null,
+        requestedBy: "",
+        roleCode: "",
+        severity: "",
+        startDate: "",
+        status: "",
+        title: "",
+        userId: "");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,12 +199,153 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                           ? ElevatedButton(
                                                               onPressed: () {
                                                                 // editTicketRequestModel.ticketId = "add data from provider data"
-
+                                                                editTicketRequestModel
+                                                                        .ticketId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .ticketId!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .accountCode =
+                                                                    "Need to fix";
+                                                                // selectedmyticketview[
+                                                                //         0]!
+                                                                //     .accountCode!
+                                                                //     .toString();
+                                                                editTicketRequestModel
+                                                                        .assignedtoObjectId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .assignedtoObjectId!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .branchObjectId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .branchObjectId!
+                                                                        .id
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .category =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .category!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .companyId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .companyId!
+                                                                        .id
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .createdBy =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .createdBy!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .customerId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .customerId!
+                                                                        .id
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .daysOpen =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .daysOpen!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .description =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .description!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .endDate =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .endDate!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                    .images = [];
+                                                                // selectedmyticketview[
+                                                                //         0]!
+                                                                //     .images
+                                                                // as List<
+                                                                //     ImageList>?;
+                                                                editTicketRequestModel
+                                                                        .loginUser =
+                                                                    SharedPrefServices
+                                                                            .getuserId()
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .modifiedBy =
+                                                                    SharedPrefServices
+                                                                            .getuserId()
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .projectCode =
+                                                                    "Need to fix";
+                                                                // selectedmyticketview[
+                                                                //         0]!
+                                                                //     .projectCode!
+                                                                //     .toString();
+                                                                editTicketRequestModel
+                                                                        .raisebyObjectId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .raisebyObjectId!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .requestedBy =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .requestedBy!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .roleCode =
+                                                                    SharedPrefServices
+                                                                            .getroleCode()
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .severity =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .severity!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .startDate =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .startDate!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .status =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .status!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .title =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .title!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .userId =
+                                                                    SharedPrefServices
+                                                                            .getuserId()
+                                                                        .toString();
 // append all the details to the editTicketRequestModel
 
                                                                 // todo
 
                                                                 print(
+                                                                    editTicketRequestModel);
+                                                                inspect(
                                                                     editTicketRequestModel);
 
                                                                 // Navigator.push(
@@ -759,25 +925,3 @@ class ContentCard extends StatelessWidget {
     );
   }
 }
-
-// class AttachmentsGrid extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // return DottedBorder(
-//     //   child: GridView.count(
-//     //     crossAxisCount: 5,
-//     //     shrinkWrap: true,
-//     //     physics: const NeverScrollableScrollPhysics(),
-//     //     children: List.generate(10, (index) {
-//     //       return Padding(
-//     //         padding: const EdgeInsets.all(8.0),
-//     //         child: Image.asset(
-//     //           'assets/img.jpeg',
-//     //           fit: BoxFit.cover,
-//     //         ),
-//     //       );
-//     //     }),
-//     //   ),
-//     );
-//   }
-// }
