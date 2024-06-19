@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,9 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 
-import 'package:sunkonnect/loginflow/model/selected_ticket_response_model.dart.dart';
+import 'package:sunkonnect/tickets/model/selected_ticket_response_model.dart.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/tickets/model/edit_tkt_request_model.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
@@ -25,6 +26,8 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isEdited = false;
   String status = 'Select Status';
+
+  late EditTicketRequestModel editTicketRequestModel;
   var items = [
     'Select Status',
     'All',
@@ -58,6 +61,16 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
     return formatter.format(dateTime);
   }
 
+  //todo
+  // write Init state and initialize editTicketRequestModel model
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   editTicketRequestModel = EditTicketRequestModel(
+  // ticketId; "");
+  // }
+
   @override
   Widget build(BuildContext context) {
     var selectedMyticketsProvider = context.watch<MyTicketsListProvider>();
@@ -81,9 +94,8 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                 } else if (instance?.status == Status.completed) {
                   List<Datum?> selectedmyticketview =
                       instance?.data?.data ?? [];
-                  print("now printing my tickts list data");
-                  print(selectedmyticketview);
-                  inspect(selectedmyticketview);
+
+                  // print(selectedmyticketview);
 
                   return selectedmyticketview.isEmpty
                       ? const Column(
@@ -127,10 +139,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                   ),
                                   child: Container(
                                     margin: const EdgeInsets.only(
-                                        right: 0,
-                                        left: 0,
-                                        top: 10,
-                                        bottom: 10),
+                                        right: 0, left: 0, top: 10, bottom: 10),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -166,13 +175,23 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       child: isEdited
                                                           ? ElevatedButton(
                                                               onPressed: () {
-                                                                Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              const DashboardScreen()),
-                                                                );
+                                                                // editTicketRequestModel.ticketId = "add data from provider data"
+
+// append all the details to the editTicketRequestModel
+
+                                                                // todo
+
+                                                                print(
+                                                                    editTicketRequestModel);
+                                                                inspect(
+                                                                    editTicketRequestModel);
+                                                                // Navigator.push(
+                                                                //   context,
+                                                                //   MaterialPageRoute(
+                                                                //       builder:
+                                                                //           (context) =>
+                                                                //               const DashboardScreen()),
+                                                                // );
                                                               },
                                                               style:
                                                                   ElevatedButton
@@ -353,7 +372,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                               const   SizedBox(
+                                                  const SizedBox(
                                                     height: 20,
                                                   ),
                                                 ],
@@ -477,7 +496,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                             .getroleCode()
                                                                         .toString() ==
                                                                     'COMPANY ADMIN'
-                                                            ?Container(
+                                                            ? Container(
                                                                 child: Column(
                                                                   children: [
                                                                     const Row(
@@ -596,10 +615,11 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                               children: [
                                                 ContentCard(
                                                   title: 'Date Closed',
-                                                  content:
-                                                     formatDate( selectedmyticketview[0]!
-                                                          .endDate
-                                                          .toString(),),
+                                                  content: formatDate(
+                                                    selectedmyticketview[0]!
+                                                        .endDate
+                                                        .toString(),
+                                                  ),
                                                 ),
                                                 const CustomText(
                                                     text: 'Message',
@@ -607,7 +627,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                     fontWeight: FontWeight.w400,
                                                     textcolor:
                                                         Colours.ksubheadertext),
-                                             const   SizedBox(
+                                                const SizedBox(
                                                   height: 5,
                                                 ),
                                                 SizedBox(
@@ -622,14 +642,14 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                         Colours.kresponsivetext,
                                                   ),
                                                 ),
-                                               const SizedBox(height: 10),
-                                               const CustomText(
+                                                const SizedBox(height: 10),
+                                                const CustomText(
                                                     text: 'Attachments',
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w400,
                                                     textcolor:
                                                         Colours.ksubheadertext),
-                                               const SizedBox(
+                                                const SizedBox(
                                                   height: 5,
                                                 ),
                                                 // CustomText(
@@ -642,7 +662,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 //   textcolor:
                                                 //       Colours.kresponsivetext,
                                                 // ),
-                                               const SizedBox(
+                                                const SizedBox(
                                                   height: 10,
                                                 ),
                                                 CustomText(
