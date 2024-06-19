@@ -54,7 +54,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
 
-    DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
+    DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss a');
 
     return formatter.format(dateTime);
   }
@@ -618,11 +618,17 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                               children: [
                                                 ContentCard(
                                                   title: 'Date Closed',
-                                                  content: formatDate(
-                                                    selectedmyticketview[0]!
-                                                        .endDate
-                                                        .toString(),
-                                                  ),
+                                                  content:
+                                                      selectedmyticketview[0]!
+                                                              .endDate!
+                                                              .isEmpty
+                                                          ? ""
+                                                          : formatDate(
+                                                              selectedmyticketview[
+                                                                      0]!
+                                                                  .endDate
+                                                                  .toString(),
+                                                            ),
                                                 ),
                                                 const CustomText(
                                                     text: 'Message',
