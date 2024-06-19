@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -183,8 +181,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
 
                                                                 print(
                                                                     editTicketRequestModel);
-                                                                inspect(
-                                                                    editTicketRequestModel);
+
                                                                 // Navigator.push(
                                                                 //   context,
                                                                 //   MaterialPageRoute(
