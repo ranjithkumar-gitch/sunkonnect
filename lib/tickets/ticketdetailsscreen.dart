@@ -337,8 +337,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .toString();
 // append all the details to the editTicketRequestModel
 
-                                                                // todo
-
                                                                 print(
                                                                     editTicketRequestModel);
                                                                 inspect(

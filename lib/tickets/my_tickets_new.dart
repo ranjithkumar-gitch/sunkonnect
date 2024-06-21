@@ -681,6 +681,11 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                           index]!
                                                                       .id!
                                                                       .toString());
+                                                          SharedPrefServices.setBranchobjId(
+                                                              myTicketsListData[
+                                                                      index]!
+                                                                  .branchObjectId!
+                                                                  .toString());
                                                         });
                                                         Navigator.push(
                                                           context,

@@ -1,4 +1,5 @@
 import 'package:sunkonnect/load_data/http_client.dart';
+import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
 import 'package:sunkonnect/tickets/model/get_ticket_log_responsemodel.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
@@ -60,5 +61,18 @@ class RepositoryData {
       url,
     );
     return getticketLogResponseModelFromJson(response);
+  }
+
+  Future<GetAssignedToListResponseModel> getAssignedtolist() async {
+    String url =
+        "common-services/get-assigned-to-list/${SharedPrefServices.getBranchobjId()}";
+    print(SharedPrefServices.getBranchobjId);
+    print("uday get  url $url");
+    print(
+        "uday get message acccesstkn ${SharedPrefServices.getaccessToken().toString()}");
+    final response = await HttpClient.instance.get(
+      url,
+    );
+    return getAssignedToListResponseModelFromJson(response);
   }
 }
