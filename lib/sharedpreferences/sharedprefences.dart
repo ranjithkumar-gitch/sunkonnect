@@ -47,7 +47,16 @@ class SharedPrefServices {
   static const _keyTicketId = 'ticketId';
   static const _keyTicketobjId = 'ticketobjId';
   static const _keyBranchobjId = 'branchtobjId';
-
+  static const _keytitle = 'title';
+  static const _keycompanyId = 'companyId';
+  static const _keyassignedtoObjectId = 'assignedtoObjectId';
+  static const _keycreatedBy = 'createdBy';
+ static const _keyaccountCode = 'AccountCode';
+ static const _keyprojectCode = 'projectCode';
+  static const _keyraisebyObjectID = 'raisebyObjectID';
+ static const _keyraisebyObjectName  = 'raisebyObjectName';
+  
+  
   static const _keyDatumTicketId = 'datumticketid';
 
   // static const _keybool = 'true';
@@ -99,6 +108,31 @@ class SharedPrefServices {
   static Future setDatumTicketId(String setDatumTicketId) async =>
       await prefs!.setString(_keyDatumTicketId, setDatumTicketId);
 
+ static Future settitle(String settitle) async =>
+      await prefs!.setString(_keytitle, settitle);
+
+  static Future setcompanyId(String setcompanyId) async =>
+      await prefs!.setString(_keycompanyId, setcompanyId);
+
+static Future setassignedtoObjectId(String setassignedtoObjectId) async =>
+      await prefs!.setString(_keyassignedtoObjectId, setassignedtoObjectId);
+
+static Future setcreatedBy(String setcreatedBy) async =>
+      await prefs!.setString(_keycreatedBy, setcreatedBy);
+
+static Future setaccountCode(String setaccountCode) async =>
+      await prefs!.setString(_keyaccountCode, setaccountCode);
+
+static Future setprojectCode(String setprojectCode) async =>
+      await prefs!.setString(_keyprojectCode, setprojectCode);
+
+static Future setraisebyObjectID(String setraisebyObjectID) async =>
+      await prefs!.setString(_keyraisebyObjectID, setraisebyObjectID);
+  
+  static Future setraisebyObjectName(String setraisebyObjectName) async =>
+      await prefs!.setString(_keyraisebyObjectName, setraisebyObjectName);
+
+
   static Future setisLoggedIn(bool isLoggedIn) async =>
       await prefs!.setBool(_keyisLoggedIn, isLoggedIn);
 
@@ -121,6 +155,14 @@ class SharedPrefServices {
   static String? getTicketobjId() => prefs!.getString(_keyTicketobjId);
   static String? getDatumTicketId() => prefs!.getString(_keyDatumTicketId);
   static String? getBranchobjId() => prefs!.getString(_keyBranchobjId);
+  static String? gettitle() => prefs!.getString(_keytitle);
+  static String? getcompanyId() => prefs!.getString(_keycompanyId);
+  static String? getassignedtoObjectId() => prefs!.getString(_keyassignedtoObjectId);
+  static String? getcreatedBy() => prefs!.getString(_keycreatedBy);
+  static String? getaccountCode() => prefs!.getString(_keyaccountCode);
+  static String? getprojectCode() => prefs!.getString(_keyprojectCode);
+  static String? getraisebyObjectID() => prefs!.getString(_keyraisebyObjectID);
+  static String? getraisebyObjectName() => prefs!.getString(_keyraisebyObjectName);
 
   static bool? getisLoggedIn() => prefs!.getBool(_keyisLoggedIn);
 

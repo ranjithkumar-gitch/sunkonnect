@@ -1,16 +1,17 @@
 
+import 'dart:developer';
 import 'dart:io';
  import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/tickets/model/add_message_request.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sunkonnect/widgets/progressbar.dart';
+
 class AddMessage extends StatefulWidget {
   const AddMessage({super.key});
 
@@ -30,23 +31,52 @@ class _AddMessageState extends State<AddMessage> {
   File? file;
    File? media;
    bool isLoading = false;
-    late TextEditingController dateController = TextEditingController();
+
+   late TextEditingController dateController = TextEditingController();
+
+   late TextEditingController messageController = TextEditingController();
+
+
+   late AddMessageRequest addMessageRequestModel;
 
     @override
   void initState() {
     super.initState();
     dateController = TextEditingController();
+  
 
     String currentDateTime =
         DateFormat('dd-MM-yyyy , HH:mm a').format(DateTime.now());
     dateController.text = currentDateTime;
+
+    addMessageRequestModel = AddMessageRequest(
+      ticketId: "",
+      accountCode: "",
+      assignedtoObjectId: "",
+      createdBy: "",
+      description: "",
+      ticketLogImages: [],
+      projectCode: "",
+      raisebyObjectId: "",
+      title: "",
+      raisebyObjectID: "",
+      dateOfLog: "",
+      ticketID: "",
+      ticketObjId: " ",
+    );
   }
+
+  
+
+
 
   @override
   void dispose() {
     dateController.dispose();
+     messageController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,10 +103,10 @@ class _AddMessageState extends State<AddMessage> {
                   color: Colours.ktextfeildbgColor,
                   child: 
                      
-                    const Padding(
-                      padding:  EdgeInsets.only(top: 15,),
+                     Padding(
+                      padding:  const EdgeInsets.only(top: 15,),
                       child: CustomText(
-                        text: 'Vishal K.',
+                        text: SharedPrefServices.getname().toString(),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         textcolor:Colors.black,),
@@ -184,6 +214,7 @@ class _AddMessageState extends State<AddMessage> {
                           child: TextFormField(
                             minLines: 6,
                             maxLines: null,
+                            controller: messageController,
                             keyboardType: TextInputType.multiline,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -317,7 +348,7 @@ class _AddMessageState extends State<AddMessage> {
                   ),
           
               
-                         const SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                               
                                  Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -339,14 +370,38 @@ class _AddMessageState extends State<AddMessage> {
                                     )),
                                     SizedBox(
                                       height: 40, width: 100,
-                                      child: ElevatedButton(onPressed: (){}, 
+                                      child: ElevatedButton(onPressed: (){
+                                        addMessageRequestModel.ticketId = '';
+                                        addMessageRequestModel.raisebyObjectId = SharedPrefServices.getuserObjId().toString();
+                                        addMessageRequestModel.dateOfLog = dateController.text;
+                                        addMessageRequestModel.ticketLogImages = [];
+                                        addMessageRequestModel.description = messageController.text;
+                                        addMessageRequestModel.ticketObjId = SharedPrefServices.getTicketobjId().toString();
+                                        addMessageRequestModel.ticketID = SharedPrefServices.getTicketId().toString();
+                                        addMessageRequestModel.companyId = SharedPrefServices.getcompanyId().toString();
+                                        addMessageRequestModel.assignedtoObjectId = SharedPrefServices.getassignedtoObjectId().toString();
+                                        addMessageRequestModel.createdBy = SharedPrefServices.getcreatedBy().toString();
+                                        addMessageRequestModel.raisebyObjectID = SharedPrefServices.getraisebyObjectID().toString();
+                                        addMessageRequestModel.raisebyObjectName = SharedPrefServices.getraisebyObjectName().toString();
+                                         addMessageRequestModel.title = SharedPrefServices.gettitle().toString();
+                                        addMessageRequestModel.accountCode = SharedPrefServices.getaccountCode().toString();
+                                         addMessageRequestModel.projectCode = SharedPrefServices.getprojectCode().toString();
+
+                                       print(addMessageRequestModel);
+                                        inspect(addMessageRequestModel);   
+                                                                                        
+                                                                
+                                        
+                                      }, 
                                       style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                         child: const CustomText(text: 'Add', fontSize: 14, fontWeight: FontWeight.w500, textcolor: Colors.white)),
                                     )
                                   ],
                                  ),
                                     const SizedBox(height: 15,),
-            ]),
+
+    
+                ]),
                 
                  )),
          if (isLoading) 

@@ -335,7 +335,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                     SharedPrefServices
                                                                             .getuserId()
                                                                         .toString();
-// append all the details to the editTicketRequestModel
+                                        // append all the details to the editTicketRequestModel
 
                                                                 print(
                                                                     editTicketRequestModel);
@@ -475,14 +475,27 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                           .severity!
                                                           .toString(),
                                                 ),
-                                                ContentCard(
-                                                  title: 'Raised By',
-                                                  content:
-                                                      selectedmyticketview[0]!
-                                                          .raisebyObjectId!
-                                                          .name
-                                                          .toString(),
-                                                ),
+
+                                                 ContentCard(
+                                                        title: 'Raised By',
+                                                        content: (selectedmyticketview
+                                                                    .isNotEmpty &&
+                                                                selectedmyticketview[
+                                                                            0]
+                                                                        ?.raisebyObjectId
+                                                                        ?.name
+                                                                        ?.isNotEmpty ==
+                                                                    true)
+                                                            ? selectedmyticketview[
+                                                                        0]
+                                                                    ?.raisebyObjectId
+                                                                    ?.name
+                                                                    ?.toString() ??
+                                                                ''
+                                                            : '',
+                                                      ),
+
+                                                
                                               ],
                                             ),
                                           ),
@@ -741,19 +754,38 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                 .status!
                                                                 .toString(),
                                                       ),
+                                                       // Use the below assigned logic , when assigned field is not come from response or any null have use this code //
                                                       ContentCard(
-                                                          title: 'Assigned To',
-                                                          content: selectedmyticketview[
-                                                                      0]!
-                                                                  .assignedtoObjectId
-                                                                  .toString()
-                                                                  .isEmpty
-                                                              ? ""
-                                                              : selectedmyticketview[
-                                                                      0]!
-                                                                  .assignedtoObjectId[
-                                                                      "name"]
-                                                                  .toString()),
+                                                        title: 'Assigned To',
+                                                        content: (selectedmyticketview
+                                                                    .isNotEmpty &&
+                                                                selectedmyticketview[
+                                                                            0]
+                                                                        ?.assignedtoObjectId
+                                                                        ?.name
+                                                                        ?.isNotEmpty ==
+                                                                    true)
+                                                            ? selectedmyticketview[
+                                                                        0]
+                                                                    ?.assignedtoObjectId
+                                                                    ?.name
+                                                                    ?.toString() ??
+                                                                ''
+                                                            : 'Not Assigned',
+                                                      ),
+
+                                                      // ContentCard(
+                                                      //     title: 'Assigned To',
+                                                      //     content: selectedmyticketview[
+                                                      //                 0]!
+                                                      //             .assignedtoObjectId
+                                                      //             .toString()
+                                                      //             .isEmpty
+                                                      //         ? ""
+                                                      //         : selectedmyticketview[
+                                                      //                 0]!
+                                                      //             .assignedtoObjectId
+                                                      //             .toString()),
                                                     ],
                                                   ),
                                           ),
@@ -778,18 +810,36 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                               children: [
                                                 ContentCard(
                                                   title: 'Date Closed',
-                                                  content:
-                                                      selectedmyticketview[0]!
-                                                              .endDate!
-                                                              .isEmpty
-                                                          ? ""
-                                                          : formatDate(
-                                                              selectedmyticketview[
-                                                                      0]!
-                                                                  .endDate
-                                                                  .toString(),
-                                                            ),
+                                                  content: selectedmyticketview
+                                                              .isNotEmpty &&
+                                                          selectedmyticketview[
+                                                                      0]
+                                                                  ?.endDate
+                                                                  ?.isNotEmpty ==
+                                                              true
+                                                      ? formatDate(
+                                                          selectedmyticketview[
+                                                                  0]!
+                                                              .endDate
+                                                              .toString())
+                                                      : "",
                                                 ),
+
+                                                // ContentCard(
+                                                //   title: 'Date Closed',
+                                                //   content:
+
+                                                //       selectedmyticketview[0]!
+                                                //               .endDate!
+                                                //               .isEmpty
+                                                //           ? ""
+                                                //           : formatDate(
+                                                //               selectedmyticketview[
+                                                //                       0]!
+                                                //                   .endDate
+                                                //                   .toString(),
+                                                //             ),
+                                                // ),
                                                 const CustomText(
                                                     text: 'Message',
                                                     fontSize: 10,
@@ -831,19 +881,19 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 //   textcolor:
                                                 //       Colours.kresponsivetext,
                                                 // ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
+
                                                 CustomText(
-                                                  text: selectedmyticketview[0]!
-                                                      .images![0]
-                                                      .fileName
-                                                      .toString(),
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w500,
-                                                  textcolor:
-                                                      Colours.kresponsivetext,
-                                                ),
+  text: (selectedmyticketview[0]!.images != null && selectedmyticketview[0]!.images!.isNotEmpty)
+      ? selectedmyticketview[0]!.images![0].fileName.toString()
+      : 'Not Found',
+  fontSize: 13,
+  fontWeight: FontWeight.w500,
+  textcolor: Colours.kresponsivetext,
+)
+
+                                                
+                                                
+
                                               ],
                                             ),
                                           ),

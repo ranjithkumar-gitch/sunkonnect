@@ -55,7 +55,7 @@ class _MyTicketsListState extends State<MyTicketsList> {
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
 
-    DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss');
+    DateFormat formatter = DateFormat('MM-dd-yyyy, HH:mm:ss a');
 
     return formatter.format(dateTime);
   }
@@ -438,12 +438,12 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                     height: 4.0,
                                                   ),
                                                   RichText(
-                                                    text: const TextSpan(
+                                                    text:  TextSpan(
                                                         style: const TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 32),
                                                         children: [
-                                                          const TextSpan(
+                                                           const TextSpan(
                                                             text:
                                                                 "Assigned To   :   ",
                                                             style: TextStyle(
@@ -455,8 +455,12 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                             ),
                                                           ),
                                                           TextSpan(
-                                                            text: '',
-
+                                                            text: 
+                                                           myTicketsListData[
+                                                                          index]
+                                                                      ?.assignedtoObjectId
+                                                                      ?.name ??
+                                                                  '',
                                                             // myTicketsListData[
                                                             //     index]!
                                                             // .assignedtoObjectId!
@@ -581,10 +585,11 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                             index]!
                                                                         .status ==
                                                                     "Closed"
-                                                                ? myTicketsListData[
-                                                                        index]!
-                                                                    .endDate
-                                                                    .toString()
+                                                                ?  formatDate(
+                                                                  myTicketsListData[
+                                                                          index]!
+                                                                      .endDate
+                                                                      .toString())
                                                                 : "Need to fix",
                                                             style: GoogleFonts
                                                                 .poppins(
@@ -657,48 +662,200 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                   const SizedBox(
                                                     height: 6.0,
                                                   ),
-                                                  CustomButton(
-                                                      text: "View Details",
-                                                      textColor: Colors.white,
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          myTicketsListProvider
-                                                              .clearSelectedTicketDetails();
-                                                          myTicketsListProvider
-                                                              .clearmessagelogDetails();
-                                                          myTicketsListProvider
-                                                              .clearticketlogDetails();
+                                                  // orginal//
+                                                  // CustomButton(
+                                                  //     text: "View Details",
+                                                  //     textColor: Colors.white,
+                                                  //     onPressed: () {
+                                                  //       setState(() {
+                                                  //         myTicketsListProvider
+                                                  //             .clearSelectedTicketDetails();
+                                                  //         myTicketsListProvider
+                                                  //             .clearmessagelogDetails();
+                                                  //         myTicketsListProvider
+                                                  //             .clearticketlogDetails();
 
+                                                  //         SharedPrefServices
+                                                  //             .setTicketId(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .ticketId!
+                                                  //                     .toString());
+                                                  //         SharedPrefServices
+                                                  //             .setTicketobjId(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .id!
+                                                  //                     .toString());
+                                                  //         // SharedPrefServices.setBranchobjId(
+                                                  //         //     myTicketsListData[
+                                                  //         //             index]!
+                                                  //         //         .branchObjectId!.id
+                                                  //         //         .toString());
+
+                                                     
+                                                  //         SharedPrefServices.settitle(
+                                                  //             myTicketsListData[
+                                                  //                     index]!
+                                                  //                 .title!
+                                                  //                 .toString());
+                                                  //         SharedPrefServices
+                                                  //             .setcompanyId(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .companyId!.id
+                                                  //                     .toString());
+                                                  //         SharedPrefServices
+                                                  //             .setassignedtoObjectId(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .assignedtoObjectId!.id
+                                                  //                     .toString());
+
+                                                  //         SharedPrefServices
+                                                  //             .setcreatedBy(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .createdBy!
+                                                  //                     .toString());
+                                                  //         SharedPrefServices
+                                                  //             .setaccountCode(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .accountCode
+                                                  //                     .toString());
+                                                  //         SharedPrefServices
+                                                  //             .setprojectCode(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .projectCode
+                                                  //                     .toString());
+                                                  //         SharedPrefServices
+                                                  //             .setraisebyObjectID(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .raisebyObjectId!.id
+                                                  //                     .toString());
+                                                  //          SharedPrefServices
+                                                  //             .setraisebyObjectName(
+                                                  //                 myTicketsListData[
+                                                  //                         index]!
+                                                  //                     .raisebyObjectId!.name
+                                                  //                     .toString());
+
+                                                  //       });
+                                                  //       Navigator.push(
+                                                  //           context,
+                                                  //           MaterialPageRoute(
+                                                  //             builder: (context) => const TicketTabView(),
+
+                                                  //           ));
+                                                  //     },
+                                                  //     color:
+                                                  //         Colours.kbuttonpurple,
+                                                  //     fontSize: 16,
+                                                  //     fontWeight:
+                                                  //         FontWeight.w600),
+
+                                                  CustomButton(
+                                                    text: "View Details",
+                                                    textColor: Colors.white,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        myTicketsListProvider
+                                                            .clearSelectedTicketDetails();
+                                                        myTicketsListProvider
+                                                            .clearmessagelogDetails();
+                                                        myTicketsListProvider
+                                                            .clearticketlogDetails();
+
+                                                        var ticketData =
+                                                            myTicketsListData[
+                                                                index];
+
+                                                        if (ticketData !=
+                                                            null) {
+                                                         
                                                           SharedPrefServices
-                                                              .setTicketId(
-                                                                  myTicketsListData[
-                                                                          index]!
-                                                                      .ticketId!
-                                                                      .toString());
+                                                              .setTicketId(ticketData
+                                                                      .ticketId
+                                                                      ?.toString() ??
+                                                                  '');
                                                           SharedPrefServices
                                                               .setTicketobjId(
-                                                                  myTicketsListData[
-                                                                          index]!
-                                                                      .id!
-                                                                      .toString());
-                                                          SharedPrefServices.setBranchobjId(
-                                                              myTicketsListData[
-                                                                      index]!
-                                                                  .branchObjectId!
-                                                                  .toString());
-                                                        });
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  TicketTabView()),
-                                                        );
-                                                      },
-                                                      color:
-                                                          Colours.kbuttonpurple,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600),
+                                                                  ticketData.id
+                                                                          ?.toString() ??
+                                                                      '');
+
+                                                          // SharedPrefServices.setBranchobjId(ticketData.branchObjectId?.id?.toString() ?? '');
+
+                                                          SharedPrefServices
+                                                              .settitle(ticketData
+                                                                      .title
+                                                                      ?.toString() ??
+                                                                  '');
+                                                          SharedPrefServices
+                                                              .setcompanyId(ticketData
+                                                                      .companyId
+                                                                      ?.id
+                                                                      ?.toString() ??
+                                                                  '');
+                                                          SharedPrefServices
+                                                              .setassignedtoObjectId(
+                                                                  ticketData
+                                                                          .assignedtoObjectId
+                                                                          ?.id
+                                                                          ?.toString() ??
+                                                                      '');
+                                                          SharedPrefServices
+                                                              .setcreatedBy(ticketData
+                                                                      .createdBy
+                                                                      ?.toString() ??
+                                                                  '');
+                                                          SharedPrefServices
+                                                              .setaccountCode(ticketData
+                                                                      .accountCode
+                                                                      ?.toString() ??
+                                                                  '');
+                                                          SharedPrefServices
+                                                              .setprojectCode(ticketData
+                                                                      .projectCode
+                                                                      ?.toString() ??
+                                                                  '');
+                                                          SharedPrefServices
+                                                              .setraisebyObjectID(
+                                                                  ticketData
+                                                                          .raisebyObjectId
+                                                                          ?.id
+                                                                          ?.toString() ??
+                                                                      '');
+                                                          SharedPrefServices
+                                                              .setraisebyObjectName(
+                                                                  ticketData
+                                                                          .raisebyObjectId
+                                                                          ?.name
+                                                                          ?.toString() ??
+                                                                      '');
+                                                        } else {
+                                                          print(
+                                                              'ticketData is null');
+                                                        }
+                                                      });
+
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const TicketTabView(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    color:
+                                                        Colours.kbuttonpurple,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+
                                                   const SizedBox(
                                                     height: 4.0,
                                                   ),

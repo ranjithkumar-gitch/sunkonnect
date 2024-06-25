@@ -9,6 +9,7 @@ import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/addMessage.dart';
+import 'package:sunkonnect/tickets/model/add_message_request.dart';
 import 'package:sunkonnect/tickets/viewMessage.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -38,22 +39,20 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
     final difference = now.difference(dateTime);
 
     if (difference.inDays > 2) {
-      
       return DateFormat('MM-dd-yyyy, HH:mm:ss').format(dateTime);
     } else if (difference.inDays > 0) {
-    
       return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
     } else if (difference.inHours > 0) {
-    
       return '${difference.inHours} hr${difference.inHours > 1 ? 's' : ''} ago';
     } else if (difference.inMinutes > 0) {
-      
       return '${difference.inMinutes} min ago';
     } else {
-      
       return 'Just now';
     }
   }
+
+  
+
   @override
   Widget build(BuildContext context) {
     var myTicketsListProvider = context.watch<MyTicketsListProvider>();
@@ -76,7 +75,9 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddMessage()));
+                          builder: (context) => const AddMessage(
+                            
+                          )));
                 },
                 label: const CustomText(
                     text: 'Add Message',
@@ -107,6 +108,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
               height: 10,
             ),
             // _searchFilters(),
+            
             Selector<MyTicketsListProvider,
                 ApiResponse<MessageLogResponseModel>?>(
               selector: (_, apiResponse) => apiResponse.messageLogResponseModel,
@@ -118,8 +120,9 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                   return const Expanded(child: ProgressBarHUD());
                 } else if (instance?.status == Status.completed) {
                   List<Datum?> messageloglistdata =
-                      instance?.data?.data!.data ?? [];
-                  print("now printing my tickts list data");
+                      // instance?.data?.data!.data ?? [];
+                      instance?.data?.data?.data ?? [];
+                  print("now printing my messages  list data");
                   print(messageloglistdata);
                   inspect(messageloglistdata);
 
@@ -217,11 +220,13 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                                                             textcolor:
                                                                 Colors.black,
                                                           ),
-                                                          Text(formatDate(
-                                                      messageloglistdata[index]!
-                                                          .dateOfLog
-                                                          .toString(),
-                                                          ),
+                                                          Text(
+                                                            formatDate(
+                                                              messageloglistdata[
+                                                                      index]!
+                                                                  .dateOfLog
+                                                                  .toString(),
+                                                            ),
                                                             style: GoogleFonts
                                                                 .poppins(
                                                                     fontSize:

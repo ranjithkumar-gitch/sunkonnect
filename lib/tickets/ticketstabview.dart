@@ -6,11 +6,12 @@ import 'package:sunkonnect/tickets/messagelogscreen.dart';
 import 'package:sunkonnect/tickets/ticketlogscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
-import 'package:sunkonnect/widgets/customtext.dart';
-import 'package:hexcolor/hexcolor.dart';
 
+// ignore: must_be_immutable
 class TicketTabView extends StatefulWidget {
-  // const TicketTabView(, {super.key});
+  const TicketTabView({super.key});
+
+
 
   @override
   State<TicketTabView> createState() => _TicketTabViewState();
@@ -47,10 +48,9 @@ class _TicketTabViewState extends State<TicketTabView>
                         indicatorSize: TabBarIndicatorSize.label,
                         indicatorWeight: 2,
                         dividerColor: Colors.grey.shade300,
-                        tabs: const [
+                        tabs: const   [
                           Tab(
-                            text: 'Details',
-                          ),
+                            text:'Details'),
                           Tab(
                             text: 'Messages',
                           ),
@@ -61,12 +61,16 @@ class _TicketTabViewState extends State<TicketTabView>
                     Expanded(
                         child: TabBarView(
                             controller: tabController,
-                            children: const [
+                            children: const  [
                           TicketDetailsScreen(),
                           MessageLogScreen(),
                           TicketLogScreen()
-                        ]))
+                        ])),
+
+                        
                   ])),
         ));
   }
 }
+
+

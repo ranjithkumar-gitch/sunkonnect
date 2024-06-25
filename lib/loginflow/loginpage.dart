@@ -26,9 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final emailController = TextEditingController(text: "vishal.k@sunkpo.com");
+  final emailController = TextEditingController(text: "uday.c@sunkpo.com");
 
-  final passwordController = TextEditingController(text: "Sunkpo@123");
+  final passwordController = TextEditingController(text: "Konnect@123");
 
   late Loginrequestauth requestModelId;
 
