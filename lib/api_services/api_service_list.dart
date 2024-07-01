@@ -1,8 +1,13 @@
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dart:developer';
+
+import 'package:sunkonnect/tickets/model/add_message_request.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/tickets/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/loginflow/model/verifyemail_response_model.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/tickets/model/images_respoonse_model.dart';
+import 'package:sunkonnect/tickets/model/message_response_model.dart';
 import 'package:sunkonnect/widgets/constant.dart';
 import 'package:sunkonnect/loginflow/model/change_password_response_model.dart';
 import 'package:sunkonnect/loginflow/model/forgot_request_model.dart';
@@ -18,7 +23,7 @@ class ApiService {
   Map<String, String> accessheaders = {
     "Authorization": SharedPrefServices.getaccessToken().toString(),
   };
-
+// ticketLog/insert-ticketLogInfo
   Future<Loginauth> loginauth(Loginrequestauth requestModel) async {
     String url = "${AppConstant.sunkonnectDevUrl}login/login-to-dashboard";
     print(url);
@@ -270,4 +275,91 @@ class ApiService {
 
     throw Exception('Failed to load Data');
   }
+
+    // add message POST service
+    
+    Future<MessageResponseModel> addMessage(
+      AddMessageRequest requestModel) async {
+    String url = "${AppConstant.sunkonnectDevUrl}ticketLog/insert-ticketLogInfo";
+   
+    print("Print whole response.body requestModel ${requestModel.toJson()}");
+
+    try {
+      final response = await http.post(Uri.parse(url),
+          body: requestModel.toJson(), );
+
+               
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return messageResponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return messageResponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return messageResponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return messageResponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return messageResponseModelFromJson(response.body);
+      } else
+        return messageResponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
+
+    print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+
+  // addimages&files POST service //
+
+  Future<ImagesResponseModel> addMultiFiles(
+      TicketLogImage requestModel) async {
+    String url = "${AppConstant.sunkonnectDevUrl}imageUpload/multipleImageUploader";
+   
+    print("Print Multi Files response.body requestModel ${requestModel.toJson()}");
+
+    try {
+      final response = await http.post(Uri.parse(url),
+          body: requestModel.toJson(), );
+
+               
+      inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return imagesResponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return imagesResponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return imagesResponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return imagesResponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return imagesResponseModelFromJson(response.body);
+      } else
+        return imagesResponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
+
+    print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+
 }
