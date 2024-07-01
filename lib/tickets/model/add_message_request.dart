@@ -1,26 +1,23 @@
-
-
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable()
 class AddMessageRequest {
-
   String ticketId;
   String raisebyObjectId;
   String dateOfLog;
-  List<TicketLogImage> ticketLogImages;
+  List ticketLogImages;
   String description;
   String ticketID;
   String ticketObjId;
   String assignedtoObjectId;
   String createdBy;
-   String companyId;
-  String raisebyObjectID;
+  String companyId;
+  var raisebyObjectID;
   String raisebyObjectName;
   String title;
   String accountCode;
   String projectCode;
-  
+
   AddMessageRequest({
     this.ticketId = "",
     this.ticketID = "",
@@ -31,25 +28,22 @@ class AddMessageRequest {
     this.projectCode = "",
     this.assignedtoObjectId = "",
     this.raisebyObjectId = "",
-    this.raisebyObjectID = "",
+    required this.raisebyObjectID,
     this.raisebyObjectName = "",
     this.createdBy = "",
-     this.companyId = "",
+    this.companyId = "",
     this.description = "",
-    this.ticketLogImages = const [], 
-   
-   
+    this.ticketLogImages = const [],
   });
   factory AddMessageRequest.fromJson(Map<String, dynamic> json) =>
       _$AddMessageRequestFromJson(json);
   Map<String, dynamic> toJson() => _$AddMessageRequestToJson(this);
 }
 
-AddMessageRequest _$AddMessageRequestFromJson(
-    Map<String, dynamic> json) {
+AddMessageRequest _$AddMessageRequestFromJson(Map<String, dynamic> json) {
   return AddMessageRequest(
     ticketId: json['data'],
-     ticketID: json['data'],
+    ticketID: json['data'],
     ticketObjId: json['data'],
     title: json['data'],
     dateOfLog: json['data'],
@@ -63,12 +57,10 @@ AddMessageRequest _$AddMessageRequestFromJson(
     companyId: json['data'],
     description: json['data'],
     ticketLogImages: (json['data']),
-    
   );
 }
 
-Map<String, dynamic> _$AddMessageRequestToJson(
-        AddMessageRequest instance) =>
+Map<String, dynamic> _$AddMessageRequestToJson(AddMessageRequest instance) =>
     <String, dynamic>{
       'ticketId': instance.ticketId,
       'ticketID': instance.ticketID,
@@ -85,11 +77,9 @@ Map<String, dynamic> _$AddMessageRequestToJson(
       'companyId': instance.companyId,
       'description': instance.description,
       'ticketLogimages': instance.ticketLogImages,
-      
     };
 
-    
-  class TicketLogImage {
+class TicketLogImage {
   String fileName;
   String fileUrl;
   String extension;

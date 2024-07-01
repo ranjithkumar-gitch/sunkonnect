@@ -6,15 +6,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/model/add_message_request.dart';
-import 'package:sunkonnect/tickets/model/images_respoonse_model.dart';
+import 'package:sunkonnect/tickets/model/uploadimage_responsemodel.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
+import 'package:sunkonnect/widgets/constant.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
-import 'package:sunkonnect/widgets/progressbar.dart';
 import 'package:sunkonnect/widgets/snackbar.dart';
+import 'package:http/http.dart' as http;
 
 class AddMessage extends StatefulWidget {
   const AddMessage({super.key});
@@ -28,8 +29,6 @@ class _AddMessageState extends State<AddMessage> {
 
   List<File?> selectedFiles = [];
   List<File> selectedImages = [];
-
-
 
   File? file;
   File? media;
@@ -62,7 +61,7 @@ class _AddMessageState extends State<AddMessage> {
       projectCode: "",
       raisebyObjectId: "",
       title: "",
-      raisebyObjectID: "",
+      raisebyObjectID: ,
       dateOfLog: "",
       ticketID: "",
       ticketObjId: " ",
@@ -414,7 +413,7 @@ class _AddMessageState extends State<AddMessage> {
                             height: 40,
                             width: 100,
                             child: ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (messageController.text.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
@@ -423,6 +422,10 @@ class _AddMessageState extends State<AddMessage> {
                                   } else if (messageController
                                       .text.isNotEmpty) {
                                     //additiona fields //
+
+                                    setState(() {
+                                      isLoading = true;
+                                    });
                                     addMessageRequestModel.ticketId = '';
                                     addMessageRequestModel.raisebyObjectId =
                                         SharedPrefServices.getuserObjId()
@@ -479,21 +482,21 @@ class _AddMessageState extends State<AddMessage> {
                                         if (value.status == 200 ||
                                             value.status == 201) {
                                           showToast(
-                                              "Ticket Send  Successfully");
+                                              "Message added Successfully");
                                         }
                                       });
                                     } else if (selectedImages.isNotEmpty ||
                                         selectedFiles.isNotEmpty) {
-                                    
-                                      List<dynamic> postImages = [];
-                                      postImages.addAll(selectedImages);
-                                      postImages.addAll(selectedFiles);
-                                      print('New List,$postImages');
+                                      List<File> imgstoupload = [];
+                                      imgstoupload.addAll(selectedImages);
+                                      // imgstoupload.addAll(
+                                      //     selectedFiles );
+                                      print('New List,$imgstoupload');
+                                      inspect(imgstoupload);
 
-                                      addImagesService(postImages);
+                                      await uploadMultipleImage(imgstoupload);
                                     }
                                   }
-                                  
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colours.kbuttonpurple,
@@ -760,116 +763,83 @@ class _AddMessageState extends State<AddMessage> {
     );
   }
 
-  
-  void addImagesService(postImages) {
- 
-  List<TicketLogImage> imagePayloads = [];
+  // uploadMultipleImage(List<File> imgstoupload) {}
+  uploadMultipleImage(List<File> imgstoupload) async {
+// string to uri
+    var uri = Uri.parse(
+        AppConstant.sunkonnectDevUrl + "imageUpload/multipleImageUploader");
+    // print("image upload URL - $uri");
+// create multipart request
+    var request = new http.MultipartRequest("POST", uri);
 
-  
-  postImages.forEach((item) {
-    if (item is File) {
-     
-      TicketLogImage payload = TicketLogImage(
-        fileName: item.path.split('/').last,
-        fileUrl: '', 
-        extension: item.path.split('.').last, 
-      );
-      imagePayloads.add(payload); 
+    for (var file in imgstoupload) {
+      String fileName = file.path.split("/").last;
+      // var stream = new http.ByteStream(DelegatingStream.typed(file.openRead()));
+      var stream = http.ByteStream(file.openRead());
+      stream.cast();
+
+      // get file length
+
+      var length = await file.length(); //imageFile is your image file
+      // print("File lenght - $length");
+      // print("fileName - $fileName");
+      // multipart that takes file
+      var multipartFileSign =
+          http.MultipartFile('images', stream, length, filename: fileName);
+
+      request.files.add(multipartFileSign);
     }
-  });
 
-  
-  print('New List, $postImages');
+    Map<String, String> headers = {
+      'reportProgress': 'true',
+      'responseType': 'json',
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      'Authorization': SharedPrefServices.getaccessToken().toString(),
+    };
+    // print("headers - $headers}");
+    request.headers.addAll(headers);
 
-  
-  setState(() {
-    isLoading = true;
-  });
+    var response = await request.send();
 
- 
-  addMessageRequestModel.ticketLogImages = imagePayloads;
-  
+    // print(response.statusCode);
 
-     ApiService apiService = ApiService();
-    
-    apiService.addMultiFiles(imageRequestModel).then((value) {
-      if (value.status == 200 || value.status == 201) {
-        print('Files uploaded Successfully');
-        showToast('Files uploaded Successfully');
+    var res = await http.Response.fromStream(response);
+    // print(response.statusCode);
+    if (response.statusCode == 200) {
+      List imglocations = updatedimagesFromJson(res.body)
+          .response!
+          .uploadedImagePath!
+          .map((e) => {
+                "fileName": e.originalname,
+                "fileUrl": e.location,
+                "extension": e.location!.split('.').last
+              })
+          .toList();
 
-        List<ImagePayload> imageFiles = []; 
-
-       
-        value.response?.uploadedImagePath?.forEach((img) {
-          ImagePayload imagePayload = ImagePayload(
-            fileName: img.originalname ?? '',
-            fileUrl: img.location ?? '',
-            extension: img.contentType?.split('/').last ?? '',
-          );
-          imageFiles.add(imagePayload);
-        });
-
-       
-       
+      // postdatatobooknowservice(booknowlist);
 
       setState(() {
-        selectedFiles.clear();
-        selectedImages.clear();
+        addMessageRequestModel.ticketLogImages = imglocations;
       });
-    
-      }
-    }).catchError((error) {
-      print('Error uploading files: $error');
-      showToast('Error uploading files');
-    }).whenComplete(() {
-    
+      // addmessage post service //
+      ApiService apiService = ApiService();
+
+      apiService.addMessage(addMessageRequestModel).then((value) {
+        if (value.status == 200 || value.status == 201) {
+          showToast("Message added Successfully");
+        }
+      });
+
+      return updatedimagesFromJson(res.body);
+    }
     setState(() {
       isLoading = false;
     });
-  });
-  }
-
-
-  
-
-}
-
-
-
-
-
-
-
-
-
-
-
-      
-  class ImagePayload {
-  String fileName;
-  String fileUrl;
-  String extension;
-
-  ImagePayload({
-    required this.fileName,
-    required this.fileUrl,
-    required this.extension,
-  });
-
-  factory ImagePayload.fromJson(Map<String, dynamic> json) {
-    return ImagePayload(
-      fileName: json['fileName'],
-      fileUrl: json['fileUrl'],
-      extension: json['extension'],
+    final snackbar = const SnackBar(
+      content: Text('Error. Please try again later'),
     );
-  }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'fileName': fileName,
-      'fileUrl': fileUrl,
-      'extension': extension,
-    };
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }
 
