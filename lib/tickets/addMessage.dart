@@ -27,7 +27,7 @@ class AddMessage extends StatefulWidget {
 class _AddMessageState extends State<AddMessage> {
   final ImagePicker picker = ImagePicker();
 
-  List<File?> selectedFiles = [];
+  List<File> selectedFiles = [];
   List<File> selectedImages = [];
 
   File? file;
@@ -48,7 +48,8 @@ class _AddMessageState extends State<AddMessage> {
     dateController = TextEditingController();
 
     String currentDateTime =
-        DateFormat('dd-MM-yyyy , HH:mm a').format(DateTime.now());
+    // DateFormat("yyyy-MM-ddTHH:mm:ss.SSS'Z'").format(DateTime.now());
+   DateFormat('dd-MM-yyyy HH:mm a').format(DateTime.now());
     dateController.text = currentDateTime;
 
     addMessageRequestModel = AddMessageRequest(
@@ -61,7 +62,10 @@ class _AddMessageState extends State<AddMessage> {
       projectCode: "",
       raisebyObjectId: "",
       title: "",
-      raisebyObjectID: ,
+      raisebyObjectID:  RaisebyObjectID(
+      id: '',
+       name: '',
+      ),
       dateOfLog: "",
       ticketID: "",
       ticketObjId: " ",
@@ -144,42 +148,43 @@ class _AddMessageState extends State<AddMessage> {
                               fontFamily: 'Poppins',
                             ),
                             readOnly: true,
+                            
                             controller: dateController,
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
                                   onPressed: () async {
-                                    DateTime? pickeddate = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1950),
-                                      lastDate: DateTime.now(),
-                                    );
-                                    if (pickeddate != null) {
-                                      TimeOfDay? pickedTime =
-                                          await showTimePicker(
-                                        context: context,
-                                        initialTime: TimeOfDay.now(),
-                                      );
-                                      if (pickedTime != null) {
-                                        setState(() {
-                                          String formattedDate =
-                                              DateFormat('dd-MM-yyyy')
-                                                  .format(pickeddate);
-                                          String formattedTime =
-                                              DateFormat('HH:mm a').format(
-                                            DateTime(
-                                              pickeddate.year,
-                                              pickeddate.month,
-                                              pickeddate.day,
-                                              pickedTime.hour,
-                                              pickedTime.minute,
-                                            ),
-                                          );
-                                          dateController.text =
-                                              '$formattedDate, $formattedTime';
-                                        });
-                                      }
-                                    }
+                                    // DateTime? pickeddate = await showDatePicker(
+                                    //   context: context,
+                                    //   initialDate: DateTime.now(),
+                                    //   firstDate: DateTime(1950),
+                                    //   lastDate: DateTime.now(),
+                                    // );
+                                    // if (pickeddate != null) {
+                                    //   TimeOfDay? pickedTime =
+                                    //       await showTimePicker(
+                                    //     context: context,
+                                    //     initialTime: TimeOfDay.now(),
+                                    //   );
+                                    //   if (pickedTime != null) {
+                                    //     setState(() {
+                                    //       String formattedDate =
+                                    //           DateFormat('dd-MM-yyyy')
+                                    //               .format(pickeddate);
+                                    //       String formattedTime =
+                                    //           DateFormat('HH:mm a').format(
+                                    //         DateTime(
+                                    //           pickeddate.year,
+                                    //           pickeddate.month,
+                                    //           pickeddate.day,
+                                    //           pickedTime.hour,
+                                    //           pickedTime.minute,
+                                    //         ),
+                                    //       );
+                                    //       dateController.text =
+                                    //           '$formattedDate, $formattedTime';
+                                    //     });
+                                    //   }
+                                    // }
                                   },
                                   icon: const Icon(
                                     Icons.calendar_month,
@@ -376,7 +381,7 @@ class _AddMessageState extends State<AddMessage> {
                             itemCount: selectedFiles.length,
                             itemBuilder: (context, index) {
                               return buildFileWidget(
-                                  selectedFiles[index]!, index);
+                                  selectedFiles[index], index);
                             },
                           ),
                         )
@@ -426,6 +431,7 @@ class _AddMessageState extends State<AddMessage> {
                                     setState(() {
                                       isLoading = true;
                                     });
+                                    
                                     addMessageRequestModel.ticketId = '';
                                     addMessageRequestModel.raisebyObjectId =
                                         SharedPrefServices.getuserObjId()
@@ -450,13 +456,20 @@ class _AddMessageState extends State<AddMessage> {
                                     addMessageRequestModel.createdBy =
                                         SharedPrefServices.getcreatedBy()
                                             .toString();
-                                    addMessageRequestModel.raisebyObjectID =
-                                        SharedPrefServices.getraisebyObjectID()
-                                            .toString();
-                                    addMessageRequestModel.raisebyObjectName =
-                                        SharedPrefServices
-                                                .getraisebyObjectName()
-                                            .toString();
+
+                                     addMessageRequestModel.raisebyObjectID = RaisebyObjectID(
+                                    id: SharedPrefServices.getraisebyObjectID().toString(),
+                                    name: SharedPrefServices.getraisebyObjectName().toString(),
+                                   );
+
+
+                                    // addMessageRequestModel.raisebyObjectID =
+                                    //     SharedPrefServices.getraisebyObjectID()
+                                    //         .toString();
+                                    // addMessageRequestModel.raisebyObjectName =
+                                    //     SharedPrefServices
+                                    //             .getraisebyObjectName()
+                                    //         .toString();
                                     addMessageRequestModel.title =
                                         SharedPrefServices.gettitle()
                                             .toString();
@@ -489,8 +502,8 @@ class _AddMessageState extends State<AddMessage> {
                                         selectedFiles.isNotEmpty) {
                                       List<File> imgstoupload = [];
                                       imgstoupload.addAll(selectedImages);
-                                      // imgstoupload.addAll(
-                                      //     selectedFiles );
+                                      imgstoupload.addAll(
+                                     selectedFiles );
                                       print('New List,$imgstoupload');
                                       inspect(imgstoupload);
 
@@ -586,11 +599,21 @@ class _AddMessageState extends State<AddMessage> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('You can only select up to 10 files.')));
       } else {
-        setState(() {
-          selectedFiles.addAll(result.paths
-              .map((path) => path != null ? File(path) : null)
-              .toList());
-        });
+        // setState(() {
+        //   selectedFiles.addAll(result.paths
+        //       .map((path) => path != null ? File(path) : null)
+        //       .toList());
+        // });
+         List<File> filesToAdd = result.paths
+        .map((path) => File(path!)) // Convert path to File
+        .where((file) => file.existsSync()) // Filter out non-existing files
+        .toList();
+
+      setState(() {
+        selectedFiles.addAll(filesToAdd);
+      });
+
+      print('Selected Files: $selectedFiles');
       }
     }
   }
@@ -835,7 +858,7 @@ class _AddMessageState extends State<AddMessage> {
     setState(() {
       isLoading = false;
     });
-    final snackbar = const SnackBar(
+    const  snackbar =  SnackBar(
       content: Text('Error. Please try again later'),
     );
 

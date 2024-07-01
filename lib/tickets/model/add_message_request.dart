@@ -12,8 +12,8 @@ class AddMessageRequest {
   String assignedtoObjectId;
   String createdBy;
   String companyId;
-  var raisebyObjectID;
-  String raisebyObjectName;
+ var raisebyObjectID;
+  // String raisebyObjectName;
   String title;
   String accountCode;
   String projectCode;
@@ -28,8 +28,8 @@ class AddMessageRequest {
     this.projectCode = "",
     this.assignedtoObjectId = "",
     this.raisebyObjectId = "",
-    required this.raisebyObjectID,
-    this.raisebyObjectName = "",
+   required this.raisebyObjectID,
+    // this.raisebyObjectName = "",
     this.createdBy = "",
     this.companyId = "",
     this.description = "",
@@ -37,6 +37,7 @@ class AddMessageRequest {
   });
   factory AddMessageRequest.fromJson(Map<String, dynamic> json) =>
       _$AddMessageRequestFromJson(json);
+
   Map<String, dynamic> toJson() => _$AddMessageRequestToJson(this);
 }
 
@@ -49,9 +50,9 @@ AddMessageRequest _$AddMessageRequestFromJson(Map<String, dynamic> json) {
     dateOfLog: json['data'],
     accountCode: json['data'],
     projectCode: json['data'],
-    raisebyObjectId: json['data'],
-    raisebyObjectID: json['data'],
-    raisebyObjectName: json['data'],
+    raisebyObjectID: RaisebyObjectID.fromJson(json['data'] ),
+    // raisebyObjectID: json['data'],
+    // raisebyObjectName: json['data'],
     assignedtoObjectId: json['data'],
     createdBy: json['data'],
     companyId: json['data'],
@@ -69,8 +70,8 @@ Map<String, dynamic> _$AddMessageRequestToJson(AddMessageRequest instance) =>
       'dateOfLog': instance.dateOfLog,
       'accountCode': instance.accountCode,
       'projectCode': instance.projectCode,
-      'raisebyObjectID': instance.raisebyObjectID,
-      'raisebyObjectName': instance.raisebyObjectName,
+      'raisebyObjectID': instance.raisebyObjectID.toJson(),
+      // 'raisebyObjectName': instance.raisebyObjectName,
       'raisebyObjectId': instance.raisebyObjectId,
       'assignedtoObjectId': instance.assignedtoObjectId,
       'createdBy': instance.createdBy,
@@ -78,6 +79,56 @@ Map<String, dynamic> _$AddMessageRequestToJson(AddMessageRequest instance) =>
       'description': instance.description,
       'ticketLogimages': instance.ticketLogImages,
     };
+
+class RaisebyObjectID {
+   String ? id;
+   String ? name;
+
+  RaisebyObjectID({required this.id, required this.name});
+
+  factory RaisebyObjectID.fromJson(Map<String, dynamic> json) {
+    return RaisebyObjectID(
+      id: json['_id'],
+      name: json['name'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'name': name,
+    };
+  }
+}
+
+// class RaisebyObjectID {
+//   String id;
+//   String name;
+ 
+
+//   RaisebyObjectID({
+//     required this.id,
+//     required this.name,
+//   });
+
+//   factory RaisebyObjectID.fromJson(Map<String, dynamic> json) {
+//     return RaisebyObjectID(
+//       id: json['id'],
+//       name: json['name'],
+      
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'id': id,
+//       'name': name,
+      
+//     };
+//   }
+// }
+
+
 
 class TicketLogImage {
   String fileName;
@@ -109,43 +160,7 @@ class TicketLogImage {
 
 
 
-  // String ticketId;
-  // String dateOfLog;
-  // String ticketObjId;
-  // String description;
-  // String companyId;
-  // String assignedtoObjectId;
-  // String raisebyObjectId;
-  // String createdBy;
-  // String title;
-  // String accountCode;
-  // String projectCode;
-  // dynamic raisebyObjectId;
-  // List ticketLogimages;
 
 
 
-// class RaiseByObject {
-//   String id;
-//   String name;
-
-//   RaiseByObject({
-//     required this.id,
-//     required this.name,
-//   });
-
-//   factory RaiseByObject.fromJson(Map<String, dynamic> json) {
-//     return RaiseByObject(
-//       id: json['_id'],
-//       name: json['name'],
-//     );
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     return {
-//       '_id': id,
-//       'name': name,
-//     };
-//   }
-// }
 

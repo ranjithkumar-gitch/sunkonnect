@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:sunkonnect/tickets/model/add_message_request.dart';
@@ -283,10 +284,11 @@ class ApiService {
     String url = "${AppConstant.sunkonnectDevUrl}ticketLog/insert-ticketLogInfo";
    
     print("Print whole response.body requestModel ${requestModel.toJson()}");
-
+    
+    var payLoadData = json.encode(requestModel.toJson());
     try {
       final response = await http.post(Uri.parse(url),
-          body: requestModel.toJson(), );
+          body: payLoadData );
 
                
       // inspect(requestModel.toJson());
