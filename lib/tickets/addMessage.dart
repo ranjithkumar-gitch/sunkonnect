@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
+import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/model/add_message_request.dart';
 import 'package:sunkonnect/tickets/model/uploadimage_responsemodel.dart';
@@ -48,8 +50,8 @@ class _AddMessageState extends State<AddMessage> {
     dateController = TextEditingController();
 
     String currentDateTime =
-    // DateFormat("yyyy-MM-ddTHH:mm:ss.SSS'Z'").format(DateTime.now());
-   DateFormat('dd-MM-yyyy HH:mm a').format(DateTime.now());
+        // DateFormat("yyyy-MM-ddTHH:mm:ss.SSS'Z'").format(DateTime.now());
+        DateFormat('dd-MM-yyyy HH:mm a').format(DateTime.now());
     dateController.text = currentDateTime;
 
     addMessageRequestModel = AddMessageRequest(
@@ -62,9 +64,9 @@ class _AddMessageState extends State<AddMessage> {
       projectCode: "",
       raisebyObjectId: "",
       title: "",
-      raisebyObjectID:  RaisebyObjectID(
-      id: '',
-       name: '',
+      raisebyObjectID: RaisebyObjectID(
+        id: '',
+        name: '',
       ),
       dateOfLog: "",
       ticketID: "",
@@ -148,7 +150,6 @@ class _AddMessageState extends State<AddMessage> {
                               fontFamily: 'Poppins',
                             ),
                             readOnly: true,
-                            
                             controller: dateController,
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
@@ -431,13 +432,15 @@ class _AddMessageState extends State<AddMessage> {
                                     setState(() {
                                       isLoading = true;
                                     });
-                                    
+
                                     addMessageRequestModel.ticketId = '';
                                     addMessageRequestModel.raisebyObjectId =
                                         SharedPrefServices.getuserObjId()
                                             .toString();
+                                    // addMessageRequestModel.dateOfLog =
+                                    //     dateController.text;
                                     addMessageRequestModel.dateOfLog =
-                                        dateController.text;
+                                        DateTime.now().toString();
                                     addMessageRequestModel.description =
                                         messageController.text;
                                     addMessageRequestModel.ticketObjId =
@@ -457,19 +460,16 @@ class _AddMessageState extends State<AddMessage> {
                                         SharedPrefServices.getcreatedBy()
                                             .toString();
 
-                                     addMessageRequestModel.raisebyObjectID = RaisebyObjectID(
-                                    id: SharedPrefServices.getraisebyObjectID().toString(),
-                                    name: SharedPrefServices.getraisebyObjectName().toString(),
-                                   );
+                                    addMessageRequestModel.raisebyObjectID =
+                                        RaisebyObjectID(
+                                      id: SharedPrefServices
+                                              .getraisebyObjectID()
+                                          .toString(),
+                                      name: SharedPrefServices
+                                              .getraisebyObjectName()
+                                          .toString(),
+                                    );
 
-
-                                    // addMessageRequestModel.raisebyObjectID =
-                                    //     SharedPrefServices.getraisebyObjectID()
-                                    //         .toString();
-                                    // addMessageRequestModel.raisebyObjectName =
-                                    //     SharedPrefServices
-                                    //             .getraisebyObjectName()
-                                    //         .toString();
                                     addMessageRequestModel.title =
                                         SharedPrefServices.gettitle()
                                             .toString();
@@ -487,23 +487,27 @@ class _AddMessageState extends State<AddMessage> {
                                             [];
                                       });
                                       // addmessage post service //
-                                      ApiService apiService = ApiService();
 
-                                      apiService
-                                          .addMessage(addMessageRequestModel)
-                                          .then((value) {
-                                        if (value.status == 200 ||
-                                            value.status == 201) {
-                                          showToast(
-                                              "Message added Successfully");
-                                        }
-                                      });
+                                      // ApiService apiService = ApiService();
+
+                                      // apiService
+                                      //     .addMessage(addMessageRequestModel)
+                                      //     .then((value) {
+                                      //   if (value.status == 200 ||
+                                      //       value.status == 201) {
+                                      //     showToast(
+                                      //         "Message added Successfully");
+                                      //   }
+
+                                      // });
+
+                                      postdatatoAddmessageservice(
+                                          addMessageRequestModel);
                                     } else if (selectedImages.isNotEmpty ||
                                         selectedFiles.isNotEmpty) {
                                       List<File> imgstoupload = [];
                                       imgstoupload.addAll(selectedImages);
-                                      imgstoupload.addAll(
-                                     selectedFiles );
+                                      imgstoupload.addAll(selectedFiles);
                                       print('New List,$imgstoupload');
                                       inspect(imgstoupload);
 
@@ -604,16 +608,16 @@ class _AddMessageState extends State<AddMessage> {
         //       .map((path) => path != null ? File(path) : null)
         //       .toList());
         // });
-         List<File> filesToAdd = result.paths
-        .map((path) => File(path!)) // Convert path to File
-        .where((file) => file.existsSync()) // Filter out non-existing files
-        .toList();
+        List<File> filesToAdd = result.paths
+            .map((path) => File(path!)) // Convert path to File
+            .where((file) => file.existsSync()) // Filter out non-existing files
+            .toList();
 
-      setState(() {
-        selectedFiles.addAll(filesToAdd);
-      });
+        setState(() {
+          selectedFiles.addAll(filesToAdd);
+        });
 
-      print('Selected Files: $selectedFiles');
+        print('Selected Files: $selectedFiles');
       }
     }
   }
@@ -845,24 +849,69 @@ class _AddMessageState extends State<AddMessage> {
         addMessageRequestModel.ticketLogImages = imglocations;
       });
       // addmessage post service //
-      ApiService apiService = ApiService();
-
-      apiService.addMessage(addMessageRequestModel).then((value) {
-        if (value.status == 200 || value.status == 201) {
-          showToast("Message added Successfully");
-        }
-      });
+      postdatatoAddmessageservice(addMessageRequestModel);
 
       return updatedimagesFromJson(res.body);
     }
     setState(() {
       isLoading = false;
     });
-    const  snackbar =  SnackBar(
+    const snackbar = SnackBar(
       content: Text('Error. Please try again later'),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  }
+
+  void postdatatoAddmessageservice(
+      AddMessageRequest addMessageRequestModel) async {
+    try {
+      var headers = {
+        'Authorization': SharedPrefServices.getaccessToken().toString(),
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'http://65.0.91.101:7390/api/ticketLog/insert-ticketLogInfo'));
+      request.body = json.encode(addMessageRequestModel);
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        setState(() {
+          isLoading = false;
+        });
+        final invalidsnackbar = SnackBar(
+          content: const Text('New Message Created Successfully.'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(invalidsnackbar);
+        print(await response.stream.bytesToString());
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        final invalidsnackbar = SnackBar(
+          content: const Text('Something went wrong.'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(invalidsnackbar);
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+      final snackbar = SnackBar(
+        content: const Text('Error.Please try again later'),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      throw e;
+    }
   }
 }
 

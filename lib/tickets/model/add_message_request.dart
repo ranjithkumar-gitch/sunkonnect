@@ -12,7 +12,7 @@ class AddMessageRequest {
   String assignedtoObjectId;
   String createdBy;
   String companyId;
- var raisebyObjectID;
+  var raisebyObjectID;
   // String raisebyObjectName;
   String title;
   String accountCode;
@@ -28,7 +28,7 @@ class AddMessageRequest {
     this.projectCode = "",
     this.assignedtoObjectId = "",
     this.raisebyObjectId = "",
-   required this.raisebyObjectID,
+    required this.raisebyObjectID,
     // this.raisebyObjectName = "",
     this.createdBy = "",
     this.companyId = "",
@@ -43,21 +43,21 @@ class AddMessageRequest {
 
 AddMessageRequest _$AddMessageRequestFromJson(Map<String, dynamic> json) {
   return AddMessageRequest(
-    ticketId: json['data'],
-    ticketID: json['data'],
-    ticketObjId: json['data'],
-    title: json['data'],
-    dateOfLog: json['data'],
-    accountCode: json['data'],
-    projectCode: json['data'],
-    raisebyObjectID: RaisebyObjectID.fromJson(json['data'] ),
-    // raisebyObjectID: json['data'],
-    // raisebyObjectName: json['data'],
-    assignedtoObjectId: json['data'],
-    createdBy: json['data'],
-    companyId: json['data'],
-    description: json['data'],
-    ticketLogImages: (json['data']),
+    ticketId: (json['data'] as String),
+    ticketID: (json['data'] as String),
+    ticketObjId: (json['data'] as String),
+    title: (json['data'] as String),
+    dateOfLog: (json['data'] as String),
+    accountCode: (json['data'] as String),
+    projectCode: (json['data'] as String),
+    raisebyObjectID: RaisebyObjectID.fromJson(json['data']),
+    // raisebyObjectID: (json['data'] as String),
+    // raisebyObjectName: (json['data'] as String),
+    assignedtoObjectId: (json['data'] as String),
+    createdBy: (json['data'] as String),
+    companyId: (json['data'] as String),
+    description: (json['data'] as String),
+    ticketLogImages: (json['data'] as List),
   );
 }
 
@@ -81,15 +81,15 @@ Map<String, dynamic> _$AddMessageRequestToJson(AddMessageRequest instance) =>
     };
 
 class RaisebyObjectID {
-   String ? id;
-   String ? name;
+  String? id;
+  String? name;
 
   RaisebyObjectID({required this.id, required this.name});
 
   factory RaisebyObjectID.fromJson(Map<String, dynamic> json) {
     return RaisebyObjectID(
-      id: json['_id'],
-      name: json['name'],
+      id: json['_id'] ?? "",
+      name: json['name'] ?? "",
     );
   }
 
@@ -104,7 +104,6 @@ class RaisebyObjectID {
 // class RaisebyObjectID {
 //   String id;
 //   String name;
- 
 
 //   RaisebyObjectID({
 //     required this.id,
@@ -115,7 +114,7 @@ class RaisebyObjectID {
 //     return RaisebyObjectID(
 //       id: json['id'],
 //       name: json['name'],
-      
+
 //     );
 //   }
 
@@ -123,12 +122,10 @@ class RaisebyObjectID {
 //     return {
 //       'id': id,
 //       'name': name,
-      
+
 //     };
 //   }
 // }
-
-
 
 class TicketLogImage {
   String fileName;
@@ -157,10 +154,3 @@ class TicketLogImage {
     };
   }
 }
-
-
-
-
-
-
-

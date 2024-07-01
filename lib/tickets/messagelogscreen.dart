@@ -50,8 +50,6 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
     }
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     var myTicketsListProvider = context.watch<MyTicketsListProvider>();
@@ -74,9 +72,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddMessage(
-                            
-                          )));
+                          builder: (context) => const AddMessage()));
                 },
                 label: const CustomText(
                     text: 'Add Message',
@@ -107,7 +103,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
               height: 10,
             ),
             // _searchFilters(),
-            
+
             Selector<MyTicketsListProvider,
                 ApiResponse<MessageLogResponseModel>?>(
               selector: (_, apiResponse) => apiResponse.messageLogResponseModel,
@@ -220,6 +216,10 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                                                                 Colors.black,
                                                           ),
                                                           Text(
+                                                            // messageloglistdata[
+                                                            //         index]!
+                                                            //     .dateOfLog
+                                                            //     .toString(),
                                                             formatDate(
                                                               messageloglistdata[
                                                                       index]!

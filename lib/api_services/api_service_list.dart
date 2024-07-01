@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 
@@ -277,63 +276,21 @@ class ApiService {
     throw Exception('Failed to load Data');
   }
 
-    // add message POST service
-    
-    Future<MessageResponseModel> addMessage(
-      AddMessageRequest requestModel) async {
-    String url = "${AppConstant.sunkonnectDevUrl}ticketLog/insert-ticketLogInfo";
-   
-    print("Print whole response.body requestModel ${requestModel.toJson()}");
-    
-    var payLoadData = json.encode(requestModel.toJson());
-    try {
-      final response = await http.post(Uri.parse(url),
-          body: payLoadData );
-
-               
-      // inspect(requestModel.toJson());
-      if (response.statusCode == 200) {
-        return messageResponseModelFromJson(response.body);
-      } else if (response.statusCode == 203) {
-        // throw Exception('incorrect data');
-        return messageResponseModelFromJson(response.body);
-      } else if (response.statusCode == 201) {
-        // throw Exception('incorrect data');
-        return messageResponseModelFromJson(response.body);
-      } else if (response.statusCode == 401) {
-        // throw Exception('incorrect data');
-        return messageResponseModelFromJson(response.body);
-      } else if (response.statusCode == 404) {
-        // throw Exception('incorrect data');
-        return messageResponseModelFromJson(response.body);
-      } else
-        return messageResponseModelFromJson(response.body);
-      // print(response.statusCode);
-    } catch (e) {
-      
-      print(e.toString());
-    }
-    // return userloginfailureresponseFromJson(response.body);
-
-    print(requestModel);
-
-    throw Exception('Failed to load Data');
-  }
-
-
   // addimages&files POST service //
 
-  Future<ImagesResponseModel> addMultiFiles(
-      TicketLogImage requestModel) async {
-    String url = "${AppConstant.sunkonnectDevUrl}imageUpload/multipleImageUploader";
-   
-    print("Print Multi Files response.body requestModel ${requestModel.toJson()}");
+  Future<ImagesResponseModel> addMultiFiles(TicketLogImage requestModel) async {
+    String url =
+        "${AppConstant.sunkonnectDevUrl}imageUpload/multipleImageUploader";
+
+    print(
+        "Print Multi Files response.body requestModel ${requestModel.toJson()}");
 
     try {
-      final response = await http.post(Uri.parse(url),
-          body: requestModel.toJson(), );
+      final response = await http.post(
+        Uri.parse(url),
+        body: requestModel.toJson(),
+      );
 
-               
       inspect(requestModel.toJson());
       if (response.statusCode == 200) {
         return imagesResponseModelFromJson(response.body);
@@ -353,7 +310,6 @@ class ApiService {
         return imagesResponseModelFromJson(response.body);
       // print(response.statusCode);
     } catch (e) {
-      
       print(e.toString());
     }
     // return userloginfailureresponseFromJson(response.body);
@@ -362,6 +318,4 @@ class ApiService {
 
     throw Exception('Failed to load Data');
   }
-
-
 }
