@@ -130,16 +130,25 @@ class _ViewMessageState extends State<ViewMessage> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        const UrlCard(
+                                        UrlCard(
                                           title: 'Attachments',
-                                          urls: [
-                                            'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
-                                            'https://www.clickdimensions.com/links/TestPDFfile.pdf',
-                                            'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
-                                            'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
-                                            'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
-                                          ],
+                                          urls: viewmessagelog[0]!
+                                              .ticketLogimages!
+                                              .map((item) {
+                                            if (item is Map<String, dynamic> &&
+                                                item.containsKey('fileUrl')) {
+                                              return item['fileUrl']
+                                                  .toString(); 
+                                            } else {
+                                              return '';
+                                            }
+                                          }).toList(),
                                         ),
+
+                             
+                                        // 'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
+                                        // 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
+
                                         const SizedBox(
                                           height: 10,
                                         ),
@@ -172,56 +181,7 @@ class _ViewMessageState extends State<ViewMessage> {
   }
 }
 
-//   return Scaffold(
-//     backgroundColor: Colors.white,
-//     appBar: const CustomAppbar(title: 'View Message'),
-//     body: Container(
-//       margin: const EdgeInsets.only(right: 10, left: 10),
-//       child: const SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             SizedBox(
-//               height: 20,
-//             ),
-//             ContentCard(title: 'Message Id', content: 'TLG202404151488'),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             ContentCard(title: 'Sender', content: 'Sai Sharad Raj'),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             ContentCard(title: 'Date', content: '05-09-2024 14:03:46'),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             ContentCard(
-//                 title: 'Message',
-//                 content:
-//                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. '),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             UrlCard(
-//               title: 'Attachments',
-//               urls: [
-//                 'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
-//                 'https://www.clickdimensions.com/links/TestPDFfile.pdf',
-//                 'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
-//                 'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
-//                 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
-//               ],
-//             ),
-//             SizedBox(
-//               height: 10,
-//             ),
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }
+//
 
 class ContentCard extends StatelessWidget {
   final String title;
@@ -364,6 +324,18 @@ class _UrlCardState extends State<UrlCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 5),
+                 if (widget.urls.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      'Attachments Not Found',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )
+                  else
                 for (String url in widget.urls)
                   ListTile(
                     contentPadding: EdgeInsets.zero,
@@ -446,3 +418,55 @@ class _UrlCardState extends State<UrlCard> {
     );
   }
 }
+
+// OLD UI  Static
+// return Scaffold(
+//     backgroundColor: Colors.white,
+//     appBar: const CustomAppbar(title: 'View Message'),
+//     body: Container(
+//       margin: const EdgeInsets.only(right: 10, left: 10),
+//       child: const SingleChildScrollView(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             SizedBox(
+//               height: 20,
+//             ),
+//             ContentCard(title: 'Message Id', content: 'TLG202404151488'),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             ContentCard(title: 'Sender', content: 'Sai Sharad Raj'),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             ContentCard(title: 'Date', content: '05-09-2024 14:03:46'),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             ContentCard(
+//                 title: 'Message',
+//                 content:
+//                     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. '),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             UrlCard(
+//               title: 'Attachments',
+//               urls: [
+//                 'https://firebasestorage.googleapis.com/v0/b/billpro-9711c.appspot.com/o/MultiFiles%2F1717492020753?alt=media&token=d666321a-1941-4c47-bdf1-0f93d8284db7',
+//                 'https://www.clickdimensions.com/links/TestPDFfile.pdf',
+//                 'https://images.news18.com/ibnlive/uploads/2022/01/tata-safari-dark-edition-feature.jpg',
+//                 'https://cpget.tsche.ac.in/PDF/CPGETPDF/3%20Examination%20Schedule.pdf',
+//                 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_2mb.mp4',
+//               ],
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }

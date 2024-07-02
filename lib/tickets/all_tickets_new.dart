@@ -10,6 +10,10 @@ class AllTicketsList extends StatefulWidget {
 class _AllTicketsListState extends State<AllTicketsList> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: Center(
+        child: Text('In Progress',style: TextStyle(color: Colors.black,fontSize: 20),),
+      ),
+    );
   }
-}
+} 

@@ -303,6 +303,8 @@ class _AddMessageState extends State<AddMessage> {
                       ),
 
                       Container(
+                         color: Colours.ktextfeildbgColor, 
+                        
                         child: selectedImages.isEmpty && media == null
                             ? Container()
                             : SizedBox(
@@ -312,6 +314,7 @@ class _AddMessageState extends State<AddMessage> {
                                     ? 130
                                     : 250,
                                 child: GridView.builder(
+                                 
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
                                   shrinkWrap: true,

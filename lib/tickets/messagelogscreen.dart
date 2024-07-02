@@ -24,6 +24,7 @@ class MessageLogScreen extends StatefulWidget {
 class _MessageLogScreenState extends State<MessageLogScreen> {
   bool isApiCallProcess = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  
 
   // String formatDate(String date) {
   //   DateTime dateTime = DateTime.parse(date);
@@ -60,7 +61,7 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
           backgroundColor: Colors.white,
           key: scaffoldKey,
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.only(bottom: 5),
             child: SizedBox(
               height: 45,
               width: double.infinity,
@@ -89,7 +90,12 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+
+         
+        
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, children: [
             const SizedBox(
               height: 10,
             ),
@@ -104,201 +110,224 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
             ),
             // _searchFilters(),
 
-            Selector<MyTicketsListProvider,
-                ApiResponse<MessageLogResponseModel>?>(
-              selector: (_, apiResponse) => apiResponse.messageLogResponseModel,
-              builder: (_, instance, __) {
-                if (instance?.status == Status.error) {
-                  return FittedBox(
-                      child: Text(instance?.errorMessage ?? "error"));
-                } else if (instance?.status == Status.loading) {
-                  return const Expanded(child: ProgressBarHUD());
-                } else if (instance?.status == Status.completed) {
-                  List<Datum?> messageloglistdata =
-                      // instance?.data?.data!.data ?? [];
-                      instance?.data?.data?.data ?? [];
-                  print("now printing my messages  list data");
-                  print(messageloglistdata);
-                  inspect(messageloglistdata);
-
-                  return messageloglistdata.isEmpty
-                      ? const Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                            ),
-                            Text(
-                              "data NOT recieved. EMPTY",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 33),
-                            )
-                            // Image.asset(
-                            //   'images/nodatafound.png',
-                            //   height: 250,
-                            //   width: 250,
-                            // ),
-                          ],
+            Expanded(
+              child: Selector<MyTicketsListProvider,
+                  ApiResponse<MessageLogResponseModel>?>(
+                selector: (_, apiResponse) => apiResponse.messageLogResponseModel,
+                builder: (_, instance, __) {
+                  if (instance?.status == Status.error) {
+                    return FittedBox(
+                        child: Text(instance?.errorMessage ?? "error"));
+                  } else if (instance?.status == Status.loading) {
+                    return const Expanded(child: ProgressBarHUD());
+                  } else if (instance?.status == Status.completed) {
+                    List<Datum?> messageloglistdata =
+                        // instance?.data?.data!.data ?? [];
+                        instance?.data?.data?.data ?? [];
+                    print("now printing my messages  list data");
+                    print(messageloglistdata);
+                    inspect(messageloglistdata);
+              
+                    return messageloglistdata.isEmpty
+                        ? const Center(
+                          child: Text(
+                            "Messages Not Found",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 20),
+                          ),
                         )
-                      : Expanded(
-                          child: ListView.builder(
-                              itemCount: messageloglistdata.length,
-                              itemBuilder: (context, index) {
-                                return ExpandableNotifier(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      myTicketsListProvider
-                                          .clearviewmessagelogDetails();
-                                      setState(() {
-                                        SharedPrefServices.setDatumTicketId(
-                                          messageloglistdata[index]!
-                                              .datumTicketId
-                                              .toString(),
-                                        );
-                                      });
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ViewMessage()));
-                                    },
-                                    child: SingleChildScrollView(
-                                      child:
-                                          //  Text(messageloglistdata[index]!
-                                          //     .ticketId
-                                          //     .toString())
-                                          Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Card(
-                                              elevation: 1,
-                                              color: Colours.kcardbgColor,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
+                        : ListView.builder(
+                          
+                            itemCount: messageloglistdata.length,
+                            itemBuilder: (context, index) {
+                              return ExpandableNotifier(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    myTicketsListProvider
+                                        .clearviewmessagelogDetails();
+                                    setState(() {
+                                      SharedPrefServices.setDatumTicketId(
+                                        messageloglistdata[index]!
+                                            .datumTicketId
+                                            .toString(),
+                                      );
+                                    });
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ViewMessage()));
+                                  },
+                                  child: SingleChildScrollView(
+                                    child:
+                                        //  Text(messageloglistdata[index]!
+                                        //     .ticketId
+                                        //     .toString())
+                                        Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Card(
+                                            elevation: 1,
+                                            color: Colours.kcardbgColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10)),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colours.kcardbgColor,
+                                              ),
                                               child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Colours.kcardbgColor,
-                                                ),
-                                                child: Container(
-                                                  color: Colours.kcardbgColor,
-                                                  margin: const EdgeInsets.only(
-                                                      right: 10, left: 10),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          CustomText(
-                                                            text: messageloglistdata[
-                                                                    index]!
-                                                                .datumTicketId
-                                                                .toString(),
-                                                            // message[index].messageId,
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            textcolor:
-                                                                Colors.black,
-                                                          ),
-                                                          Text(
-                                                            // messageloglistdata[
-                                                            //         index]!
-                                                            //     .dateOfLog
-                                                            //     .toString(),
-                                                            formatDate(
-                                                              messageloglistdata[
-                                                                      index]!
-                                                                  .dateOfLog
-                                                                  .toString(),
-                                                            ),
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                                    fontSize:
-                                                                        10,
-                                                                    color: Colours
-                                                                        .ksubheadertext),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      CustomText(
-                                                        text:
-                                                            // messageloglistdata[
-                                                            //                 index]!
-                                                            //             .description!
-                                                            //             .length <=
-                                                            //         25
-                                                            //     ?
-                                                            messageloglistdata[
-                                                                    index]!
-                                                                .description
-                                                                .toString(),
-                                                        // : '${messageloglistdata[index]!.description.toString().substring(0, 25)} . . . . . . . .',
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        textcolor:
-                                                            Colours.kheadertext,
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .centerRight,
-                                                        child: CustomText(
+                                                color: Colours.kcardbgColor,
+                                                margin: const EdgeInsets.only(
+                                                    right: 10, left: 10),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        CustomText(
                                                           text: messageloglistdata[
                                                                   index]!
-                                                              .raisebyObjectId!
-                                                              .name
+                                                              .datumTicketId
                                                               .toString(),
-                                                          fontSize: 13,
+                                                          // message[index].messageId,
+                                                          fontSize: 14,
                                                           fontWeight:
-                                                              FontWeight.w500,
-                                                          textcolor: Colours
-                                                              .kheadertext,
+                                                              FontWeight.w600,
+                                                          textcolor:
+                                                              Colors.black,
                                                         ),
+                                                        Text(
+                                                          // messageloglistdata[
+                                                          //         index]!
+                                                          //     .dateOfLog
+                                                          //     .toString(),
+                                                          formatDate(
+                                                            messageloglistdata[
+                                                                    index]!
+                                                                .dateOfLog
+                                                                .toString(),
+                                                          ),
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                                  fontSize:
+                                                                      10,
+                                                                  color: Colours
+                                                                      .ksubheadertext),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    CustomText(
+                                                      text:
+                                                          // messageloglistdata[
+                                                          //                 index]!
+                                                          //             .description!
+                                                          //             .length <=
+                                                          //         25
+                                                          //     ?
+                                                          messageloglistdata[
+                                                                  index]!
+                                                              .description
+                                                              .toString(),
+                                                      // : '${messageloglistdata[index]!.description.toString().substring(0, 25)} . . . . . . . .',
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      textcolor:
+                                                          Colours.kheadertext,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment
+                                                          .centerRight,
+                                                      child: CustomText(
+                                                        text: messageloglistdata[
+                                                                index]!
+                                                            .raisebyObjectId!
+                                                            .name
+                                                            .toString(),
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        textcolor: Colours
+                                                            .kheadertext,
                                                       ),
-                                                      const SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                  ],
                                                 ),
-                                              )),
-                                        ],
-                                      ),
+                                              ),
+                                            )),
+                                      
+                                      ],
                                     ),
                                   ),
-                                  //
-                                );
-                              }),
-                        );
-                } else {
-                  return const Expanded(
-                    child: ProgressBarHUD(),
-                  );
-                }
-              },
-            )
+                                ),
+                                //
+                              );
+                            });
+              
+                        
+                        
+                  } else {
+                    return const Expanded(
+                      child: ProgressBarHUD(),
+                    );
+                  
+                  }
+                },
+              ),
+            ),
+             SizedBox(height: 60),
           ])),
     );
   }
 }
+
+
+ // bottomNavigationBar: BottomAppBar(
+          //   height: 60, 
+          //   color: Colors.white,
+          //   child: Container(
+          //     height: 45,
+          //     width: double.infinity,
+          //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colours.kbuttonpurple,),
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(right: 10,left: 10),
+          //       child: const Row(
+          //         children: [
+          //            Icon(Icons.add,color:Colours.kwhiteColor,),
+          //           CustomText(
+          //             text: 'Add Message',
+          //             fontSize: 15,
+          //             fontWeight: FontWeight.w500,
+          //             textcolor: Colours.kwhiteColor),
+                  
+          //         ],
+          //       ),
+          //     ),
+              
+          //   ),
+          // ),
