@@ -886,8 +886,8 @@ class _AddMessageState extends State<AddMessage> {
         setState(() {
           isLoading = false;
         });
-        final invalidsnackbar = SnackBar(
-          content: const Text('New Message Created Successfully.'),
+        final invalidsnackbar =  SnackBar(
+          content:  Text('New Message Created Successfully.'),
         );
         ScaffoldMessenger.of(context).showSnackBar(invalidsnackbar);
         print(await response.stream.bytesToString());

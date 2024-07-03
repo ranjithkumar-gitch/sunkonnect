@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sunkonnect/tickets/model/add_message_request.dart';
+
+import 'selected_ticket_response_model.dart.dart';
 
 @JsonSerializable()
 class EditTicketRequestModel {
@@ -14,8 +17,8 @@ class EditTicketRequestModel {
   int daysOpen;
   String category;
   String severity;
-  dynamic raisebyObjectId;
-  dynamic assignedtoObjectId;
+  RaisebyObjectId raisebyObjectId;
+  AssignedtoObjectId assignedtoObjectId;
   String endDate;
   String status;
   String createdBy;
@@ -40,8 +43,8 @@ class EditTicketRequestModel {
     this.daysOpen = 0,
     this.category = "",
     this.severity = "",
-    this.raisebyObjectId,
-    this.assignedtoObjectId,
+    required this.raisebyObjectId,
+    required this.assignedtoObjectId,
     this.endDate = "",
     this.status = "",
     this.createdBy = "",
@@ -72,8 +75,8 @@ EditTicketRequestModel _$EditTicketRequestModelFromJson(
     daysOpen: json['data'],
     category: json['data'],
     severity: json['data'],
-    raisebyObjectId: json['data'],
-    assignedtoObjectId: json['data'],
+    raisebyObjectId: RaisebyObjectId.fromJson(json['data']),
+    assignedtoObjectId: AssignedtoObjectId.fromJson(json['data']),
     endDate: json['data'] ?? '',
     status: json['data'],
     createdBy: json['data'],
@@ -101,8 +104,9 @@ Map<String, dynamic> _$EditTicketRequestModelToJson(
       'daysOpen': instance.daysOpen,
       'category': instance.category,
       'severity': instance.severity,
-      'raisebyObjectId': instance.raisebyObjectId,
-      'assignedtoObjectId': instance.assignedtoObjectId,
+      'raisebyObjectId': instance.raisebyObjectId.toJson(),
+      'assignedtoObjectId': instance.assignedtoObjectId.toJson(),
+      
       'endDate': instance.endDate,
       'status': instance.status,
       'createdBy': instance.createdBy,
@@ -137,3 +141,4 @@ class Image {
         "extension": extension,
       };
 }
+

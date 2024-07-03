@@ -1,14 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
-import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
-
 import 'package:sunkonnect/tickets/model/selected_ticket_response_model.dart.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
@@ -17,6 +15,7 @@ import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
 import 'package:sunkonnect/widgets/snackbar.dart';
+import 'package:http/http.dart' as http;
 
 class TicketDetailsScreen extends StatefulWidget {
   const TicketDetailsScreen({super.key});
@@ -26,10 +25,13 @@ class TicketDetailsScreen extends StatefulWidget {
 }
 
 class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
+ 
   bool isApiCallProcess = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isEdited = false;
   String status = 'Select Status';
+
+  List assignList = [];
 
   late EditTicketRequestModel editTicketRequestModel;
   var items = [
@@ -46,16 +48,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   ];
 
   String assigned = 'Select Assigned To';
-  var name = [
-    'Select Assigned To',
-    'Vishal',
-    'Sai Sharad Raj',
-    'Uday Teja',
-    'Ranjith',
-    'Hiranya',
-    'Balaji',
-    'Srikanth',
-  ];
+  
 
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
@@ -65,16 +58,19 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
     return formatter.format(dateTime);
   }
 
-  //todo
-  // write Init state and initialize editTicketRequestModel model
+ 
 
   @override
   void initState() {
     super.initState();
+
     editTicketRequestModel = EditTicketRequestModel(
         ticketId: "",
         accountCode: "",
-        assignedtoObjectId: null,
+        assignedtoObjectId: AssignedtoObjectId(
+          id: '',
+          name: '',
+        ),
         branchObjectId: "",
         category: "",
         companyId: "",
@@ -87,7 +83,10 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
         loginUser: "",
         modifiedBy: "",
         projectCode: "",
-        raisebyObjectId: null,
+        raisebyObjectId: RaisebyObjectId(
+          id: '',
+          name: '',
+        ),
         requestedBy: "",
         roleCode: "",
         severity: "",
@@ -134,11 +133,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 33),
                             )
-                            // Image.asset(
-                            //   'images/nodatafound.png',
-                            //   height: 250,
-                            //   width: 250,
-                            // ),
+                            
                           ],
                         )
                       : Expanded(
@@ -201,39 +196,15 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       child: isEdited
                                                           ? ElevatedButton(
                                                               onPressed: () {
-                                                                // editTicketRequestModel.ticketId = "add data from provider data"
-                                                                // fixed this page
+                                                               
+
                                                                 editTicketRequestModel
                                                                         .ticketId =
                                                                     selectedmyticketview[
                                                                             0]!
                                                                         .ticketId!
                                                                         .toString();
-                                                                editTicketRequestModel
-                                                                        .accountCode =
-                                                                    "Need to fix";
-                                                                // selectedmyticketview[
-                                                                //         0]!
-                                                                //     .accountCode!
-                                                                //     .toString();
-                                                                editTicketRequestModel
-                                                                        .assignedtoObjectId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .assignedtoObjectId!;
-                                                                editTicketRequestModel
-                                                                        .branchObjectId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .branchObjectId!
-                                                                        .id
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .category =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .category!
-                                                                        .toString();
+
                                                                 editTicketRequestModel
                                                                         .companyId =
                                                                     selectedmyticketview[
@@ -241,12 +212,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .companyId!
                                                                         .id
                                                                         .toString();
-                                                                editTicketRequestModel
-                                                                        .createdBy =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .createdBy!
-                                                                        .toString();
+
                                                                 editTicketRequestModel
                                                                         .customerId =
                                                                     selectedmyticketview[
@@ -254,79 +220,22 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .customerId!
                                                                         .id
                                                                         .toString();
+
                                                                 editTicketRequestModel
-                                                                        .daysOpen =
+                                                                        .branchObjectId =
                                                                     selectedmyticketview[
                                                                             0]!
-                                                                        .daysOpen!;
-                                                                editTicketRequestModel
-                                                                        .description =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .description!
+                                                                        .branchObjectId!
+                                                                        .id
                                                                         .toString();
-                                                                editTicketRequestModel
-                                                                        .endDate =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .endDate!
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .images =
-                                                                    selectedmyticketview[0]!
-                                                                            .images!
-                                                                        as List;
-                                                                editTicketRequestModel
-                                                                        .loginUser =
-                                                                    SharedPrefServices
-                                                                            .getuserId()
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .modifiedBy =
-                                                                    SharedPrefServices
-                                                                            .getuserId()
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .projectCode =
-                                                                    "Need to fix";
-                                                                // selectedmyticketview[
-                                                                //         0]!
-                                                                //     .projectCode!
-                                                                //     .toString();
-                                                                editTicketRequestModel
-                                                                        .raisebyObjectId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .raisebyObjectId!;
-                                                                editTicketRequestModel
-                                                                        .requestedBy =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .requestedBy!
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .roleCode =
-                                                                    SharedPrefServices
-                                                                            .getroleCode()
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .severity =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .severity!
-                                                                        .toString();
+
                                                                 editTicketRequestModel
                                                                         .startDate =
                                                                     selectedmyticketview[
                                                                             0]!
                                                                         .startDate!
                                                                         .toString();
-                                                                editTicketRequestModel
-                                                                        .status =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .status!
-                                                                        .toString();
+
                                                                 editTicketRequestModel
                                                                         .title =
                                                                     selectedmyticketview[
@@ -334,24 +243,157 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .title!
                                                                         .toString();
                                                                 editTicketRequestModel
+                                                                        .accountCode =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .accountCode!
+                                                                        .toString();
+
+                                                                editTicketRequestModel
+                                                                        .projectCode =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .projectCode!
+                                                                        .toString();
+
+                                                                editTicketRequestModel
+                                                                        .requestedBy =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .requestedBy!
+                                                                        .toString();
+
+                                                                editTicketRequestModel
+                                                                        .daysOpen =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .daysOpen!;
+
+                                                                editTicketRequestModel
+                                                                        .category =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .category!
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .severity =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .severity!
+                                                                        .toString();
+
+                                                                      
+
+                                                                editTicketRequestModel
+                                                                        .raisebyObjectId =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .raisebyObjectId!; 
+
+                                                                    editTicketRequestModel
+                                                                        .raisebyObjectId =
+                                                                    RaisebyObjectId(
+                                                                  id: selectedmyticketview[0]!.raisebyObjectId?.id,
+                                                                  name: selectedmyticketview[0]!.raisebyObjectId?.name,         
+                                                                  
+                                                                );
+                                                                
+                                                              if(SharedPrefServices
+                                                                        .getroleCode()!
+                                                                    .toLowerCase()
+                                                                    .contains(
+                                                                        "company")){
+                                                                       var selectedAssign =
+                                                                    assignList.firstWhere((item) =>
+                                                                        item[
+                                                                            'name'] ==
+                                                                        assigned);
+                                                                editTicketRequestModel
+                                                                        .assignedtoObjectId =
+                                                                    AssignedtoObjectId(
+                                                                  id: selectedAssign[
+                                                                      '_id'],
+                                                                  name: selectedAssign[
+                                                                      'name'],
+                                                                );
+                                                                        }
+                                                                    else{
+
+                                                                 editTicketRequestModel.assignedtoObjectId = selectedmyticketview[
+                                                                            0]!
+                                                                        .assignedtoObjectId!;
+                                                                    }
+                                                                    
+                                                               
+
+                                                                        
+                                                                   
+
+                                                                editTicketRequestModel
+                                                                        .status =
+                                                                    status;
+
+                                                                    if(editTicketRequestModel.status == 'Closed'){
+                                                                     editTicketRequestModel.endDate = DateTime.now().toString();
+                                                                    } else{
+                                                                    editTicketRequestModel.endDate = selectedmyticketview[
+                                                                            0]!
+                                                                        .endDate!;
+                                                                    }
+
+                                                                editTicketRequestModel
+                                                                        .createdBy =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .createdBy!
+                                                                        .toString();
+
+                                                                editTicketRequestModel
+                                                                        .description =
+                                                                    selectedmyticketview[
+                                                                            0]!
+                                                                        .description!
+                                                                        .toString();
+
+                                                                editTicketRequestModel
+                                                                        .images =
+                                                                    selectedmyticketview[0]!
+                                                                            .images!
+                                                                        as List;
+
+                                                                editTicketRequestModel
+                                                                        .roleCode =
+                                                                    SharedPrefServices
+                                                                            .getroleCode()
+                                                                        .toString();
+
+                                                                editTicketRequestModel
                                                                         .userId =
                                                                     SharedPrefServices
                                                                             .getuserId()
                                                                         .toString();
-                                                                // append all the details to the editTicketRequestModel
+
+                                                                editTicketRequestModel
+                                                                        .modifiedBy =
+                                                                    SharedPrefServices
+                                                                            .getuserId()
+                                                                        .toString();
+                                                                editTicketRequestModel
+                                                                        .loginUser =
+                                                                    SharedPrefServices
+                                                                            .getuserId()
+                                                                        .toString();
+
+                                                                    
 
                                                                 print(
                                                                     editTicketRequestModel);
                                                                 inspect(
                                                                     editTicketRequestModel);
+                                                                
+                                                                updateTicket(editTicketRequestModel, selectedMyticketsProvider,);
 
-                                                                // Navigator.push(
-                                                                //   context,
-                                                                //   MaterialPageRoute(
-                                                                //       builder:
-                                                                //           (context) =>
-                                                                //               const DashboardScreen()),
-                                                                // );
+                                                                
                                                               },
                                                               style:
                                                                   ElevatedButton
@@ -404,8 +446,12 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
 
                                                                   getDropDownList();
                                                                 } else {
+
                                                                   print(
                                                                       "DONT trigger dropdown");
+
+                                                                  
+                                                                        
                                                                 }
                                                               },
                                                               style:
@@ -654,6 +700,11 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         () {
                                                                       status =
                                                                           newvalue!;
+                                                                      editTicketRequestModel
+                                                                              .status =
+                                                                          status;
+                                                                      print(
+                                                                          'Dropdown Value Changed: New Value - $newvalue');
                                                                     });
                                                                   },
                                                                   items: items
@@ -742,15 +793,22 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                               onChanged: (newvalue) {
                                                                                 setState(() {
                                                                                   assigned = newvalue!;
+                                                                                  var selectedAssign = assignList.firstWhere((item) => item['name'] == newvalue);
+                                                                                  editTicketRequestModel.assignedtoObjectId = AssignedtoObjectId(
+                                                                                    id: selectedAssign['_id'],
+                                                                                    name: selectedAssign['name'],
+                                                                                  );
+                                                                                  print('Dropdown Value Changed: New Value - $newvalue');
+                                                                                  print('AssignedtoObjectId: ${editTicketRequestModel.assignedtoObjectId.id}, ${editTicketRequestModel.assignedtoObjectId.name}');
                                                                                 });
                                                                               },
-                                                                              items: name.map((String item) {
+                                                                              items: assignList.map((var item) {
                                                                                 return DropdownMenuItem<String>(
-                                                                                    value: item,
+                                                                                    value: item['name'],
                                                                                     child: Padding(
                                                                                       padding: const EdgeInsets.all(8.0),
                                                                                       child: Text(
-                                                                                        item,
+                                                                                        item['name'].toString(),
                                                                                         style: const TextStyle(color: Colours.kresponsivetext, fontSize: 14, fontWeight: FontWeight.w400),
                                                                                       ),
                                                                                     ));
@@ -796,18 +854,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                             : 'Not Assigned',
                                                       ),
 
-                                                      // ContentCard(
-                                                      //     title: 'Assigned To',
-                                                      //     content: selectedmyticketview[
-                                                      //                 0]!
-                                                      //             .assignedtoObjectId
-                                                      //             .toString()
-                                                      //             .isEmpty
-                                                      //         ? ""
-                                                      //         : selectedmyticketview[
-                                                      //                 0]!
-                                                      //             .assignedtoObjectId
-                                                      //             .toString()),
+                                          
                                                     ],
                                                   ),
                                           ),
@@ -847,21 +894,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       : "",
                                                 ),
 
-                                                // ContentCard(
-                                                //   title: 'Date Closed',
-                                                //   content:
-
-                                                //       selectedmyticketview[0]!
-                                                //               .endDate!
-                                                //               .isEmpty
-                                                //           ? ""
-                                                //           : formatDate(
-                                                //               selectedmyticketview[
-                                                //                       0]!
-                                                //                   .endDate
-                                                //                   .toString(),
-                                                //             ),
-                                                // ),
+                                                
                                                 const CustomText(
                                                     text: 'Message',
                                                     fontSize: 10,
@@ -893,16 +926,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
-                                                // CustomText(
-                                                //   text: selectedmyticketview[0]!
-                                                //       .images![0]
-                                                //       .fileName
-                                                //       .toString(),
-                                                //   fontSize: 13,
-                                                //   fontWeight: FontWeight.w500,
-                                                //   textcolor:
-                                                //       Colours.kresponsivetext,
-                                                // ),
+                                                
 
                                                 CustomText(
                                                   text: (selectedmyticketview[
@@ -942,12 +966,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                             ),
                           ),
 
-                          // CustomText(
-                          //   text: selectedmyticketview[0]!.ticketId!.toString(),
-                          //   fontSize: 16,
-                          //   fontWeight: FontWeight.w500,
-                          //   textcolor: Colours.kheadertext,
-                          // ),
+                          
                         );
                 } else {
                   return const Expanded(
@@ -973,51 +992,129 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           isApiCallProcess = false;
         });
 
-        showToast("Assigned List fetching error 401");
+        
       } else if (value.status == 400) {
         setState(() {
           isApiCallProcess = false;
         });
-        showToast("Assigned List fetching error 400");
+       
       } else if (value.status == 404) {
         setState(() {
           isApiCallProcess = false;
         });
 
-        showToast("Assigned List fetching error 404");
+       
       } else if (value.status == 200 || value.status == 201) {
-        showToast("Assigned List fetching  Successful");
+      
         print("Assigned to List working perfect uday");
-        // print(value.data);
-        // inspect(value.data);
 
-        // List assignList = value.data!.data;
+        assignList.clear();
+        assignList = value.data!.data!
+            .map((e) => {"_id": e.id, "name": e.name})
+            .toList();
 
-        List assignList = value.data!.data!.map((e) => {"_id": e.id}).toList();
+        assignList.insert(0, {'_id': '', 'name': 'Select Assigned To'});
+        setState(() {});
 
-        for (var data in value.data!.data!) {}
-
-        // getAssignedToListResponseModelFromJson(value.data!.data as String)
-        //     as List;
-
-        print(assignList);
-        inspect(assignList);
-
-        //  List assignList = getAssignedToListResponseModelFromJson(value.data!.data.toString())
-        // .response!
-
-        // .map((e) => {
-        //       "fileName": e.originalname,
-        //       "fileUrl": e.location,
-        //       "extension": e.location!.split('.').last
-        //     })
-        // .toList();
+        // print(assignList);
+        // inspect(assignList);
       } else {
         setState(() {
           isApiCallProcess = false;
         });
       }
     });
+  }
+  
+  
+  void updateTicket( 
+     EditTicketRequestModel editTicketRequestModel, MyTicketsListProvider selectedMyticketsProvider) async {
+    try {
+      var headers = {
+        'Authorization': SharedPrefServices.getaccessToken().toString(),
+        'Content-Type': 'application/json'
+      };
+      String ticketID = editTicketRequestModel.ticketId;
+      String URL = "http://65.0.91.101:7390/api/Ticket/update-ticketInfo/$ticketID";
+      print(URL);
+      var request = http.Request(
+          'PUT',
+          Uri.parse(
+              URL));
+
+      request.body = json.encode(
+        {
+  "ticketId": editTicketRequestModel.ticketId,
+  "companyId": editTicketRequestModel.companyId,
+  "customerId": editTicketRequestModel.customerId,
+  "branchObjectId": editTicketRequestModel.branchObjectId,
+  "startDate": editTicketRequestModel.startDate,
+  "title": editTicketRequestModel.title,
+  "AccountCode": editTicketRequestModel.accountCode,
+  "projectCode":editTicketRequestModel.projectCode,
+  "requestedBY": editTicketRequestModel.requestedBy,
+  "daysOpen":editTicketRequestModel.daysOpen,
+  "category": editTicketRequestModel.category,
+  "severity": editTicketRequestModel.severity,
+  "raisebyObjectId": {
+    "_id": editTicketRequestModel.raisebyObjectId.id,
+    "name": editTicketRequestModel.raisebyObjectId.name,
+  },
+  "assignedtoObjectId": {
+    "_id": editTicketRequestModel.assignedtoObjectId.id,
+    "name": editTicketRequestModel.assignedtoObjectId.name,
+  },
+  "endDate": editTicketRequestModel.endDate,
+  "status": editTicketRequestModel.status,
+  "createdBy": editTicketRequestModel.createdBy,
+  "description": editTicketRequestModel.description,
+  "images": editTicketRequestModel.images,
+  "roleCode": editTicketRequestModel.roleCode,
+  "userId": editTicketRequestModel.userId,
+  "modifiedBy": editTicketRequestModel.modifiedBy,
+  "loginUser": editTicketRequestModel.loginUser,
+}
+      );
+      print(request.body);
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+        final invalidsnackbar = SnackBar(
+          content: const Text('Ticket Updated Successfully.'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(invalidsnackbar);
+        print(await response.stream.bytesToString());
+
+        selectedMyticketsProvider.clearTicketList();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+      } else {
+        setState(() {
+          isApiCallProcess = false;
+        });
+        final invalidsnackbar = SnackBar(
+          content: const Text('Something went wrong.'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(invalidsnackbar);
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e);
+      setState(() {
+        isApiCallProcess = false;
+      });
+      final snackbar = SnackBar(
+        content: const Text('Error.Please try again later'),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      throw e;
+    }
   }
 }
 

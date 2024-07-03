@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:sunkonnect/loginflow/loginpage.dart';
-import 'package:sunkonnect/sidemenu/myprofilepage.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/sidemenu/myprofilepage.dart';
 import 'package:sunkonnect/sidemenu/accountsettings.dart';
 import 'package:sunkonnect/sidemenu/changepassword.dart';
 import 'package:sunkonnect/sidemenu/contactus.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
+import 'package:quickalert/quickalert.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -210,7 +210,43 @@ class _SideMenuState extends State<SideMenu> {
             ),
           ),
 
-          // Add more list items as needed
+// Quick Alert Type
+      //     ListTile(
+      //       onTap: () => QuickAlert.show(
+      //        animType: QuickAlertAnimType.slideInDown,
+      //         onConfirmBtnTap: () {
+      //           SharedPrefServices.clearUserFromSharedPrefs();
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => const LoginScreen(),
+      //             ),
+      //           );
+      //         },
+      //         onCancelBtnTap: () {
+      //            Navigator.pop(context);
+      //         },
+      //         context: context,
+              
+      //         type: QuickAlertType.confirm,
+      //         text: 'Do you want to logout',
+      //         confirmBtnText: 'Yes',
+      //         cancelBtnText: 'No',
+      //         confirmBtnColor: Colours.kbuttonpurple,
+      //       ),
+      //       leading: const Icon(
+      //         Icons.logout,
+      //         color: Colors.black,
+      //         size: 20,
+      //       ),
+      //       title: const CustomText(
+      //           text: 'Log Out',
+      //           fontSize: 16,
+      //           fontWeight: FontWeight.w500,
+      //           textcolor: Colors.black),
+      //     ),
+
+    
         ],
       ),
     );
