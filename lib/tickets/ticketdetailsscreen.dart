@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
+import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
 
 import 'package:sunkonnect/tickets/model/selected_ticket_response_model.dart.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
@@ -14,6 +16,7 @@ import 'package:sunkonnect/tickets/model/edit_tkt_request_model.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 class TicketDetailsScreen extends StatefulWidget {
   const TicketDetailsScreen({super.key});
@@ -335,7 +338,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                     SharedPrefServices
                                                                             .getuserId()
                                                                         .toString();
-                                        // append all the details to the editTicketRequestModel
+                                                                // append all the details to the editTicketRequestModel
 
                                                                 print(
                                                                     editTicketRequestModel);
@@ -381,6 +384,29 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                   isEdited =
                                                                       true;
                                                                 });
+
+                                                                if (SharedPrefServices
+                                                                        .getroleCode()!
+                                                                    .toLowerCase()
+                                                                    .contains(
+                                                                        "company")) {
+                                                                  // getDropDownList();
+
+                                                                  setState(() {
+                                                                    isApiCallProcess =
+                                                                        true;
+                                                                  });
+
+                                                                  print(
+                                                                      "trigger dropdown");
+                                                                  print(SharedPrefServices
+                                                                      .getBranchobjId());
+
+                                                                  getDropDownList();
+                                                                } else {
+                                                                  print(
+                                                                      "DONT trigger dropdown");
+                                                                }
                                                               },
                                                               style:
                                                                   OutlinedButton
@@ -475,27 +501,23 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                           .severity!
                                                           .toString(),
                                                 ),
-
-                                                 ContentCard(
-                                                        title: 'Raised By',
-                                                        content: (selectedmyticketview
-                                                                    .isNotEmpty &&
-                                                                selectedmyticketview[
-                                                                            0]
-                                                                        ?.raisebyObjectId
-                                                                        ?.name
-                                                                        ?.isNotEmpty ==
-                                                                    true)
-                                                            ? selectedmyticketview[
-                                                                        0]
-                                                                    ?.raisebyObjectId
-                                                                    ?.name
-                                                                    ?.toString() ??
-                                                                ''
-                                                            : '',
-                                                      ),
-
-                                                
+                                                ContentCard(
+                                                  title: 'Raised By',
+                                                  content: (selectedmyticketview
+                                                              .isNotEmpty &&
+                                                          selectedmyticketview[
+                                                                      0]
+                                                                  ?.raisebyObjectId
+                                                                  ?.name
+                                                                  ?.isNotEmpty ==
+                                                              true)
+                                                      ? selectedmyticketview[0]
+                                                              ?.raisebyObjectId
+                                                              ?.name
+                                                              ?.toString() ??
+                                                          ''
+                                                      : '',
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -754,7 +776,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                 .status!
                                                                 .toString(),
                                                       ),
-                                                       // Use the below assigned logic , when assigned field is not come from response or any null have use this code //
+                                                      // Use the below assigned logic , when assigned field is not come from response or any null have use this code //
                                                       ContentCard(
                                                         title: 'Assigned To',
                                                         content: (selectedmyticketview
@@ -883,17 +905,24 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 // ),
 
                                                 CustomText(
-  text: (selectedmyticketview[0]!.images != null && selectedmyticketview[0]!.images!.isNotEmpty)
-      ? selectedmyticketview[0]!.images![0].fileName.toString()
-      : 'Not Found',
-  fontSize: 13,
-  fontWeight: FontWeight.w500,
-  textcolor: Colours.kresponsivetext,
-)
-
-                                                
-                                                
-
+                                                  text: (selectedmyticketview[
+                                                                      0]!
+                                                                  .images !=
+                                                              null &&
+                                                          selectedmyticketview[
+                                                                  0]!
+                                                              .images!
+                                                              .isNotEmpty)
+                                                      ? selectedmyticketview[0]!
+                                                          .images![0]
+                                                          .fileName
+                                                          .toString()
+                                                      : 'Not Found',
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500,
+                                                  textcolor:
+                                                      Colours.kresponsivetext,
+                                                )
                                               ],
                                             ),
                                           ),
@@ -929,6 +958,66 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
             )
           ])),
     );
+  }
+
+  getDropDownList() {
+    ApiService apiService = ApiService();
+
+    apiService.getAssignedTo().then((value) {
+      if (value.status == 203) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      } else if (value.status == 401) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+
+        showToast("Assigned List fetching error 401");
+      } else if (value.status == 400) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+        showToast("Assigned List fetching error 400");
+      } else if (value.status == 404) {
+        setState(() {
+          isApiCallProcess = false;
+        });
+
+        showToast("Assigned List fetching error 404");
+      } else if (value.status == 200 || value.status == 201) {
+        showToast("Assigned List fetching  Successful");
+        print("Assigned to List working perfect uday");
+        // print(value.data);
+        // inspect(value.data);
+
+        // List assignList = value.data!.data;
+
+        List assignList = value.data!.data!.map((e) => {"_id": e.id}).toList();
+
+        for (var data in value.data!.data!) {}
+
+        // getAssignedToListResponseModelFromJson(value.data!.data as String)
+        //     as List;
+
+        print(assignList);
+        inspect(assignList);
+
+        //  List assignList = getAssignedToListResponseModelFromJson(value.data!.data.toString())
+        // .response!
+
+        // .map((e) => {
+        //       "fileName": e.originalname,
+        //       "fileUrl": e.location,
+        //       "extension": e.location!.split('.').last
+        //     })
+        // .toList();
+      } else {
+        setState(() {
+          isApiCallProcess = false;
+        });
+      }
+    });
   }
 }
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:sunkonnect/tickets/model/add_message_request.dart';
+import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/tickets/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/loginflow/model/verifyemail_response_model.dart';
@@ -315,6 +316,46 @@ class ApiService {
     // return userloginfailureresponseFromJson(response.body);
 
     print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+  // get assignedTo Dropdown List
+
+  Future<GetAssignedToListResponseModel> getAssignedTo() async {
+    String _id = SharedPrefServices.getBranchobjId().toString();
+    String url =
+        "${AppConstant.sunkonnectDevUrl}common-services/get-assigned-to-list/$_id";
+    print(url);
+
+    try {
+      final response = await http.get(Uri.parse(url), headers: accessheaders);
+
+      print("response.body Dropdown List ${response.body}");
+      print("Dropdown List Status code ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return getAssignedToListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return getAssignedToListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return getAssignedToListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return getAssignedToListResponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return getAssignedToListResponseModelFromJson(response.body);
+      } else {
+        return getAssignedToListResponseModelFromJson(response.body);
+      }
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
 
     throw Exception('Failed to load Data');
   }

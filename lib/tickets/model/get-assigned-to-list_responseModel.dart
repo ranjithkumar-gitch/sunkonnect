@@ -42,7 +42,7 @@ class GetAssignedToListResponseModel {
 }
 
 class Data {
-  final List<Datum>? data;
+  final List<Datumdata>? data;
 
   Data({
     this.data,
@@ -51,7 +51,8 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<Datumdata>.from(
+                json["data"]!.map((x) => Datumdata.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,33 +62,31 @@ class Data {
       };
 }
 
-class Datum {
+class Datumdata {
   final String? id;
   final String? userId;
   final String? name;
   final String? password;
   final CompanyId? companyId;
-  final UserType? userType;
+  final String? userType;
   final String? mobile;
-  final RoleCode? roleCode;
-  final Designation? designation;
+  final String? roleCode;
+  final String? designation;
   final String? description;
-  final CreatedBy? createdBy;
-  final Status? status;
+  final String? createdBy;
+  final String? status;
   final bool? fSendEmails;
   final bool? fEmailTicketCreated;
   final bool? fEmailTicketStatusChange;
   final bool? fEmailTicketReassignment;
   final bool? fEmailAddMessage;
   final bool? setPswFlag;
-  final String? userProfileImage;
+  // final dynamic userProfileImage;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int? v;
-  final String? modifiedBy;
-  final dynamic branchObjectId;
 
-  Datum({
+  Datumdata({
     this.id,
     this.userId,
     this.name,
@@ -106,15 +105,13 @@ class Datum {
     this.fEmailTicketReassignment,
     this.fEmailAddMessage,
     this.setPswFlag,
-    this.userProfileImage,
+    // this.userProfileImage,
     this.createdAt,
     this.updatedAt,
     this.v,
-    this.modifiedBy,
-    this.branchObjectId,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Datumdata.fromJson(Map<String, dynamic> json) => Datumdata(
         id: json["_id"],
         userId: json["userId"],
         name: json["name"],
@@ -122,20 +119,20 @@ class Datum {
         companyId: json["companyId"] == null
             ? null
             : CompanyId.fromJson(json["companyId"]),
-        userType: userTypeValues.map[json["userType"]]!,
+        userType: json["userType"],
         mobile: json["mobile"],
-        roleCode: roleCodeValues.map[json["roleCode"]]!,
-        designation: designationValues.map[json["designation"]]!,
+        roleCode: json["roleCode"],
+        designation: json["designation"],
         description: json["description"],
-        createdBy: createdByValues.map[json["createdBy"]]!,
-        status: statusValues.map[json["status"]]!,
+        createdBy: json["createdBy"],
+        status: json["status"],
         fSendEmails: json["f_sendEmails"],
         fEmailTicketCreated: json["f_emailTicketCreated"],
         fEmailTicketStatusChange: json["f_emailTicketStatusChange"],
         fEmailTicketReassignment: json["f_emailTicketReassignment"],
         fEmailAddMessage: json["f_emailAddMessage"],
         setPswFlag: json["setPswFlag"],
-        userProfileImage: json["userProfileImage"],
+        // userProfileImage: json["userProfileImage"],
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -143,8 +140,6 @@ class Datum {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        modifiedBy: json["modifiedBy"],
-        branchObjectId: json["branchObjectId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -153,31 +148,29 @@ class Datum {
         "name": name,
         "password": password,
         "companyId": companyId?.toJson(),
-        "userType": userTypeValues.reverse[userType],
+        "userType": userType,
         "mobile": mobile,
-        "roleCode": roleCodeValues.reverse[roleCode],
-        "designation": designationValues.reverse[designation],
+        "roleCode": roleCode,
+        "designation": designation,
         "description": description,
-        "createdBy": createdByValues.reverse[createdBy],
-        "status": statusValues.reverse[status],
+        "createdBy": createdBy,
+        "status": status,
         "f_sendEmails": fSendEmails,
         "f_emailTicketCreated": fEmailTicketCreated,
         "f_emailTicketStatusChange": fEmailTicketStatusChange,
         "f_emailTicketReassignment": fEmailTicketReassignment,
         "f_emailAddMessage": fEmailAddMessage,
         "setPswFlag": setPswFlag,
-        "userProfileImage": userProfileImage,
+        // "userProfileImage": userProfileImage,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
-        "modifiedBy": modifiedBy,
-        "branchObjectId": branchObjectId,
       };
 }
 
 class CompanyId {
-  final Id? id;
-  final CompanyName? companyName;
+  final String? id;
+  final String? companyName;
 
   CompanyId({
     this.id,
@@ -185,65 +178,12 @@ class CompanyId {
   });
 
   factory CompanyId.fromJson(Map<String, dynamic> json) => CompanyId(
-        id: idValues.map[json["_id"]]!,
-        companyName: companyNameValues.map[json["companyName"]]!,
+        id: json["_id"],
+        companyName: json["companyName"],
       );
 
   Map<String, dynamic> toJson() => {
-        "_id": idValues.reverse[id],
-        "companyName": companyNameValues.reverse[companyName],
+        "_id": id,
+        "companyName": companyName,
       };
-}
-
-enum CompanyName { SUN_KPO }
-
-final companyNameValues = EnumValues({"SUN KPO": CompanyName.SUN_KPO});
-
-enum Id { THE_65_CE0189_D858_A553_CD4_CF10_F }
-
-final idValues = EnumValues(
-    {"65ce0189d858a553cd4cf10f": Id.THE_65_CE0189_D858_A553_CD4_CF10_F});
-
-enum CreatedBy {
-  SUNKONNECTADMIN_SUNKPO_COM,
-  VISHALSUN_PROTONMAIL_COM,
-  VISHAL_K_SUNKPO_COM
-}
-
-final createdByValues = EnumValues({
-  "sunkonnectadmin@sunkpo.com": CreatedBy.SUNKONNECTADMIN_SUNKPO_COM,
-  "vishalsun@protonmail.com": CreatedBy.VISHALSUN_PROTONMAIL_COM,
-  "vishal.k@sunkpo.com": CreatedBy.VISHAL_K_SUNKPO_COM
-});
-
-enum Designation { DIRECTOR, ENGINEER }
-
-final designationValues = EnumValues(
-    {"Director": Designation.DIRECTOR, "Engineer": Designation.ENGINEER});
-
-enum RoleCode { COMPANY_ADMIN, COMPANY_USER }
-
-final roleCodeValues = EnumValues({
-  "COMPANY ADMIN": RoleCode.COMPANY_ADMIN,
-  "COMPANY USER": RoleCode.COMPANY_USER
-});
-
-enum Status { ACTIVE }
-
-final statusValues = EnumValues({"ACTIVE": Status.ACTIVE});
-
-enum UserType { COMPANY }
-
-final userTypeValues = EnumValues({"Company": UserType.COMPANY});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

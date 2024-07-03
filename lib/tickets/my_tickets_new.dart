@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/tickets/model/get_ticketslist_request_model.dart';
@@ -15,6 +16,7 @@ import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
 import 'package:flutter/src/widgets/image.dart' as _image;
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 class MyTicketsList extends StatefulWidget {
   const MyTicketsList({super.key});
@@ -438,12 +440,12 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                     height: 4.0,
                                                   ),
                                                   RichText(
-                                                    text:  TextSpan(
+                                                    text: TextSpan(
                                                         style: const TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 32),
                                                         children: [
-                                                           const TextSpan(
+                                                          const TextSpan(
                                                             text:
                                                                 "Assigned To   :   ",
                                                             style: TextStyle(
@@ -455,12 +457,11 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                             ),
                                                           ),
                                                           TextSpan(
-                                                            text: 
-                                                           myTicketsListData[
-                                                                          index]
-                                                                      ?.assignedtoObjectId
-                                                                      ?.name ??
-                                                                  '',
+                                                            text: myTicketsListData[
+                                                                        index]
+                                                                    ?.assignedtoObjectId
+                                                                    ?.name ??
+                                                                '',
                                                             // myTicketsListData[
                                                             //     index]!
                                                             // .assignedtoObjectId!
@@ -585,11 +586,11 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                             index]!
                                                                         .status ==
                                                                     "Closed"
-                                                                ?  formatDate(
-                                                                  myTicketsListData[
-                                                                          index]!
-                                                                      .endDate
-                                                                      .toString())
+                                                                ? formatDate(
+                                                                    myTicketsListData[
+                                                                            index]!
+                                                                        .endDate
+                                                                        .toString())
                                                                 : "Need to fix",
                                                             style: GoogleFonts
                                                                 .poppins(
@@ -693,7 +694,6 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                   //         //         .branchObjectId!.id
                                                   //         //         .toString());
 
-                                                     
                                                   //         SharedPrefServices.settitle(
                                                   //             myTicketsListData[
                                                   //                     index]!
@@ -775,7 +775,6 @@ class _MyTicketsListState extends State<MyTicketsList> {
 
                                                         if (ticketData !=
                                                             null) {
-                                                         
                                                           SharedPrefServices
                                                               .setTicketId(ticketData
                                                                       .ticketId
@@ -787,7 +786,12 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                           ?.toString() ??
                                                                       '');
 
-                                                          // SharedPrefServices.setBranchobjId(ticketData.branchObjectId?.id?.toString() ?? '');
+                                                          SharedPrefServices
+                                                              .setBranchobjId(ticketData
+                                                                      .branchObjectId
+                                                                      ?.id
+                                                                      ?.toString() ??
+                                                                  '');
 
                                                           SharedPrefServices
                                                               .settitle(ticketData
@@ -841,6 +845,9 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                               'ticketData is null');
                                                         }
                                                       });
+
+                                                      print(SharedPrefServices
+                                                          .getroleCode());
 
                                                       Navigator.push(
                                                         context,
