@@ -14,7 +14,6 @@ import 'package:sunkonnect/tickets/model/edit_tkt_request_model.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
-import 'package:sunkonnect/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
 
 class TicketDetailsScreen extends StatefulWidget {
@@ -25,30 +24,18 @@ class TicketDetailsScreen extends StatefulWidget {
 }
 
 class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
- 
   bool isApiCallProcess = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isEdited = false;
-  String status = 'Select Status';
 
   List assignList = [];
 
   late EditTicketRequestModel editTicketRequestModel;
-  var items = [
-    'Select Status',
-    'All',
-    'New',
-    'Acknowledge',
-    'Assigned',
-    'In process',
-    'Completed',
-    'Closed',
-    'Cancelled',
-    'On Hold'
-  ];
+
+  String status = 'Select Status';
+  List<String> items = [];
 
   String assigned = 'Select Assigned To';
-  
 
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
@@ -58,12 +45,73 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
     return formatter.format(dateTime);
   }
 
- 
+  String convertToIST(String utcTime) {
+    DateFormat inputFormat = DateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
+    DateTime utcDateTime = inputFormat.parse(utcTime);
+    DateTime istDateTime =
+        utcDateTime.add(const Duration(hours: 5, minutes: 30));
+    DateFormat outputFormat = DateFormat('MM-dd-yyyy HH:mm:ss a');
+    return outputFormat.format(istDateTime);
+  }
+
+  //  void rollCodeDropdown() {
+  //   if (SharedPrefServices.getroleCode().toString() == 'CUSTOMER ADMIN' ||
+  //       SharedPrefServices.getroleCode().toString() == 'CUSTOMER USER') {
+  //     items = ['Select Status', 'Closed', 'Canceled', 'On Hold'];
+  //   } else {
+  //     items = [
+  //       'Select Status',
+  //       'Acknowledged',
+  //       'Assigned',
+  //       'In Process',
+  //       'Submitted',
+  //       'Completed',
+  //       'Closed',
+  //       'On Hold',
+  //       'Canceled',
+  //      ];
+  //    }
+  //    }
+
+  void rollCodeDropdown() {
+    String roleCode = SharedPrefServices.getroleCode().toString();
+
+    if (roleCode == 'CUSTOMER ADMIN' || roleCode == 'CUSTOMER USER') {
+      items = [
+        'Select Status',
+        'Closed',
+        'Canceled',
+        'On Hold',
+      ];
+    } else if (roleCode == 'COMPANY ADMIN') {
+      items = [
+        'Select Status',
+        'Acknowledged',
+        'Assigned',
+        'Submitted',
+        'In Process',
+        'Completed',
+        'Closed',
+        'Canceled',
+        'On Hold',
+      ];
+    } else {
+      items = [
+        'Select Status',
+        'Acknowledged',
+        'Assigned',
+        'Submitted',
+        'In Process',
+        'Completed',
+        'On Hold',
+      ];
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-
+    rollCodeDropdown();
     editTicketRequestModel = EditTicketRequestModel(
         ticketId: "",
         accountCode: "",
@@ -133,7 +181,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 33),
                             )
-                            
                           ],
                         )
                       : Expanded(
@@ -196,8 +243,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                       child: isEdited
                                                           ? ElevatedButton(
                                                               onPressed: () {
-                                                               
-
                                                                 editTicketRequestModel
                                                                         .ticketId =
                                                                     selectedmyticketview[
@@ -282,64 +327,74 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                         .severity!
                                                                         .toString();
 
-                                                                      
-
                                                                 editTicketRequestModel
                                                                         .raisebyObjectId =
                                                                     selectedmyticketview[
                                                                             0]!
-                                                                        .raisebyObjectId!; 
+                                                                        .raisebyObjectId!;
 
-                                                                    editTicketRequestModel
+                                                                editTicketRequestModel
                                                                         .raisebyObjectId =
                                                                     RaisebyObjectId(
-                                                                  id: selectedmyticketview[0]!.raisebyObjectId?.id,
-                                                                  name: selectedmyticketview[0]!.raisebyObjectId?.name,         
-                                                                  
+                                                                  id: selectedmyticketview[
+                                                                          0]!
+                                                                      .raisebyObjectId
+                                                                      ?.id,
+                                                                  name: selectedmyticketview[
+                                                                          0]!
+                                                                      .raisebyObjectId
+                                                                      ?.name,
                                                                 );
-                                                                
-                                                              if(SharedPrefServices
+
+                                                                if (SharedPrefServices
                                                                         .getroleCode()!
                                                                     .toLowerCase()
                                                                     .contains(
-                                                                        "company")){
-                                                                       var selectedAssign =
-                                                                    assignList.firstWhere((item) =>
-                                                                        item[
-                                                                            'name'] ==
-                                                                        assigned);
-                                                                editTicketRequestModel
-                                                                        .assignedtoObjectId =
-                                                                    AssignedtoObjectId(
-                                                                  id: selectedAssign[
-                                                                      '_id'],
-                                                                  name: selectedAssign[
-                                                                      'name'],
-                                                                );
-                                                                        }
-                                                                    else{
-
-                                                                 editTicketRequestModel.assignedtoObjectId = selectedmyticketview[
-                                                                            0]!
-                                                                        .assignedtoObjectId!;
-                                                                    }
-                                                                    
-                                                               
-
-                                                                        
-                                                                   
+                                                                        "company")) {
+                                                                  var selectedAssign =
+                                                                      assignList.firstWhere((item) =>
+                                                                          item[
+                                                                              'name'] ==
+                                                                          assigned);
+                                                                  editTicketRequestModel
+                                                                          .assignedtoObjectId =
+                                                                      AssignedtoObjectId(
+                                                                    id: selectedAssign[
+                                                                        '_id'],
+                                                                    name: selectedAssign[
+                                                                        'name'],
+                                                                  );
+                                                                } else {
+                                                                  // editTicketRequestModel.assignedtoObjectId = selectedmyticketview[0]!.assignedtoObjectId ?? AssignedtoObjectId(id: "", name: "");
+                                                                  editTicketRequestModel
+                                                                          .assignedtoObjectId =
+                                                                      selectedmyticketview[
+                                                                              0]!
+                                                                          .assignedtoObjectId!;
+                                                                }
 
                                                                 editTicketRequestModel
                                                                         .status =
                                                                     status;
 
-                                                                    if(editTicketRequestModel.status == 'Closed'){
-                                                                     editTicketRequestModel.endDate = DateTime.now().toString();
-                                                                    } else{
-                                                                    editTicketRequestModel.endDate = selectedmyticketview[
-                                                                            0]!
-                                                                        .endDate!;
-                                                                    }
+                                                                if (editTicketRequestModel.status == 'Closed' ||
+                                                                    editTicketRequestModel
+                                                                            .status ==
+                                                                        'On Hold' ||
+                                                                    editTicketRequestModel
+                                                                            .status ==
+                                                                        'Canceled') {
+                                                                  editTicketRequestModel
+                                                                      .endDate = DateTime
+                                                                          .now()
+                                                                      .toString();
+                                                                } else {
+                                                                  editTicketRequestModel
+                                                                          .endDate =
+                                                                      selectedmyticketview[
+                                                                              0]!
+                                                                          .endDate!;
+                                                                }
 
                                                                 editTicketRequestModel
                                                                         .createdBy =
@@ -384,16 +439,15 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                             .getuserId()
                                                                         .toString();
 
-                                                                    
-
                                                                 print(
                                                                     editTicketRequestModel);
                                                                 inspect(
                                                                     editTicketRequestModel);
-                                                                
-                                                                updateTicket(editTicketRequestModel, selectedMyticketsProvider,);
 
-                                                                
+                                                                updateTicket(
+                                                                  editTicketRequestModel,
+                                                                  selectedMyticketsProvider,
+                                                                );
                                                               },
                                                               style:
                                                                   ElevatedButton
@@ -446,12 +500,8 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
 
                                                                   getDropDownList();
                                                                 } else {
-
                                                                   print(
                                                                       "DONT trigger dropdown");
-
-                                                                  
-                                                                        
                                                                 }
                                                               },
                                                               style:
@@ -514,9 +564,9 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 ),
                                                 ContentCard(
                                                     title: 'Created On',
-                                                    content: formatDate(
+                                                    content: convertToIST(
                                                       selectedmyticketview[0]!
-                                                          .createdAt!
+                                                          .utcTime!
                                                           .toString(),
                                                     )),
                                                 ContentCard(
@@ -570,52 +620,71 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                         ),
                                         const SizedBox(height: 15),
 
-                                        SharedPrefServices.getroleCode()
-                                                        .toString() ==
-                                                    'CUSTOMER ADMIN' ||
-                                                SharedPrefServices.getroleCode()
-                                                            .toString() ==
-                                                        'CUSTOMER USER' &&
-                                                    isEdited
-                                            ? Column(
-                                                children: [
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        color: Colours
-                                                            .kcardbgColor,
-                                                        border: Border.all(
-                                                            color: Colours
-                                                                .kcardborder)),
-                                                    child: Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 10,
-                                                              left: 10,
-                                                              top: 10,
-                                                              bottom: 10),
-                                                      child: const Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          ContentCard(
-                                                              title:
-                                                                  'Assigned To',
-                                                              content:
-                                                                  'Uday Teja'),
-                                                        ],
+                                        Column(
+                                          children: [
+                                            isEdited &&
+                                                    (SharedPrefServices
+                                                                    .getroleCode()
+                                                                .toString() ==
+                                                            'CUSTOMER ADMIN' ||
+                                                        SharedPrefServices
+                                                                    .getroleCode()
+                                                                .toString() ==
+                                                            'CUSTOMER USER')
+                                                ? Column(
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: Colours
+                                                              .kcardbgColor,
+                                                          border: Border.all(
+                                                              color: Colours
+                                                                  .kcardborder),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical:
+                                                                      10.0,
+                                                                  horizontal:
+                                                                      10.0),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              ContentCard(
+                                                                title:
+                                                                    'Assigned To',
+                                                                content: (selectedmyticketview
+                                                                            .isNotEmpty &&
+                                                                        selectedmyticketview[0]?.assignedtoObjectId?.name?.isNotEmpty ==
+                                                                            true)
+                                                                    ? selectedmyticketview[0]
+                                                                            ?.assignedtoObjectId
+                                                                            ?.name
+                                                                            ?.toString() ??
+                                                                        ''
+                                                                    : 'Not Assigned',
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 20,
-                                                  ),
-                                                ],
-                                              )
-                                            : Container(),
+                                                      const SizedBox(
+                                                        height: 15,
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(),
+                                          ],
+                                        ),
+
                                         // todo//
 
                                         Container(
@@ -799,7 +868,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                                     name: selectedAssign['name'],
                                                                                   );
                                                                                   print('Dropdown Value Changed: New Value - $newvalue');
-                                                                                  print('AssignedtoObjectId: ${editTicketRequestModel.assignedtoObjectId.id}, ${editTicketRequestModel.assignedtoObjectId.name}');
+                                                                                  print('AssignedtoObjectId: ${editTicketRequestModel.assignedtoObjectId?.id}, ${editTicketRequestModel.assignedtoObjectId?.name}');
                                                                                 });
                                                                               },
                                                                               items: assignList.map((var item) {
@@ -853,8 +922,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                 ''
                                                             : 'Not Assigned',
                                                       ),
-
-                                          
                                                     ],
                                                   ),
                                           ),
@@ -883,18 +950,16 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                               .isNotEmpty &&
                                                           selectedmyticketview[
                                                                       0]
-                                                                  ?.endDate
+                                                                  ?.endDateutcTimeZone
                                                                   ?.isNotEmpty ==
                                                               true
-                                                      ? formatDate(
+                                                      ? convertToIST(
                                                           selectedmyticketview[
                                                                   0]!
-                                                              .endDate
+                                                              .endDateutcTimeZone
                                                               .toString())
                                                       : "",
                                                 ),
-
-                                                
                                                 const CustomText(
                                                     text: 'Message',
                                                     fontSize: 10,
@@ -904,6 +969,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
+                                                
                                                 SizedBox(
                                                   child: CustomText(
                                                     text:
@@ -918,35 +984,54 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 ),
                                                 const SizedBox(height: 10),
                                                 const CustomText(
-                                                    text: 'Attachments',
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w400,
-                                                    textcolor:
-                                                        Colours.ksubheadertext),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                                
-
-                                                CustomText(
-                                                  text: (selectedmyticketview[
-                                                                      0]!
-                                                                  .images !=
-                                                              null &&
-                                                          selectedmyticketview[
-                                                                  0]!
-                                                              .images!
-                                                              .isNotEmpty)
-                                                      ? selectedmyticketview[0]!
-                                                          .images![0]
-                                                          .fileName
-                                                          .toString()
-                                                      : 'Not Found',
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w500,
+                                                  text: 'Attachments',
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
                                                   textcolor:
-                                                      Colours.kresponsivetext,
-                                                )
+                                                      Colours.ksubheadertext,
+                                                ),
+                                                const SizedBox(height: 5),
+                                                (selectedmyticketview[0]!
+                                                                .images !=
+                                                            null &&
+                                                        selectedmyticketview[0]!
+                                                            .images!
+                                                            .isNotEmpty)
+                                                    ? ListView.builder(
+                                                        shrinkWrap: true,
+                                                        physics:
+                                                            const NeverScrollableScrollPhysics(),
+                                                        itemCount:
+                                                            selectedmyticketview[
+                                                                    0]!
+                                                                .images!
+                                                                .length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return CustomText(
+                                                            text:
+                                                                selectedmyticketview[
+                                                                        0]!
+                                                                    .images![
+                                                                        index]
+                                                                    .fileName
+                                                                    .toString(),
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            textcolor: Colours
+                                                                .kresponsivetext,
+                                                          );
+                                                        },
+                                                      )
+                                                    : const CustomText(
+                                                        text: 'Not Found',
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        textcolor: Colours
+                                                            .kresponsivetext,
+                                                      ),
                                               ],
                                             ),
                                           ),
@@ -965,8 +1050,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                               ],
                             ),
                           ),
-
-                          
                         );
                 } else {
                   return const Expanded(
@@ -991,21 +1074,15 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
         setState(() {
           isApiCallProcess = false;
         });
-
-        
       } else if (value.status == 400) {
         setState(() {
           isApiCallProcess = false;
         });
-       
       } else if (value.status == 404) {
         setState(() {
           isApiCallProcess = false;
         });
-
-       
       } else if (value.status == 200 || value.status == 201) {
-      
         print("Assigned to List working perfect uday");
 
         assignList.clear();
@@ -1025,56 +1102,51 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
       }
     });
   }
-  
-  
-  void updateTicket( 
-     EditTicketRequestModel editTicketRequestModel, MyTicketsListProvider selectedMyticketsProvider) async {
+
+  void updateTicket(EditTicketRequestModel editTicketRequestModel,
+      MyTicketsListProvider selectedMyticketsProvider) async {
     try {
       var headers = {
         'Authorization': SharedPrefServices.getaccessToken().toString(),
         'Content-Type': 'application/json'
       };
       String ticketID = editTicketRequestModel.ticketId;
-      String URL = "http://65.0.91.101:7390/api/Ticket/update-ticketInfo/$ticketID";
+      String URL =
+          "http://65.0.91.101:7390/api/Ticket/update-ticketInfo/$ticketID";
       print(URL);
-      var request = http.Request(
-          'PUT',
-          Uri.parse(
-              URL));
+      var request = http.Request('PUT', Uri.parse(URL));
 
-      request.body = json.encode(
-        {
-  "ticketId": editTicketRequestModel.ticketId,
-  "companyId": editTicketRequestModel.companyId,
-  "customerId": editTicketRequestModel.customerId,
-  "branchObjectId": editTicketRequestModel.branchObjectId,
-  "startDate": editTicketRequestModel.startDate,
-  "title": editTicketRequestModel.title,
-  "AccountCode": editTicketRequestModel.accountCode,
-  "projectCode":editTicketRequestModel.projectCode,
-  "requestedBY": editTicketRequestModel.requestedBy,
-  "daysOpen":editTicketRequestModel.daysOpen,
-  "category": editTicketRequestModel.category,
-  "severity": editTicketRequestModel.severity,
-  "raisebyObjectId": {
-    "_id": editTicketRequestModel.raisebyObjectId.id,
-    "name": editTicketRequestModel.raisebyObjectId.name,
-  },
-  "assignedtoObjectId": {
-    "_id": editTicketRequestModel.assignedtoObjectId.id,
-    "name": editTicketRequestModel.assignedtoObjectId.name,
-  },
-  "endDate": editTicketRequestModel.endDate,
-  "status": editTicketRequestModel.status,
-  "createdBy": editTicketRequestModel.createdBy,
-  "description": editTicketRequestModel.description,
-  "images": editTicketRequestModel.images,
-  "roleCode": editTicketRequestModel.roleCode,
-  "userId": editTicketRequestModel.userId,
-  "modifiedBy": editTicketRequestModel.modifiedBy,
-  "loginUser": editTicketRequestModel.loginUser,
-}
-      );
+      request.body = json.encode({
+        "ticketId": editTicketRequestModel.ticketId,
+        "companyId": editTicketRequestModel.companyId,
+        "customerId": editTicketRequestModel.customerId,
+        "branchObjectId": editTicketRequestModel.branchObjectId,
+        "startDate": editTicketRequestModel.startDate,
+        "title": editTicketRequestModel.title,
+        "AccountCode": editTicketRequestModel.accountCode,
+        "projectCode": editTicketRequestModel.projectCode,
+        "requestedBY": editTicketRequestModel.requestedBy,
+        "daysOpen": editTicketRequestModel.daysOpen,
+        "category": editTicketRequestModel.category,
+        "severity": editTicketRequestModel.severity,
+        "raisebyObjectId": {
+          "_id": editTicketRequestModel.raisebyObjectId.id,
+          "name": editTicketRequestModel.raisebyObjectId.name,
+        },
+        "assignedtoObjectId": {
+          "_id": editTicketRequestModel.assignedtoObjectId?.id,
+          "name": editTicketRequestModel.assignedtoObjectId?.name,
+        },
+        "endDate": editTicketRequestModel.endDate,
+        "status": editTicketRequestModel.status,
+        "createdBy": editTicketRequestModel.createdBy,
+        "description": editTicketRequestModel.description,
+        "images": editTicketRequestModel.images,
+        "roleCode": editTicketRequestModel.roleCode,
+        "userId": editTicketRequestModel.userId,
+        "modifiedBy": editTicketRequestModel.modifiedBy,
+        "loginUser": editTicketRequestModel.loginUser,
+      });
       print(request.body);
       request.headers.addAll(headers);
 

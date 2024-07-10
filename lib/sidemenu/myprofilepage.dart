@@ -14,23 +14,23 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const CustomAppbar(title: 'My Profile'),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-        child: CustomButton(
-            text: "Edit Profile",
-            textColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditProfilePage()),
-              );
-              // updateProfile();
-            },
-            color: Colours.kbuttonpurple,
-            fontSize: 16,
-            fontWeight: FontWeight.w600),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+      //   child: CustomButton(
+      //       text: "Edit Profile",
+      //       textColor: Colors.white,
+      //       onPressed: () {
+      //         Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => EditProfilePage()),
+      //         );
+      //         // updateProfile();
+      //       },
+      //       color: Colours.kbuttonpurple,
+      //       fontSize: 16,
+      //       fontWeight: FontWeight.w600),
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(right: 15,left: 15),
@@ -47,7 +47,7 @@ class ProfilePage extends StatelessWidget {
               ),
           
               const SizedBox(
-                height: 30.0,
+                height: 50.0,
               ),
           
                Text('Full Name',style: GoogleFonts.poppins(fontSize: 13,color: Colours.korange),),

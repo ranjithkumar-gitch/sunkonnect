@@ -21,47 +21,48 @@ class _AccountSettingsState extends State<AccountSettings> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const CustomAppbar(title: 'Account Settings'),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-                height: 40,
-                width: 100,
-                child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                        color: Colours.kbuttonpurple,
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    child: const CustomText(
-                        text: 'Cancel',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        textcolor: Colours.kbuttonpurple))),
-            SizedBox(
-              height: 40,
-              width: 100,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colours.kbuttonpurple,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  child: const CustomText(
-                      text: 'Save',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      textcolor: Colors.white)),
-            )
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // at the momment commented code //
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+      //       SizedBox(
+      //           height: 40,
+      //           width: 100,
+      //           child: OutlinedButton(
+      //               onPressed: () {},
+      //               style: OutlinedButton.styleFrom(
+      //                 side: const BorderSide(
+      //                   color: Colours.kbuttonpurple,
+      //                 ),
+      //                 shape: RoundedRectangleBorder(
+      //                     borderRadius: BorderRadius.circular(10)),
+      //               ),
+      //               child: const CustomText(
+      //                   text: 'Cancel',
+      //                   fontSize: 14,
+      //                   fontWeight: FontWeight.w600,
+      //                   textcolor: Colours.kbuttonpurple))),
+      //       SizedBox(
+      //         height: 40,
+      //         width: 100,
+      //         child: ElevatedButton(
+      //             onPressed: () {},
+      //             style: ElevatedButton.styleFrom(
+      //                 backgroundColor: Colours.kbuttonpurple,
+      //                 shape: RoundedRectangleBorder(
+      //                     borderRadius: BorderRadius.circular(10))),
+      //             child: const CustomText(
+      //                 text: 'Save',
+      //                 fontSize: 14,
+      //                 fontWeight: FontWeight.w600,
+      //                 textcolor: Colors.white)),
+      //       )
+      //     ],
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SafeArea(
           child: Container(
         margin: const EdgeInsets.only(right: 15, left: 15),
@@ -74,8 +75,9 @@ class _AccountSettingsState extends State<AccountSettings> {
             const Header(title: 'Email Notifications'),
 
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
+            
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -112,29 +114,7 @@ class _AccountSettingsState extends State<AccountSettings> {
             const SizedBox(
               height: 40,
             ),
-            //                 Row(
-            //    children: [
-            //      const SizedBox(width: 20),
-
-            //      AdvancedSwitch(
-            //        width: 55,
-            //        height: 25,
-            //        activeColor: Colours.kbuttonpurple,
-            //        initialValue: SharedPrefServices.getStatus()!,
-            //        inactiveColor: Colors.grey,
-            //        onChanged: (value) {
-            //      updateRolecode();
-            //        },
-            //      ),
-            //      const SizedBox(width: 15),
-            //        CustomText(
-            //      text: SharedPrefServices.getroleCode().toString(),
-            //       fontSize: 14,
-            //       fontWeight: FontWeight.w500,
-            //      textcolor: Colors.black),
-
-            //    ],
-            //  ),
+            
           ],
         ),
       )),

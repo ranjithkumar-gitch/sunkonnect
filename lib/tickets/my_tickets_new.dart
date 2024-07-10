@@ -61,6 +61,16 @@ class _MyTicketsListState extends State<MyTicketsList> {
     return formatter.format(dateTime);
   }
 
+
+
+  String convertToIST(String utcTime) {
+  DateFormat inputFormat = DateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
+  DateTime utcDateTime = inputFormat.parse(utcTime);
+  DateTime istDateTime = utcDateTime.add(const Duration(hours: 5, minutes: 30));
+  DateFormat outputFormat = DateFormat('MM-dd-yyyy HH:mm:ss a'); 
+  return outputFormat.format(istDateTime);
+   }
+
   @override
   Widget build(BuildContext context) {
     var myTicketsListProvider = context.watch<MyTicketsListProvider>();
@@ -71,8 +81,10 @@ class _MyTicketsListState extends State<MyTicketsList> {
     return SizedBox(
       child: Scaffold(
           key: scaffoldKey,
-          body: Column(children: [
+          body: Column(
+            children: [
             _searchFilters(),
+            
             Selector<MyTicketsListProvider,
                 ApiResponse<GetTicketListResponseModel>?>(
               selector: (_, apiResponse) =>
@@ -97,7 +109,7 @@ class _MyTicketsListState extends State<MyTicketsList> {
                               height: 100,
                             ),
                             Text(
-                              "data NOT recieved. EMPTY",
+                              "Tickets Not Found",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 33),
                             )
@@ -189,15 +201,17 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                               0xff52C41A)
                                                                           : myTicketsListData[index]!.status == "Acknowledged"
                                                                               ? const Color(0xff662C91)
-                                                                              : myTicketsListData[index]!.status == "In process"
+                                                                              : myTicketsListData[index]!.status == "In Process"
                                                                                   ? const Color(0xffFFA500)
-                                                                                  : myTicketsListData[index]!.status == "Completed"
+                                                                                  : myTicketsListData[index]!.status == "Submitted"
+                                                                                    ? const Color(0xffc88141)
+                                                                                    : myTicketsListData[index]!.status == "Completed"
                                                                                       ? const Color(0xff0DA12E)
                                                                                       : myTicketsListData[index]!.status == "On Hold"
                                                                                           ? const Color(0xff007CBE)
                                                                                           : myTicketsListData[index]!.status == "Closed"
                                                                                               ? const Color(0xff15182E)
-                                                                                              : myTicketsListData[index]!.status == "Cancelled"
+                                                                                              : myTicketsListData[index]!.status == "Canceled"
                                                                                                   ? const Color(0xffD92F1B)
                                                                                                   : Colors.black,
                                                                 ),
@@ -213,15 +227,17 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                         : myTicketsListData[index]!.status ==
                                                                                 "Acknowledged"
                                                                             ? const Color(0xffF8EFFF)
-                                                                            : myTicketsListData[index]!.status == "In process"
-                                                                                ? const Color(0xffFFF4DF)
+                                                                            : myTicketsListData[index]!.status == "In Process"
+                                                                                ? const Color(0xfffff4df)
+                                                                                : myTicketsListData[index]!.status == "Submitted"
+                                                                                 ? const Color(0xfffff4df)
                                                                                 : myTicketsListData[index]!.status == "Completed"
                                                                                     ? const Color(0xffE6FFEC)
                                                                                     : myTicketsListData[index]!.status == "On Hold"
                                                                                         ? const Color(0xffF3FBFF)
                                                                                         : myTicketsListData[index]!.status == "Closed"
                                                                                             ? const Color(0xffF5F5F5)
-                                                                                            : myTicketsListData[index]!.status == "Cancelled"
+                                                                                            : myTicketsListData[index]!.status == "Canceled"
                                                                                                 ? const Color(0xffFFF2F0)
                                                                                                 : Colors.white,
                                                                 borderRadius:
@@ -258,15 +274,17 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                             ? const Color(0xff52C41A)
                                                                             : myTicketsListData[index]!.status == "Acknowledged"
                                                                                 ? const Color(0xff662C91)
-                                                                                : myTicketsListData[index]!.status == "In process"
+                                                                                : myTicketsListData[index]!.status == "In Process"
                                                                                     ? const Color(0xffFFA500)
+                                                                                    : myTicketsListData[index]!.status == "Submitted"
+                                                                                    ? const Color(0xffc88141)
                                                                                     : myTicketsListData[index]!.status == "Completed"
                                                                                         ? const Color(0xff0DA12E)
                                                                                         : myTicketsListData[index]!.status == "On Hold"
                                                                                             ? const Color(0xff007CBE)
                                                                                             : myTicketsListData[index]!.status == "Closed"
                                                                                                 ? const Color(0xff15182E)
-                                                                                                : myTicketsListData[index]!.status == "Cancelled"
+                                                                                                : myTicketsListData[index]!.status == "Canceled"
                                                                                                     ? const Color(0xffD92F1B)
                                                                                                     : Colors.black,
                                                                     fontFamily:
@@ -529,12 +547,12 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                             ),
                                                           ),
                                                           TextSpan(
-                                                            text: '',
-                                                              // text: formatDate(
-                                                              //     myTicketsListData[
-                                                              //             index]!
-                                                              //         .createdAt
-                                                              //         .toString()),
+                                                          
+                                                              text: convertToIST(
+                                                                  myTicketsListData[
+                                                                          index]!
+                                                                      .utcTime
+                                                                      .toString()),
                                                               style: GoogleFonts.poppins(
                                                                   fontSize: 14,
                                                                   fontWeight:
@@ -572,10 +590,10 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                                             index]!
                                                                         .status ==
                                                                     "Closed"
-                                                                ? formatDate(
+                                                                ? convertToIST(
                                                                     myTicketsListData[
                                                                             index]!
-                                                                        .endDate
+                                                                        .endDateutcTimeZone
                                                                         .toString())
                                                                 : "Need to fix",
                                                             style: GoogleFonts

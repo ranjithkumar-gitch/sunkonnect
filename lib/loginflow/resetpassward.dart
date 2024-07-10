@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/loginflow/loginpage.dart';
-import 'package:sunkonnect/loginflow/model/login_request_model.dart';
 import 'package:sunkonnect/loginflow/model/password_update_request_model.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
-import 'package:sunkonnect/widgets/customappbar.dart';
-import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/password_checker.dart';
 import 'package:sunkonnect/widgets/snackbar.dart';
 
@@ -82,7 +78,7 @@ class _ResetpasswardState extends State<Resetpassward> {
             child: Container(
               alignment: Alignment.center,
               width: double.infinity,
-              margin: EdgeInsets.only(left: 32.0, right: 32.0),
+              margin: const EdgeInsets.only(left: 32.0, right: 32.0),
               child: Card(
                 child: Wrap(
                   children: [
@@ -265,14 +261,14 @@ class _ResetpasswardState extends State<Resetpassward> {
                                     ),
                                     suffixIcon: IconButton(
                                       icon: Icon(
-                                        // Based on passwordVisible state choose the icon
+                                        
                                         _passwordVisibletwo
                                             ? Icons.visibility
                                             : Icons.visibility_off,
                                         color: const Color(0xff979797),
                                       ),
                                       onPressed: () {
-                                        // Update the state i.e. toogle the state of passwordVisible variable
+                                      
                                         setState(() {
                                           _passwordVisibletwo =
                                               !_passwordVisibletwo;
@@ -416,9 +412,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                                           value.status == 201) {
                                         showToast(
                                             "Password Updated  Successfully ");
-                                        // print("login url is working perfect uday");
-                                        //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
-
+                                        
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) {
@@ -433,16 +427,7 @@ class _ResetpasswardState extends State<Resetpassward> {
                                       }
                                     });
 
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(
-                                    //     builder: (BuildContext context) {
-                                    //       return VerificationcodePage(
-                                    //           matchingproModel:
-                                    //               this.widget.matchingproModel,
-                                    //           data: this.widget.data);
-                                    //     },
-                                    //   ),
-                                    // );
+                                    
                                   });
                                 } else {
                                   setState(() {

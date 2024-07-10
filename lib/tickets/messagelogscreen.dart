@@ -110,33 +110,37 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
             ),
             // _searchFilters(),
 
-            Expanded(
-              child: Selector<MyTicketsListProvider,
-                  ApiResponse<MessageLogResponseModel>?>(
-                selector: (_, apiResponse) => apiResponse.messageLogResponseModel,
-                builder: (_, instance, __) {
-                  if (instance?.status == Status.error) {
-                    return FittedBox(
-                        child: Text(instance?.errorMessage ?? "error"));
-                  } else if (instance?.status == Status.loading) {
-                    return const Expanded(child: ProgressBarHUD());
-                  } else if (instance?.status == Status.completed) {
-                    List<Datum?> messageloglistdata =
-                        // instance?.data?.data!.data ?? [];
-                        instance?.data?.data?.data ?? [];
-                    print("now printing my messages  list data");
-                    print(messageloglistdata);
-                    inspect(messageloglistdata);
-              
-                    return messageloglistdata.isEmpty
-                        ? const Center(
-                          child: Text(
-                            "Messages Not Found",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20),
-                          ),
-                        )
-                        : ListView.builder(
+            Selector<MyTicketsListProvider,
+                ApiResponse<MessageLogResponseModel>?>(
+              selector: (_, apiResponse) => apiResponse.messageLogResponseModel,
+              builder: (_, instance, __) {
+                if (instance?.status == Status.error) {
+                  return FittedBox(
+                      child: Text(instance?.errorMessage ?? "error"));
+                } else if (instance?.status == Status.loading) {
+                  return const Expanded(child: ProgressBarHUD());
+                } else if (instance?.status == Status.completed) {
+                  List<Datum?> messageloglistdata =
+                      // instance?.data?.data!.data ?? [];
+                      instance?.data?.data?.data ?? [];
+                  print("now printing my messages  list data");
+                  print(messageloglistdata);
+                  inspect(messageloglistdata);
+            
+                   
+            
+                  return messageloglistdata.isEmpty
+                       ? const Expanded(
+                         child:  Center(
+                           child: 
+                                Text(
+                                  "Messages Not Found",
+                                  style:
+                                      TextStyle(color: Colors.black, fontSize: 20),
+                                )),
+                       )
+                      : Expanded(
+                        child: ListView.builder(
                           
                             itemCount: messageloglistdata.length,
                             itemBuilder: (context, index) {
@@ -287,18 +291,18 @@ class _MessageLogScreenState extends State<MessageLogScreen> {
                                 ),
                                 //
                               );
-                            });
-              
-                        
-                        
-                  } else {
-                    return const Expanded(
-                      child: ProgressBarHUD(),
-                    );
-                  
-                  }
-                },
-              ),
+                            }),
+                      );
+            
+                      
+                      
+                } else {
+                  return const Expanded(
+                    child: ProgressBarHUD(),
+                  );
+                
+                }
+              },
             ),
              SizedBox(height: 60),
           ])),
