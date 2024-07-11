@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/load_data/repository_data.dart';
 import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
+import 'package:sunkonnect/tickets/model/get_emailNotifications_responcemodel.dart';
 import 'package:sunkonnect/tickets/model/get_ticket_log_responsemodel.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/loginflow/model/message_log_reponseModel.dart';
@@ -167,33 +168,68 @@ class MyTicketsListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  ApiResponse<GetAssignedToListResponseModel>? _getAssignedToListResponseModel;
-  ApiResponse<GetAssignedToListResponseModel>?
-      get getAssignedToListResponseModel => _getAssignedToListResponseModel;
-  Future<void> getassignedtolist({
+  // ApiResponse<GetAssignedToListResponseModel>? _getAssignedToListResponseModel;
+  // ApiResponse<GetAssignedToListResponseModel>?
+  //     get getAssignedToListResponseModel => _getAssignedToListResponseModel;
+  // Future<void> getassignedtolist({
+  //   bool reload = false,
+  //   String? status,
+  // }) async {
+  //   if (_getAssignedToListResponseModel == null || reload == true) {
+  //     _getAssignedToListResponseModel = ApiResponse.loading();
+
+  //     // notifyListeners();
+  //     try {
+  //       GetAssignedToListResponseModel data =
+  //           await _repositoryData.getAssignedtolist();
+  //       _getAssignedToListResponseModel = ApiResponse.completed(data);
+  //       printL("view message log recieved");
+  //     } catch (e) {
+  //       printL("loadProfile error $e");
+  //       _getAssignedToListResponseModel = ApiResponse.error(e.toString());
+  //       notifyListeners();
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
+
+  // cleargetassignedtoList() {
+  //   _getAssignedToListResponseModel = null;
+  //   notifyListeners();
+  // }
+
+  ApiResponse<GetEmailNotifiactonsResponseModel>?
+      _getEmailNotificationListResponseModel;
+  ApiResponse<GetEmailNotifiactonsResponseModel>?
+      get getEmailNotificationListResponseModel =>
+          _getEmailNotificationListResponseModel;
+  Future<void> loadEmailNotificationList({
     bool reload = false,
     String? status,
+    var requestmodel,
   }) async {
-    if (_getAssignedToListResponseModel == null || reload == true) {
-      _getAssignedToListResponseModel = ApiResponse.loading();
+    // notifyListeners();
+    if (_getEmailNotificationListResponseModel == null || reload == true) {
+      _getEmailNotificationListResponseModel = ApiResponse.loading();
 
       // notifyListeners();
       try {
-        GetAssignedToListResponseModel data =
-            await _repositoryData.getAssignedtolist();
-        _getAssignedToListResponseModel = ApiResponse.completed(data);
-        printL("view message log recieved");
+        GetEmailNotifiactonsResponseModel data =
+            await _repositoryData.getEmailNotificationsList(requestmodel);
+        _getEmailNotificationListResponseModel = ApiResponse.completed(data);
+        printL("My notification data recieved");
       } catch (e) {
         printL("loadProfile error $e");
-        _getAssignedToListResponseModel = ApiResponse.error(e.toString());
+        _getEmailNotificationListResponseModel =
+            ApiResponse.error(e.toString());
         notifyListeners();
       }
       notifyListeners();
     }
   }
 
-  cleargetassignedtoList() {
-    _getAssignedToListResponseModel = null;
+  clearEmailNotificationList() {
+    _getEmailNotificationListResponseModel = null;
     notifyListeners();
   }
 }

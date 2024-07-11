@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sunkonnect/notification.dart';
+import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/all_tickets_new.dart';
 import 'package:sunkonnect/tickets/my_tickets_new.dart';
@@ -29,6 +31,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var myTicketsListProvider = context.watch<MyTicketsListProvider>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colours.korange,
@@ -44,10 +48,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Icons.notifications,
             ),
             onPressed: () {
+              setState(() {
+                myTicketsListProvider.clearEmailNotificationList();
+              });
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const NotificationListScreen()),
+                    builder: (context) => NotificationListScreen()),
               );
             },
           ),
