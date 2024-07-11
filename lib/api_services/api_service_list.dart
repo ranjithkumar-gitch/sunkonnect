@@ -1,6 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
 
+import 'dart:developer';
+import 'package:sunkonnect/sidemenu/model/contactus_request_model.dart';
+import 'package:sunkonnect/sidemenu/model/contactus_response_model.dart';
+import 'package:sunkonnect/sidemenu/model/getflag_response_model.dart';
 import 'package:sunkonnect/tickets/model/add_message_request.dart';
 import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
@@ -8,7 +10,6 @@ import 'package:sunkonnect/tickets/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/loginflow/model/verifyemail_response_model.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/model/images_respoonse_model.dart';
-import 'package:sunkonnect/tickets/model/message_response_model.dart';
 import 'package:sunkonnect/widgets/constant.dart';
 import 'package:sunkonnect/loginflow/model/change_password_response_model.dart';
 import 'package:sunkonnect/loginflow/model/forgot_request_model.dart';
@@ -356,6 +357,107 @@ class ApiService {
       print(e.toString());
     }
     // return userloginfailureresponseFromJson(response.body);
+
+    throw Exception('Failed to load Data');
+  }
+
+
+
+
+   // get email flag 
+  Future<GetflagResponseModel> getEmailFlag() async {
+
+    String email = SharedPrefServices.getuserId().toString();
+    String url =
+        "${AppConstant.sunkonnectDevUrl}users/get-user-email-flag/$email";
+
+      print(url);
+
+    var headers = accessheaders;
+  var request = http.Request('GET', Uri.parse(url));
+
+  request.headers.addAll(headers);
+
+    try {
+    // final response = await http.get(
+      //   Uri.parse(url),
+      //   headers: accessheaders
+      // );
+
+     http.StreamedResponse streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+     
+    print('fetch header $response');
+
+      print("response.body secretCode ${response.body}");
+      print("response.body statusCode ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return getflagResponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return getflagResponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return getflagResponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return getflagResponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return getflagResponseModelFromJson(response.body);
+      } else
+        return getflagResponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
+
+    throw Exception('Failed to load Data');
+  }
+
+ // Contact US POST Service
+
+  Future<ContactUsResponseModel> contactUs(
+      ContactUSRequestModel requestModel) async {
+    String url =
+        "${AppConstant.sunkonnectDevUrl}contact-us/insert-contactus";
+    print(url);
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: requestModel.toJson(),
+      );
+
+      print("response.body requestModel ${requestModel.toJson()}");
+      print("response.body signin ${response.body}");
+      print("response.body statusCode ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return contactUsResponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return contactUsResponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return contactUsResponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return contactUsResponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return contactUsResponseModelFromJson(response.body);
+      } else
+        return contactUsResponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
+
+    print(requestModel);
 
     throw Exception('Failed to load Data');
   }

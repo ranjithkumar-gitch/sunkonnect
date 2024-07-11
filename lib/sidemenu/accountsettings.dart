@@ -14,14 +14,88 @@ class AccountSettings extends StatefulWidget {
 }
 
 class _AccountSettingsState extends State<AccountSettings> {
-  bool isSubscribed = false;
-
+  
+ @override
+  void initState() {
+    super.initState();
+    SharedPrefServices.getemailFlag();
+    print(SharedPrefServices.getemailFlag());
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const CustomAppbar(title: 'Account Settings'),
-      // at the momment commented code //
+      
+      body: SafeArea(
+          child: Container(
+        margin: const EdgeInsets.only(right: 15, left: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 15,
+            ),
+            const Header(title: 'Email Notifications'),
+
+            const SizedBox(
+              height: 30,
+            ),
+            
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colours.kbordergrey),
+                borderRadius: BorderRadius.circular(10),
+                color: Colours.kwhiteColor,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      const SizedBox(width: 20),
+                      AdvancedSwitch(
+                        width: 55,
+                        height: 25,
+                        activeColor: Colours.kbuttonpurple,
+                        inactiveColor: Colors.grey,
+                        onChanged: (value) {
+                        updateRolecode();
+                        },
+                      ),
+                      const SizedBox(width: 15),
+                      const CustomText(
+                          text: 'Subscribe to all emails',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          textcolor: Colors.black),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
+            ),
+
+            const SizedBox(
+              height: 40,
+            ),
+            
+          ],
+        ),
+      )),
+    );
+  }
+updateRolecode(){
+    setState(() {
+      SharedPrefServices.getemailFlag() == false ? SharedPrefServices.setemailFlag(true) : SharedPrefServices.setemailFlag(false);
+        
+        });
+}}
+
+
+
+// at the momment commented code //
       // floatingActionButton: Padding(
       //   padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
       //   child: Row(
@@ -63,72 +137,6 @@ class _AccountSettingsState extends State<AccountSettings> {
       //   ),
       // ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: SafeArea(
-          child: Container(
-        margin: const EdgeInsets.only(right: 15, left: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            const Header(title: 'Email Notifications'),
-
-            const SizedBox(
-              height: 30,
-            ),
-            
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colours.kbordergrey),
-                borderRadius: BorderRadius.circular(10),
-                color: Colours.kwhiteColor,
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const SizedBox(width: 20),
-                      AdvancedSwitch(
-                        width: 55,
-                        height: 25,
-                        activeColor: Colours.kbuttonpurple,
-                        inactiveColor: Colors.grey,
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(width: 15),
-                      const CustomText(
-                          text: 'Subscribe to all emails',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          textcolor: Colors.black),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              ),
-            ),
-
-            const SizedBox(
-              height: 40,
-            ),
-            
-          ],
-        ),
-      )),
-    );
-  }
-  // updateRolecode(){
-  //   setState(() {
-  //     SharedPrefServices.getStatus() == false ? SharedPrefServices.setStatus(true) : SharedPrefServices.setStatus(false);
-  //        SharedPrefServices.getroleCode().toString() == 'company' ? SharedPrefServices.setroleCode('customer')
-  //     : SharedPrefServices.getroleCode().toString() == 'customer' ? SharedPrefServices.setroleCode('company') : SharedPrefServices.setroleCode('company');
-  //       });
-
-  // }
-}
 
 // this code for dailog box in onchanged toggle  //    setState(() {
 //      isSubscribed = value;
@@ -198,3 +206,12 @@ class _AccountSettingsState extends State<AccountSettings> {
 //    );
 //      });
 //  }});
+
+// updateRolecode(){
+//     setState(() {
+//       SharedPrefServices.getstatus() == false ? SharedPrefServices.setstatus(true) : SharedPrefServices.setstatus(false);
+//          SharedPrefServices.getroleCode().toString() == 'company' ? SharedPrefServices.setroleCode('customer')
+//       : SharedPrefServices.getroleCode().toString() == 'customer' ? SharedPrefServices.setroleCode('company') : SharedPrefServices.setroleCode('company');
+//         });
+
+//  

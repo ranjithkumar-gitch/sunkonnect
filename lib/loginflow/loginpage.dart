@@ -237,101 +237,138 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          requestModelId.userId = emailController.text;
-                          requestModelId.password = passwordController.text;
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            requestModelId.userId = emailController.text;
+                            requestModelId.password = passwordController.text;
 
-                          setState(() {
-                            isApiCallProcess = true;
-                          });
+                            setState(() {
+                              isApiCallProcess = true;
+                            });
 
-                          ApiService apiService = ApiService();
+                            ApiService apiService = ApiService();
 
-                          apiService.loginauth(requestModelId).then((value) {
-                            if (value.status == 203) {
+                            apiService.loginauth(requestModelId).then((value) {
+                              if (value.status == 203) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                              } else if (value.status == 401) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+
+                                showToast(
+                                    "Please Enter valid email or password");
+                              } else if (value.status == 400) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                                showToast(
+                                    "Please Enter valid email or password");
+                              } else if (value.status == 404) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+
+                                showToast(
+                                    "Please Enter valid email or password");
+                              } else if (value.status == 200 ||
+                                  value.status == 201) {
+                                showToast("Login Successful");
+                                // print("login url is working perfect uday");
+                                //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
+                                SharedPrefServices.setloginId(
+                                    value.data?.data?.id ?? "");
+                                SharedPrefServices.setuserId(
+                                    value.data?.data?.userId ?? "");
+                                SharedPrefServices.setname(
+                                    value.data?.data?.name ?? "");
+
+                                SharedPrefServices.setstatus(
+                                    value.data?.data?.status ?? "");
+
+                                SharedPrefServices.setaccessToken(
+                                    value.data?.accessToken ?? "");
+
+                                SharedPrefServices.setrefreshToken(
+                                    value.data?.refreshToken ?? "");
+
+                                SharedPrefServices.setuserObjId(
+                                    value.data?.userObjId ?? "");
+
+                                SharedPrefServices.setroleCode(
+                                    value.data?.data?.rbac?[0].roleCode ?? "");
+
+                                SharedPrefServices.setroleDescription(value
+                                        .data?.data?.rbac?[0].roleDescription ??
+                                    "");
+
+                                SharedPrefServices.setisLoggedIn(true);
+
+                                apiService
+                                    .getEmailFlag()
+                                    .then((emailFlagValue) {
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                  });
+
+                                  if (emailFlagValue.status == 200 ||
+                                      emailFlagValue.status == 201) {
+                                    print("Email flag is perfectly working");
+                                    print(emailFlagValue.data?.first.fSendEmails
+                                        .toString());
+
+                                   
+                                    SharedPrefServices.setemailFlag(
+                                        emailFlagValue
+                                                .data?.first.fSendEmails ??
+                                            false);
+
+                                   
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return const DashboardScreen();
+                                        },
+                                      ),
+                                    );
+                                  } else {
+                                    showToast("Failed to fetch email flag");
+                                  }
+                                }).catchError((error) {
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                  });
+                                  showToast("Error: ${error.toString()}");
+                                });
+                              } else {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                                showToast("Unexpected error occurred");
+                              }
+                            }).catchError((error) {
                               setState(() {
                                 isApiCallProcess = false;
                               });
-                            } else if (value.status == 401) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-
-                              showToast("Please Enter valid email or password");
-                            } else if (value.status == 400) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                              showToast("Please Enter valid email or password");
-                            } else if (value.status == 404) {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-
-                              showToast("Please Enter valid email or password");
-                            } else if (value.status == 200 ||
-                                value.status == 201) {
-                              showToast("Login Successful");
-                              // print("login url is working perfect uday");
-                              //loginId, userId, name, roleCode, roleDescription, status, accessToken, refreshToken, userObjId//
-                              SharedPrefServices.setloginId(
-                                  value.data?.data?.id ?? "");
-                              SharedPrefServices.setuserId(
-                                  value.data?.data?.userId ?? "");
-                              SharedPrefServices.setname(
-                                  value.data?.data?.name ?? "");
-
-                              SharedPrefServices.setstatus(
-                                  value.data?.data?.status ?? "");
-
-                              SharedPrefServices.setaccessToken(
-                                  value.data?.accessToken ?? "");
-
-                              SharedPrefServices.setrefreshToken(
-                                  value.data?.refreshToken ?? "");
-
-                              SharedPrefServices.setuserObjId(
-                                  value.data?.userObjId ?? "");
-
-                              SharedPrefServices.setroleCode(
-                                  value.data?.data?.rbac?[0].roleCode ?? "");
-
-                              SharedPrefServices.setroleDescription(
-                                  value.data?.data?.rbac?[0].roleDescription ??
-                                      "");
-
-                              SharedPrefServices.setisLoggedIn(true);
-
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return const DashboardScreen();
-                                  },
-                                ),
-                              );
-                            } else {
-                              setState(() {
-                                isApiCallProcess = false;
-                              });
-                            }
-                          });
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colours.kbuttonpurple,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      child: Text('Login',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ))),
-                ),
+                              showToast("Error: ${error.toString()}");
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colours.kbuttonpurple,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        child: Text('Login',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            )))),
               ],
             ),
           ),

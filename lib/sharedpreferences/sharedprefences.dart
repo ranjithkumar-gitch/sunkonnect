@@ -56,6 +56,7 @@ class SharedPrefServices {
   static const _keyraisebyObjectID = 'raisebyObjectID';
  static const _keyraisebyObjectName  = 'raisebyObjectName';
   
+ static const _keyemailflag = 'true';
   
   static const _keyDatumTicketId = 'datumticketid';
 
@@ -136,6 +137,10 @@ static Future setraisebyObjectID(String setraisebyObjectID) async =>
   static Future setisLoggedIn(bool isLoggedIn) async =>
       await prefs!.setBool(_keyisLoggedIn, isLoggedIn);
 
+      static Future setemailFlag(bool emailFlag) async =>
+      await prefs!.setBool(_keyemailflag, emailFlag);
+
+
   // static Future setStatus(bool status) async =>
   //     await prefs!.setBool(_keybool, status);
 
@@ -165,6 +170,8 @@ static Future setraisebyObjectID(String setraisebyObjectID) async =>
   static String? getraisebyObjectName() => prefs!.getString(_keyraisebyObjectName);
 
   static bool? getisLoggedIn() => prefs!.getBool(_keyisLoggedIn);
+
+   static bool? getemailFlag() => prefs!.getBool(_keyemailflag);
 
   // static bool? getStatus() => prefs!.getBool(_keybool);
 }

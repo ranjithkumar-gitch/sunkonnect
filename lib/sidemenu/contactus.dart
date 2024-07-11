@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
+import 'package:sunkonnect/dashboard.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
+import 'package:sunkonnect/sidemenu/model/contactus_request_model.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
+import 'package:sunkonnect/widgets/progressbar.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 class ContactUS extends StatefulWidget {
   const ContactUS({super.key});
@@ -14,8 +20,40 @@ class ContactUS extends StatefulWidget {
 
 class _ContactUSState extends State<ContactUS> {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController messageController = TextEditingController();
+
+    late ContactUSRequestModel requestModelId;
+
+  bool password = true;
+
+  bool isApiCallProcess = false;
+
   @override
+  void initState() {
+    super.initState();
+    requestModelId = ContactUSRequestModel(
+      userId: "",
+      emailId: "",
+      firstName: "",
+      message: "",
+      getInTouch: "",
+      userObjId: "",
+      roleCode: "",
+      createdBy: "",
+      createdByEmail: "",
+    );
+  }
+
+   @override
   Widget build(BuildContext context) {
+    return ProgressBar(
+      inAsyncCall: isApiCallProcess,
+      opacity: 0.3,
+      child: uiSetup(context),
+    );
+  }
+  Widget uiSetup(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
        appBar: const CustomAppbar(title: 'Contact Us'),
@@ -180,6 +218,7 @@ class _ContactUSState extends State<ContactUS> {
                             borderRadius: BorderRadius.circular(10)),
                             child: TextFormField(
                               minLines: 6,
+                              controller: messageController,
                               maxLines: null,
                               validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -221,8 +260,74 @@ class _ContactUSState extends State<ContactUS> {
                            style: ElevatedButton.styleFrom(backgroundColor: Colours.kbuttonpurple,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                           child: Text('Submit',style: GoogleFonts.poppins( textStyle: const TextStyle(color: Colors.white,fontFamily: 'poppins',fontSize: 15,   fontWeight:FontWeight.w600,))),
                          onPressed: () async {
-                    if (_formKey.currentState!.validate()) {}
-                         }
+                          if (_formKey.currentState!.validate()) {
+                            requestModelId.userId = SharedPrefServices.getuserId().toString();
+                            requestModelId.emailId = SharedPrefServices.getuserId().toString();
+                            requestModelId.firstName = SharedPrefServices.getname().toString();
+                            requestModelId.message =  messageController.text;
+                            requestModelId.getInTouch = 'sunkonnectadmin@sunkpo.com';
+                            requestModelId.userObjId = SharedPrefServices.getuserObjId().toString();
+                            requestModelId.roleCode = SharedPrefServices.getroleCode().toString();
+                             requestModelId.createdBy = SharedPrefServices.getname().toString();
+                             requestModelId.createdByEmail = SharedPrefServices.getuserId().toString();
+
+                            setState(() {
+                              isApiCallProcess = true;
+                            }); 
+
+                             ApiService apiService = ApiService();
+
+                            apiService.contactUs(requestModelId).then((value) {
+                              if (value.status == 203) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                              } else if (value.status == 401) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+
+                                
+                              } else if (value.status == 400) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                               
+                              } else if (value.status == 404) {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+
+                                
+                              } else if (value.status == 200 ||
+                                  value.status == 201) {
+
+                             ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                             content: Text('Message Sent Successfully'),
+                              ),
+                               );
+                                showToast("Message Sent Successfully");
+
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const DashboardScreen();
+                                  },
+                                ),
+                              );
+                            } else {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                            }
+                          });
+                        }
+                      },
+                      
+
+                        
+                         
             )),
             
                   const  SizedBox(height: 25,),

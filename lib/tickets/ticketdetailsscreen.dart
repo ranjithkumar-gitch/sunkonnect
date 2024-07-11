@@ -474,7 +474,11 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                     .kwhiteColor,
                                                               ),
                                                             )
-                                                          : OutlinedButton(
+                                                         
+                                                          : (selectedmyticketview[0]!.status != 'Closed' && selectedmyticketview[0]!.status !='Canceled') ?
+                                                                           
+                                                                      
+                                                          OutlinedButton(
                                                               onPressed: () {
                                                                 setState(() {
                                                                   isEdited =
@@ -506,7 +510,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                               },
                                                               style:
                                                                   OutlinedButton
-                                                                      .styleFrom(
+                                                                   .styleFrom(
                                                                 side:
                                                                     const BorderSide(
                                                                   color: Colours
@@ -542,7 +546,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                             .kbuttonpurple,
                                                                   ),
                                                                 ],
-                                                              )),
+                                                              )) : Container()
                                                     ),
                                                   ],
                                                 ),
