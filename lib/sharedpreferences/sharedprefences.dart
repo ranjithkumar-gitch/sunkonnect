@@ -22,6 +22,7 @@ class SharedPrefServices {
 
     prefs!.setString('password', '');
     prefs!.setString('passwordtwo', '');
+    prefs!.setBool('emailflag',false);
     // prefs!.setBool('true', '' as bool);
   }
 
@@ -56,7 +57,7 @@ class SharedPrefServices {
   static const _keyraisebyObjectID = 'raisebyObjectID';
  static const _keyraisebyObjectName  = 'raisebyObjectName';
   
- static const _keyemailflag = 'true';
+ static const _keyemailflag = 'emailflag';
   
   static const _keyDatumTicketId = 'datumticketid';
 

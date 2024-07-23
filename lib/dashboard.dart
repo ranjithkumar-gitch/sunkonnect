@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/notification.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
+import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/sidemenu/sidemenu.dart';
 import 'package:sunkonnect/tickets/all_tickets_new.dart';
 import 'package:sunkonnect/tickets/my_tickets_new.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,6 +25,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() {
       selectIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getFlag();
   }
 
   List children = const [
@@ -84,5 +93,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
     );
+  }
+
+  void getFlag() {
+    ApiService apiService = ApiService();
+    apiService.getEmailFlag().then((emailFlagValue) {
+      if (emailFlagValue.status == 200 || emailFlagValue.status == 201) {
+        print("Email flag is perfectly working");
+        print(emailFlagValue.data?.first.fSendEmails.toString());
+
+        SharedPrefServices.setemailFlag(
+            emailFlagValue.data?.first.fSendEmails ?? false);
+            print('Now Printing flag ${emailFlagValue.data?.first.fSendEmails}');
+          // showToast('Now Printing flag ${emailFlagValue.data?.first.fSendEmails}');
+      } else {
+        // showToast("Failed to fetch email flag");
+      }
+    }).catchError((error) {
+      // showToast("Error: ${error.toString()}");
+    });
   }
 }

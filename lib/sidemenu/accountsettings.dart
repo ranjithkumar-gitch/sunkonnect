@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
@@ -14,86 +15,107 @@ class AccountSettings extends StatefulWidget {
 }
 
 class _AccountSettingsState extends State<AccountSettings> {
-  
- @override
+  bool isSwitch = false; 
+
+  @override
   void initState() {
     super.initState();
     SharedPrefServices.getemailFlag();
     print(SharedPrefServices.getemailFlag());
+      button();
   }
+  
+
+  Future<void> button() async {
+    bool? emailFlag = await SharedPrefServices.getemailFlag();
+    setState(() {
+      isSwitch = emailFlag!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const CustomAppbar(title: 'Account Settings'),
-      
       body: SafeArea(
-          child: Container(
-        margin: const EdgeInsets.only(right: 15, left: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 15,
-            ),
-            const Header(title: 'Email Notifications'),
-
-            const SizedBox(
-              height: 30,
-            ),
-            
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colours.kbordergrey),
-                borderRadius: BorderRadius.circular(10),
-                color: Colours.kwhiteColor,
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const SizedBox(width: 20),
-                      AdvancedSwitch(
-                        width: 55,
-                        height: 25,
-                        activeColor: Colours.kbuttonpurple,
-                        inactiveColor: Colors.grey,
-                        onChanged: (value) {
-                        updateRolecode();
-                        },
-                      ),
-                      const SizedBox(width: 15),
-                      const CustomText(
+        child: Container(
+          margin: const EdgeInsets.only(right: 15, left: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 15),
+              const Header(title: 'Email Notifications'),
+              const SizedBox(height: 30),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colours.kbordergrey),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colours.kwhiteColor,
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                      
+                   Radio(
+                    activeColor: Colours.kbuttonpurple,
+                    value: true,
+                    groupValue: isSwitch,
+                    onChanged: (value) {
+                      
+                    },
+                  ),
+                       
+                        
+                        const CustomText(
                           text: 'Subscribe to all emails',
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          textcolor: Colors.black),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              ),
-            ),
+                          textcolor: Colors.black,
+                        ),
+                      ],
+                    ),
 
-            const SizedBox(
-              height: 40,
-            ),
-            
-          ],
+                    
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+
+                    // imp //
+                     // AdvancedSwitch(
+                  //         width: 55,
+                  //         height: 25,
+                  //         initialValue: isSwitch,
+                  //         activeColor: Colours.kbuttonpurple,
+                  //         inactiveColor: Colours.kbuttonpurple,
+                  //         enabled: false,
+                  //         onChanged: (value) {
+                            
+                  //         },
+                  //       ),   
+
+                 
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
-updateRolecode(){
-    setState(() {
-      SharedPrefServices.getemailFlag() == false ? SharedPrefServices.setemailFlag(true) : SharedPrefServices.setemailFlag(false);
-        
-        });
-}}
+}
 
 
+
+
+//   updateRolecode(){
+//     setState(() {
+//       SharedPrefServices.getemailFlag() == false ? SharedPrefServices.setemailFlag(true) : SharedPrefServices.setemailFlag(false);
+// });
+// }
 
 // at the momment commented code //
       // floatingActionButton: Padding(

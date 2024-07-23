@@ -366,11 +366,16 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                   );
                                                                 } else {
                                                                   // editTicketRequestModel.assignedtoObjectId = selectedmyticketview[0]!.assignedtoObjectId ?? AssignedtoObjectId(id: "", name: "");
-                                                                  editTicketRequestModel
-                                                                          .assignedtoObjectId =
-                                                                      selectedmyticketview[
-                                                                              0]!
-                                                                          .assignedtoObjectId!;
+                                                                  // editTicketRequestModel
+                                                                  //         .assignedtoObjectId =
+                                                                  //     selectedmyticketview[
+                                                                  //             0]!
+                                                                  //         .assignedtoObjectId!;
+
+                                                                      editTicketRequestModel.endDate = (selectedmyticketview.isNotEmpty && 
+                                                               selectedmyticketview[0]?.assignedtoObjectId != null)
+                                                         ? selectedmyticketview[0]?.assignedtoObjectId?.toString() ?? ''
+                                                                  : '';
                                                                 }
 
                                                                 editTicketRequestModel
@@ -389,11 +394,16 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                           .now()
                                                                       .toString();
                                                                 } else {
-                                                                  editTicketRequestModel
-                                                                          .endDate =
-                                                                      selectedmyticketview[
-                                                                              0]!
-                                                                          .endDate!;
+                                                                  // editTicketRequestModel
+                                                                  //         .endDate =
+                                                                  //     selectedmyticketview[
+                                                                  //             0]!
+                                                                  //         .endDate!;
+                                                                  editTicketRequestModel.endDate = (selectedmyticketview.isNotEmpty && 
+                                    selectedmyticketview[0]?.endDate != null)
+                                    ? selectedmyticketview[0]?.endDate?.toString() ?? ''
+                                    : '';
+                                                                  
                                                                 }
 
                                                                 editTicketRequestModel
@@ -954,14 +964,20 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                               .isNotEmpty &&
                                                           selectedmyticketview[
                                                                       0]
-                                                                  ?.endDateutcTimeZone
+                                                                  ?.endDate
                                                                   ?.isNotEmpty ==
                                                               true
-                                                      ? convertToIST(
+                                                               ? 
+                                                                formatDate(
                                                           selectedmyticketview[
                                                                   0]!
-                                                              .endDateutcTimeZone
+                                                              .endDate
                                                               .toString())
+                                                      // ? convertToIST(
+                                                      //     selectedmyticketview[
+                                                      //             0]!
+                                                      //         .endDateutcTimeZone
+                                                      //         .toString())
                                                       : "",
                                                 ),
                                                 const CustomText(

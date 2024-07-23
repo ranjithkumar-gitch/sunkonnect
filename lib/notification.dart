@@ -120,7 +120,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                   child: ListTile(
                                     title: Row(
                                       children: [
-                                        CircleAvatar(
+                                        const CircleAvatar(
                                           radius: 12,
                                           backgroundColor:
                                               Colours.kbuttonpurple,
@@ -130,7 +130,7 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                             size: 16,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         CustomText(

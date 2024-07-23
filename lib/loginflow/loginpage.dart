@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
@@ -28,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final emailController = TextEditingController(text: "uday.c@sunkpo.com");
 
-  final passwordController = TextEditingController(text: "Konnect@2024");
+  final passwordController = TextEditingController(text: "Sunkpo@123");
 
   late Loginrequestauth requestModelId;
 
@@ -309,42 +311,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                 SharedPrefServices.setisLoggedIn(true);
 
-                                apiService
-                                    .getEmailFlag()
-                                    .then((emailFlagValue) {
-                                  setState(() {
-                                    isApiCallProcess = false;
-                                  });
-
-                                  if (emailFlagValue.status == 200 ||
-                                      emailFlagValue.status == 201) {
-                                    print("Email flag is perfectly working");
-                                    print(emailFlagValue.data?.first.fSendEmails
-                                        .toString());
-
-                                   
-                                    SharedPrefServices.setemailFlag(
-                                        emailFlagValue
-                                                .data?.first.fSendEmails ??
-                                            false);
-
-                                   
-                                    Navigator.of(context).push(
+                              Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
                                           return const DashboardScreen();
                                         },
                                       ),
                                     );
-                                  } else {
-                                    showToast("Failed to fetch email flag");
-                                  }
-                                }).catchError((error) {
-                                  setState(() {
-                                    isApiCallProcess = false;
-                                  });
-                                  showToast("Error: ${error.toString()}");
-                                });
+
+                                
                               } else {
                                 setState(() {
                                   isApiCallProcess = false;

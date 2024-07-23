@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:developer';
 import 'package:sunkonnect/sidemenu/model/contactus_request_model.dart';
 import 'package:sunkonnect/sidemenu/model/contactus_response_model.dart';
@@ -372,25 +373,27 @@ class ApiService {
         "${AppConstant.sunkonnectDevUrl}users/get-user-email-flag/$email";
 
       print(url);
+      print(SharedPrefServices.getaccessToken().toString());
 
-    var headers = accessheaders;
-  var request = http.Request('GET', Uri.parse(url));
+  //   var headers = accessheaders;
+  // var request = http.Request('GET', Uri.parse(url));
 
-  request.headers.addAll(headers);
+  // request.headers.addAll(headers);
+ 
 
     try {
-    // final response = await http.get(
-      //   Uri.parse(url),
-      //   headers: accessheaders
-      // );
+    final response = await http.get(
+        Uri.parse(url),
+        headers: accessheaders
+      );
 
-     http.StreamedResponse streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
+    //  http.StreamedResponse streamedResponse = await request.send();
+    // var response = await http.Response.fromStream(streamedResponse);
      
-    print('fetch header $response');
+    print('fetch response email flag data  $response');
 
-      print("response.body secretCode ${response.body}");
-      print("response.body statusCode ${response.statusCode}");
+      print("response.body emailflag ${response.body}");
+      print("response.body emailflag ${response.statusCode}");
       // inspect(requestModel.toJson());
       if (response.statusCode == 200) {
         return getflagResponseModelFromJson(response.body);
