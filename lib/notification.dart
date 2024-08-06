@@ -5,15 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sunkonnect/api_services/api_service_list.dart';
 import 'package:sunkonnect/load_data/api_response.dart';
 import 'package:sunkonnect/providers/my_tickets_list_provider.dart';
 import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/model/get_emailNotifications_responcemodel.dart';
 import 'package:sunkonnect/tickets/model/get_email_notification_lis_request_Modelt.dart';
+import 'package:sunkonnect/tickets/model/markas_read_request_model.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
 import 'package:sunkonnect/widgets/progress_bar.dart';
+import 'package:sunkonnect/widgets/snackbar.dart';
 
 class NotificationListScreen extends StatefulWidget {
   NotificationListScreen({super.key});
@@ -24,21 +27,30 @@ class NotificationListScreen extends StatefulWidget {
 
 class _NotificationListScreenState extends State<NotificationListScreen> {
   late GetEmailNotificationListRequestModel notificationrequestModelId;
-
-  bool isApiCallProcess = false;
+ late MarkasReadRequestModel requestModel;
+  bool isApiCallProcess = false; 
+  
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-
+    
     notificationrequestModelId = GetEmailNotificationListRequestModel(
       userId: SharedPrefServices.getuserId().toString(),
       generatedId: "",
       startDate: "",
       endDate: "",
     );
+
+    requestModel = MarkasReadRequestModel(
+      userId: SharedPrefServices.getuserId().toString(),
+      generatedId: "",
+      startDate: "",
+      endDate: "",
+    );
+    markAsRead();
   }
 
   String formatDate(String date) {
@@ -195,4 +207,34 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
           )
         ]));
   }
+
+   
+Future<void> markAsRead() async {
+  if (isApiCallProcess) return;
+
+  setState(() {
+    isApiCallProcess = true;
+  });
+
+  try {
+    ApiService apiService = ApiService();
+    var response = await apiService.markasRead(requestModel);
+
+    if (response.status == 200 || response.status == 201) {
+      print('User read status: ${response.status}');
+      showToast("Notifications marked as read");
+    } else {
+      showToast("Failed to update read status");
+    }
+  } catch (error) {
+    print("Error updating userRead: $error");
+    showToast("An error occurred");
+  } finally {
+    setState(() {
+      isApiCallProcess = false;
+    });
+  }
 }
+
+    }
+

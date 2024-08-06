@@ -296,6 +296,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SharedPrefServices.setaccessToken(
                                     value.data?.accessToken ?? "");
 
+                                   SharedPrefServices.setpassword(
+                                    value.data?.data?.tempPassword ?? "");
+
+
                                 SharedPrefServices.setrefreshToken(
                                     value.data?.refreshToken ?? "");
 

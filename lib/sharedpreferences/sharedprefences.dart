@@ -3,28 +3,49 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefServices {
   static SharedPreferences? prefs;
 
-  static void clearUserFromSharedPrefs() async {
+  // static void clearUserFromSharedPrefs() async {
+  //   prefs = await SharedPreferences.getInstance();
+
+  //   prefs!.setString('loginId', '');
+  //   prefs!.setString('userId', '');
+  //   prefs!.setString('name', '');
+  //   prefs!.setString('roleCode', '');
+  //   prefs!.setString('roleDescription', '');
+  //   prefs!.setString('status', '');
+  //   prefs!.setString('acessToken', '');
+
+  //   prefs!.setString('refreshToken', '');
+
+  //   prefs!.setString('userObjId', '');
+
+  //   prefs!.setBool('true', '' as bool);
+
+  //   prefs!.setString('password', '');
+  //   prefs!.setString('passwordtwo', '');
+  //   prefs!.setBool('emailflag',false);
+
+  //    prefs!.setBool('readStatus',false);
+    
+  // }
+   
+   static Future<void> clearUserFromSharedPrefs() async {
     prefs = await SharedPreferences.getInstance();
 
-    prefs!.setString('loginId', '');
-    prefs!.setString('userId', '');
-    prefs!.setString('name', '');
-    prefs!.setString('roleCode', '');
-    prefs!.setString('roleDescription', '');
-    prefs!.setString('status', '');
-    prefs!.setString('acessToken', '');
-
-    prefs!.setString('refreshToken', '');
-
-    prefs!.setString('userObjId', '');
-
-    prefs!.setBool('true', '' as bool);
-
-    prefs!.setString('password', '');
-    prefs!.setString('passwordtwo', '');
-    prefs!.setBool('emailflag',false);
-    // prefs!.setBool('true', '' as bool);
+    await prefs!.setString(_keyloginId, '');
+    await prefs!.setString(_keyuserId, '');
+    await prefs!.setString(_keyname, '');
+    await prefs!.setString(_keyroleCode, '');
+    await prefs!.setString(_keyroleDescription, '');
+    await prefs!.setString(_keystatus, '');
+    await prefs!.setString(_keyaccessToken, '');
+    await prefs!.setString(_keyrefreshToken, '');
+    await prefs!.setString(_keyuserObjId, '');
+    await prefs!.setString(_keypassword, '');
+    await prefs!.setString(_keypasswordtwo, '');
+    await prefs!.setBool(_keyemailflag, false);
+    await prefs!.setBool(_keyreadStatus, false);
   }
+  
 
   //  static void saveLogoutUserInfo(String userFirstName, String userProfileImage) async {
   //   prefs = await SharedPreferences.getInstance();
@@ -58,6 +79,8 @@ class SharedPrefServices {
  static const _keyraisebyObjectName  = 'raisebyObjectName';
   
  static const _keyemailflag = 'emailflag';
+
+ static const _keyreadStatus = 'readStatus';
   
   static const _keyDatumTicketId = 'datumticketid';
 
@@ -140,7 +163,9 @@ static Future setraisebyObjectID(String setraisebyObjectID) async =>
 
       static Future setemailFlag(bool emailFlag) async =>
       await prefs!.setBool(_keyemailflag, emailFlag);
-
+      
+      static Future setreadStatus(bool readStatus) async =>
+      await prefs!.setBool(_keyreadStatus, readStatus);
 
   // static Future setStatus(bool status) async =>
   //     await prefs!.setBool(_keybool, status);
@@ -173,6 +198,9 @@ static Future setraisebyObjectID(String setraisebyObjectID) async =>
   static bool? getisLoggedIn() => prefs!.getBool(_keyisLoggedIn);
 
    static bool? getemailFlag() => prefs!.getBool(_keyemailflag);
+
+   
+   static bool? getreadStatus() => prefs!.getBool(_keyreadStatus);
 
   // static bool? getStatus() => prefs!.getBool(_keybool);
 }

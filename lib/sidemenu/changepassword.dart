@@ -443,12 +443,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                             );
                             return;
                           }
-
+                  
                           String? storedPassword =
                               await SharedPrefServices.getpassword();
                           if (currentPasswordController.text.isEmpty ||
                               currentPasswordController.text !=
                                   storedPassword) {
+                                    print('Password Check $storedPassword');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Old password is incorrect'),

@@ -81,7 +81,7 @@ class Datum {
   // final String? startDate;
   // final List<Bcc>? loginUser;
   // final List<Bcc>? emailIds;
-  // final UserReadStatus? userReadStatus;
+  final UserReadStatus? userReadStatus;
   final DateTime? createdAt;
   // final DateTime? updatedAt;
   // final int? v;
@@ -102,7 +102,7 @@ class Datum {
     // this.startDate,
     // this.loginUser,
     // this.emailIds,
-    // this.userReadStatus,
+    this.userReadStatus,
     this.createdAt,
     // this.updatedAt,
     // this.v,
@@ -130,9 +130,9 @@ class Datum {
         // emailIds: json["emailIds"] == null
         //     ? []
         //     : List<Bcc>.from(json["emailIds"]!.map((x) => bccValues.map[x]!)),
-        // userReadStatus: json["userReadStatus"] == null
-        //     ? null
-        //     : UserReadStatus.fromJson(json["userReadStatus"]),
+        userReadStatus: json["userReadStatus"] == null
+            ? null
+            : UserReadStatus.fromJson(json["userReadStatus"]),
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -164,7 +164,7 @@ class Datum {
         // "emailIds": emailIds == null
         //     ? []
         //     : List<dynamic>.from(emailIds!.map((x) => bccValues.reverse[x])),
-        // "userReadStatus": userReadStatus?.toJson(),
+        "userReadStatus": userReadStatus?.toJson(),
         "createdAt": createdAt?.toIso8601String(),
         // "updatedAt": updatedAt?.toIso8601String(),
         // "__v": v,
