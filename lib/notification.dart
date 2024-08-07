@@ -12,6 +12,7 @@ import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/model/get_emailNotifications_responcemodel.dart';
 import 'package:sunkonnect/tickets/model/get_email_notification_lis_request_Modelt.dart';
 import 'package:sunkonnect/tickets/model/markas_read_request_model.dart';
+import 'package:sunkonnect/tickets/ticketdetailsscreen.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -145,15 +146,20 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        CustomText(
-                                            text: emailnotificationListData[
-                                                    index]!
-                                                .generatedId
-                                                .toString()
-                                                .toString(),
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            textcolor: Colors.black),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>TicketDetailsScreen(ticketId:SharedPrefServices.getTicketId())));
+                                          },
+                                          child: CustomText(
+                                              text: emailnotificationListData[
+                                                      index]!
+                                                  .generatedId
+                                                  .toString()
+                                                  .toString(),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              textcolor: Colours.korange),
+                                        ),
                                       ],
                                     ),
                                     subtitle: Column(

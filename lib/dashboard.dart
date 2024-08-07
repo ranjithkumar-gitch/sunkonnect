@@ -1,8 +1,6 @@
 
 
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sunkonnect/api_services/api_service_list.dart';
@@ -52,9 +50,8 @@ int selectIndex = 0;
      _timer = Timer.periodic(Duration(seconds: 5), (timer) {
       updateNotificationStatus();
     });
-    //  Timer.periodic(Duration(seconds: 5), (timer) {
-    //   updateNotificationStatus();
-    // });
+    
+    
   }
 
   
@@ -87,7 +84,7 @@ int selectIndex = 0;
    
     String? userId = SharedPrefServices.getuserId();
     if (userId == null || userId.isEmpty) {
-      
+     
       _timer.cancel();
       return;
     }
@@ -103,7 +100,7 @@ int selectIndex = 0;
   @override
   Widget build(BuildContext context) {
     var myTicketsListProvider = context.watch<MyTicketsListProvider>();
-        readNotification  = SharedPrefServices.getreadStatus()!;
+        readNotification  = SharedPrefServices.getreadStatus() ?? false;
         print('Testing Notification $readNotification');
     return Scaffold(
       appBar: AppBar(
@@ -153,25 +150,7 @@ int selectIndex = 0;
             },
           ),
         ],
-        // actions: [
-           
-        //   IconButton(
-        //      icon: Icon(
-        //       readNotification ? Icons.notifications : Icons.notifications,
-        //       color: readNotification ?Colors.white : Colors.red
-        //     ),
-        //     onPressed: () {
-        //       setState(() {
-        //         myTicketsListProvider.clearEmailNotificationList();
-        //       });
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (context) => NotificationListScreen()),
-        //       );
-        //     },
-        //   ),
-        // ],
+        
       ),
       body: children[selectIndex],
       drawer: const SideMenu(),
@@ -225,7 +204,7 @@ int selectIndex = 0;
 
     try {
       ApiService apiService = ApiService();
-      var response = await apiService.notificationbadge(requestModel);
+      var response = await apiService.notificationFlag(requestModel);
 
       if (response.status == 200 || response.status == 201) {
         if (response.data?.data != null && response.data!.data!.isNotEmpty) {
@@ -248,6 +227,8 @@ int selectIndex = 0;
       });
     }
   }
+
+  
 }
 
 

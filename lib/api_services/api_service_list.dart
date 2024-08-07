@@ -10,6 +10,7 @@ import 'package:sunkonnect/tickets/model/add_message_request.dart';
 import 'package:sunkonnect/tickets/model/get-assigned-to-list_responseModel.dart';
 import 'package:sunkonnect/tickets/model/get_emailNotifications_responcemodel.dart';
 import 'package:sunkonnect/tickets/model/get_email_notification_lis_request_Modelt.dart';
+import 'package:sunkonnect/tickets/model/get_notificationflag_response_model.dart';
 import 'package:sunkonnect/tickets/model/get_ticketlist_response_model.dart';
 import 'package:sunkonnect/tickets/model/get_ticketslist_request_model.dart';
 import 'package:sunkonnect/loginflow/model/verifyemail_response_model.dart';
@@ -547,6 +548,50 @@ class ApiService {
         return getEmailNotifiactonsResponseModelFromJson(response.body);
       } else
         return getEmailNotifiactonsResponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
+
+    print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+
+Future<GetNotificationFlagResponse> notificationFlag(
+      GetEmailNotificationListRequestModel requestModel) async {
+    String url =
+        "${AppConstant.sunkonnectDevUrl}Ticket/get-email-notifications";
+    print(url);
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: requestModel.toJson(), headers: accessheaders
+      );
+
+      // print("response.body requestModel ${requestModel.toJson()}");
+      // print("response.body signin ${response.body}");
+      print("response.body statusCode ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return GetNotificationFlagResponseFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return GetNotificationFlagResponseFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return GetNotificationFlagResponseFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return GetNotificationFlagResponseFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return GetNotificationFlagResponseFromJson(response.body);
+      } else
+        return GetNotificationFlagResponseFromJson(response.body);
       // print(response.statusCode);
     } catch (e) {
       print(e.toString());

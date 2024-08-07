@@ -1,33 +1,33 @@
 // To parse this JSON data, do
 //
-//     final getEmailNotifiactonsResponseModel = getEmailNotifiactonsResponseModelFromJson(jsonString);
+//     final GetNotificationFlagResponse = GetNotificationFlagResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-GetEmailNotifiactonsResponseModel getEmailNotifiactonsResponseModelFromJson(
+GetNotificationFlagResponse GetNotificationFlagResponseFromJson(
         String str) =>
-    GetEmailNotifiactonsResponseModel.fromJson(json.decode(str));
+    GetNotificationFlagResponse.fromJson(json.decode(str));
 
-String getEmailNotifiactonsResponseModelToJson(
-        GetEmailNotifiactonsResponseModel data) =>
+String GetNotificationFlagResponseToJson(
+        GetNotificationFlagResponse data) =>
     json.encode(data.toJson());
 
-class GetEmailNotifiactonsResponseModel {
+class GetNotificationFlagResponse {
   final int? status;
   final String? result;
   final String? response;
   final Data? data;
 
-  GetEmailNotifiactonsResponseModel({
+  GetNotificationFlagResponse({
     this.status,
     this.result,
     this.response,
     this.data,
   });
 
-  factory GetEmailNotifiactonsResponseModel.fromJson(
+  factory GetNotificationFlagResponse.fromJson(
           Map<String, dynamic> json) =>
-      GetEmailNotifiactonsResponseModel(
+      GetNotificationFlagResponse(
         status: json["status"],
         result: json["result"],
         response: json["response"],
@@ -73,8 +73,8 @@ class Datum {
   // final List<Bcc>? cc;
   // final String? subject;
   // final String? message;
-  final String? emailBody;
-  final String? generatedId;
+  // final String? emailBody;
+  // final String? generatedId;
   // final String? companyObjId;
   // final String? customerObjId;
   // final String? userObjId;
@@ -82,7 +82,7 @@ class Datum {
   // final List<Bcc>? loginUser;
   // final List<Bcc>? emailIds;
   final UserReadStatus? userReadStatus;
-  final DateTime? createdAt;
+  // final DateTime? createdAt;
   // final DateTime? updatedAt;
   // final int? v;
   // final Bcc? bcc;
@@ -94,8 +94,8 @@ class Datum {
     // this.cc,
     // this.subject,
     // this.message,
-    this.emailBody,
-    this.generatedId,
+    // this.emailBody,
+    // this.generatedId,
     // this.companyObjId,
     // this.customerObjId,
     // this.userObjId,
@@ -103,7 +103,7 @@ class Datum {
     // this.loginUser,
     // this.emailIds,
     this.userReadStatus,
-    this.createdAt,
+    // this.createdAt,
     // this.updatedAt,
     // this.v,
     // this.bcc,
@@ -118,8 +118,8 @@ class Datum {
         //     : List<Bcc>.from(json["cc"]!.map((x) => bccValues.map[x]!)),
         // subject: json["subject"],
         // message: json["message"],
-        emailBody: json["emailBody"],
-        generatedId: json["generatedId"],
+        // emailBody: json["emailBody"],
+        // generatedId: json["generatedId"],
         // companyObjId: json["companyObjId"],
         // customerObjId: json["customerObjId"],
         // userObjId: json["userObjId"],
@@ -133,9 +133,9 @@ class Datum {
         userReadStatus: json["userReadStatus"] == null
             ? null
             : UserReadStatus.fromJson(json["userReadStatus"]),
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
+        // createdAt: json["createdAt"] == null
+        //     ? null
+        //     : DateTime.parse(json["createdAt"]),
         // updatedAt: json["updatedAt"] == null
         //     ? null
         //     : DateTime.parse(json["updatedAt"]),
@@ -152,8 +152,8 @@ class Datum {
         //     : List<dynamic>.from(cc!.map((x) => bccValues.reverse[x])),
         // "subject": subject,
         // "message": message,
-        "emailBody": emailBody,
-        "generatedId": generatedId,
+        // "emailBody": emailBody,
+        // "generatedId": generatedId,
         // "companyObjId": companyObjId,
         // "customerObjId": customerObjId,
         // "userObjId": userObjId,
@@ -165,16 +165,37 @@ class Datum {
         //     ? []
         //     : List<dynamic>.from(emailIds!.map((x) => bccValues.reverse[x])),
         "userReadStatus": userReadStatus?.toJson(),
-        "createdAt": createdAt?.toIso8601String(),
+        // "createdAt": createdAt?.toIso8601String(),
         // "updatedAt": updatedAt?.toIso8601String(),
         // "__v": v,
         // "bcc": bccValues.reverse[bcc],
       };
 }
 
+// enum Bcc {
+//   BALAJI_A_SUNKPO_COM,
+//   HIRANYA_K_SUNKPO_COM,
+//   RANJITH_KD_SUNKPO_COM,
+//   ROJA_M_SUNKPO_COM,
+//   SHYAM_G_SUNKPO_COM,
+//   SUNKONNECTADMIN_SUNKPO_COM,
+//   UDAY_C_SUNKPO_COM
+// }
 
+// final bccValues = EnumValues({
+//   "balaji.a@sunkpo.com": Bcc.BALAJI_A_SUNKPO_COM,
+//   "hiranya.k@sunkpo.com": Bcc.HIRANYA_K_SUNKPO_COM,
+//   "ranjith.kd@sunkpo.com": Bcc.RANJITH_KD_SUNKPO_COM,
+//   "roja.m@sunkpo.com": Bcc.ROJA_M_SUNKPO_COM,
+//   "shyam.g@sunkpo.com": Bcc.SHYAM_G_SUNKPO_COM,
+//   "sunkonnectadmin@sunkpo.com": Bcc.SUNKONNECTADMIN_SUNKPO_COM,
+//   "uday.c@sunkpo.com": Bcc.UDAY_C_SUNKPO_COM
+// });
 
+// enum From { SUNKPOMAILER_SUNKPO_COM }
 
+// final fromValues =
+//     EnumValues({"sunkpomailer@sunkpo.com": From.SUNKPOMAILER_SUNKPO_COM});
 
 class UserReadStatus {
   final String? userId;
@@ -188,15 +209,26 @@ class UserReadStatus {
   });
 
   factory UserReadStatus.fromJson(Map<String, dynamic> json) => UserReadStatus(
-        userId: json["userId"],
+        userId:json["userId"],
         read: json["read"],
         id: json["_id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "userId":userId,
+        "userId": userId,
         "read": read,
         "_id": id,
       };
 }
 
+// class EnumValues<T> {
+//   Map<String, T> map;
+//   late Map<T, String> reverseMap;
+
+//   EnumValues(this.map);
+
+//   Map<T, String> get reverse {
+//     reverseMap = map.map((k, v) => MapEntry(v, k));
+//     return reverseMap;
+//   }
+// }
