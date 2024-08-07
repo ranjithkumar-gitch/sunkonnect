@@ -84,12 +84,17 @@ class SharedPrefServices {
   
   static const _keyDatumTicketId = 'datumticketid';
 
+  static const _keyNotifiID = 'notifiId';
+
   // static const _keybool = 'true';
 
   static Future init() async => prefs = await SharedPreferences.getInstance();
 
   static Future setloginId(String loginId) async =>
       await prefs!.setString(_keyloginId, loginId);
+
+      static Future setNotifiId(String notifiId) async =>
+      await prefs!.setString(_keyNotifiID, notifiId);
 
   static Future setpassword(String password) async =>
       await prefs!.setString(_keypassword, password);
@@ -172,6 +177,7 @@ static Future setraisebyObjectID(String setraisebyObjectID) async =>
 
 // getters
   static String? getloginId() => prefs!.getString(_keyloginId);
+  static String? getnotifiId() => prefs!.getString(_keyNotifiID);
   static String? getpassword() => prefs!.getString(_keypassword);
   static String? getpasswordtwo() => prefs!.getString(_keypasswordtwo);
   static String? getuserId() => prefs!.getString(_keyuserId);

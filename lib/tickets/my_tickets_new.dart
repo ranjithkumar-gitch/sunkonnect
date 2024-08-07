@@ -765,7 +765,7 @@ class _MyTicketsListState extends State<MyTicketsList> {
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const TicketTabView(),
+                                                              const TicketTabView( ),
                                                         ),
                                                       );
                                                     },

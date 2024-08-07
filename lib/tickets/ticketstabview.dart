@@ -9,7 +9,14 @@ import 'package:sunkonnect/widgets/customappbar.dart';
 
 // ignore: must_be_immutable
 class TicketTabView extends StatefulWidget {
-  const TicketTabView({super.key});
+
+  // final String ticketObjetId;
+
+  const TicketTabView({
+    Key? key,
+   
+    // required this.ticketObjetId,
+  }) : super(key: key);
 
 
 

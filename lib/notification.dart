@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +12,7 @@ import 'package:sunkonnect/tickets/model/get_emailNotifications_responcemodel.da
 import 'package:sunkonnect/tickets/model/get_email_notification_lis_request_Modelt.dart';
 import 'package:sunkonnect/tickets/model/markas_read_request_model.dart';
 import 'package:sunkonnect/tickets/ticketdetailsscreen.dart';
+import 'package:sunkonnect/tickets/ticketstabview.dart';
 import 'package:sunkonnect/widgets/colors/colors.dart';
 import 'package:sunkonnect/widgets/customappbar.dart';
 import 'package:sunkonnect/widgets/customtext.dart';
@@ -28,16 +28,15 @@ class NotificationListScreen extends StatefulWidget {
 
 class _NotificationListScreenState extends State<NotificationListScreen> {
   late GetEmailNotificationListRequestModel notificationrequestModelId;
- late MarkasReadRequestModel requestModel;
-  bool isApiCallProcess = false; 
-  
+  late MarkasReadRequestModel requestModel;
+  bool isApiCallProcess = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    
+
     notificationrequestModelId = GetEmailNotificationListRequestModel(
       userId: SharedPrefServices.getuserId().toString(),
       generatedId: "",
@@ -147,14 +146,48 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                                           width: 10,
                                         ),
                                         GestureDetector(
+                                          
                                           onTap: () {
-                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>TicketDetailsScreen(ticketId:SharedPrefServices.getTicketId())));
+                                            String generateID =
+                                                emailnotificationListData[
+                                                        index]!
+                                                    .generatedId
+                                                    .toString();
+
+                                            setState(() {
+                                              myTicketsListProvider
+                                                  .clearSelectedTicketDetails();
+                                              myTicketsListProvider
+                                                  .clearmessagelogDetails();
+                                              myTicketsListProvider
+                                                  .clearticketlogDetails();
+                                                myTicketsListProvider
+                                                  .clearEmailNotificationList();
+                                                  
+
+                                              getTicketData(generateID);
+
+                                             SharedPrefServices
+                                                      .getTicketobjId()
+                                                  .toString();
+
+                                              SharedPrefServices.setTicketId(
+                                                  emailnotificationListData[
+                                                          index]!
+                                                      .generatedId
+                                                      .toString());
+
+                                                
+                                              
+                                            });
+                                            print('testing data');
+                              print(SharedPrefServices.getTicketobjId().toString());
+                                         
                                           },
                                           child: CustomText(
                                               text: emailnotificationListData[
                                                       index]!
                                                   .generatedId
-                                                  .toString()
                                                   .toString(),
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
@@ -214,33 +247,54 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
         ]));
   }
 
-   
-Future<void> markAsRead() async {
-  if (isApiCallProcess) return;
-
-  setState(() {
-    isApiCallProcess = true;
-  });
-
-  try {
+  void getTicketData(String generateID) {
     ApiService apiService = ApiService();
-    var response = await apiService.markasRead(requestModel);
+    apiService.getNotifiData(generateID).then((response) {
+      if (response.status == 200 || response.status == 201) {
+        print("Get Ticket Data working");
 
-    if (response.status == 200 || response.status == 201) {
-      print('User read status: ${response.status}');
-      showToast("Notifications marked as read");
-    } else {
-      showToast("Failed to update read status");
-    }
-  } catch (error) {
-    print("Error updating userRead: $error");
-    showToast("An error occurred");
-  } finally {
-    setState(() {
-      isApiCallProcess = false;
+        print(response.data.first.id);
+
+        SharedPrefServices.setTicketobjId(response.data.first.id);
+        print(SharedPrefServices.setTicketobjId(response.data.first.id));
+        print('Now print id   ');
+        print(SharedPrefServices.getTicketobjId());
+
+        //  Navigator.push(context, MaterialPageRoute(builder: (context)=> TicketTabView(ticketObjetId: SharedPrefServices.setTicketobjId(response.data.first.id).toString())));
+         Navigator.push(context, MaterialPageRoute(builder: (context) => const TicketTabView()));
+
+      } else {
+        showToast("Failed to fetch ticket data");
+      }
+    }).catchError((error) {
+      showToast("Error: ${error.toString()}");
     });
   }
-}
 
+  Future<void> markAsRead() async {
+    if (isApiCallProcess) return;
+
+    setState(() {
+      isApiCallProcess = true;
+    });
+
+    try {
+      ApiService apiService = ApiService();
+      var response = await apiService.markasRead(requestModel);
+
+      if (response.status == 200 || response.status == 201) {
+        print('User read status: ${response.status}');
+        // showToast("Notifications marked as read");
+      } else {
+        showToast("Failed to update read status");
+      }
+    } catch (error) {
+      print("Error updating userRead: $error");
+      showToast("An error occurred");
+    } finally {
+      setState(() {
+        isApiCallProcess = false;
+      });
     }
-
+  }
+}

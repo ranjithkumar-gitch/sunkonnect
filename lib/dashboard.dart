@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,19 +22,19 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  
   void _onItemTapped(int index) {
     setState(() {
       selectIndex = index;
     });
   }
-int selectIndex = 0;
+
+  int selectIndex = 0;
   late GetEmailNotificationListRequestModel requestModel;
-  bool isApiCallProcess = false; 
+  bool isApiCallProcess = false;
   bool readNotification = false;
   late Timer _timer;
 
-    @override
+  @override
   void initState() {
     super.initState();
     requestModel = GetEmailNotificationListRequestModel(
@@ -47,27 +45,23 @@ int selectIndex = 0;
     );
     getFlag();
     updateNotificationStatus();
-     _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
       updateNotificationStatus();
     });
-    
-    
   }
 
-  
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
 
-
   List children = const [
     MyTicketsList(),
     AllTicketsList(),
   ];
 
- @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     updateNotificationStatus();
@@ -81,10 +75,8 @@ int selectIndex = 0;
   // }
 
   Future<void> updateNotificationStatus() async {
-   
     String? userId = SharedPrefServices.getuserId();
     if (userId == null || userId.isEmpty) {
-     
       _timer.cancel();
       return;
     }
@@ -95,13 +87,11 @@ int selectIndex = 0;
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     var myTicketsListProvider = context.watch<MyTicketsListProvider>();
-        readNotification  = SharedPrefServices.getreadStatus() ?? false;
-        print('Testing Notification $readNotification');
+    readNotification = SharedPrefServices.getreadStatus() ?? false;
+    print('Testing Notification $readNotification');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colours.korange,
@@ -111,8 +101,7 @@ int selectIndex = 0;
             fontSize: 21,
             fontWeight: FontWeight.w500,
             textcolor: Colors.white),
-
-            actions: [
+        actions: [
           IconButton(
             icon: Stack(
               clipBehavior: Clip.none,
@@ -121,7 +110,7 @@ int selectIndex = 0;
                   Icons.notifications,
                   color: readNotification ? Colors.white : Colors.white,
                 ),
-                if (!readNotification) 
+                if (!readNotification)
                   Positioned(
                     right: 0,
                     top: 2,
@@ -140,7 +129,12 @@ int selectIndex = 0;
             onPressed: () {
               setState(() {
                 myTicketsListProvider.clearEmailNotificationList();
-                readNotification = false; 
+                myTicketsListProvider.clearSelectedTicketDetails();
+                myTicketsListProvider.clearmessagelogDetails();
+                myTicketsListProvider.clearticketlogDetails();
+
+                // myTicketsListProvider.clearTicketList();
+                readNotification = false;
               });
               Navigator.push(
                 context,
@@ -150,7 +144,6 @@ int selectIndex = 0;
             },
           ),
         ],
-        
       ),
       body: children[selectIndex],
       drawer: const SideMenu(),
@@ -196,8 +189,8 @@ int selectIndex = 0;
     });
   }
 
-   Future<void> notificationBadge() async {
-    if (isApiCallProcess) return; 
+  Future<void> notificationBadge() async {
+    if (isApiCallProcess) return;
     setState(() {
       isApiCallProcess = true;
     });
@@ -214,7 +207,7 @@ int selectIndex = 0;
             print('User read status: ${userReadStatus.read}');
           }
         }
-        // showToast("Read Status Successfully"); 
+        // showToast("Read Status Successfully");
       } else {
         showToast("Failed to update read");
       }
@@ -227,8 +220,4 @@ int selectIndex = 0;
       });
     }
   }
-
-  
 }
-
-

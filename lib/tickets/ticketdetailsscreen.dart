@@ -17,7 +17,7 @@ import 'package:sunkonnect/widgets/progress_bar.dart';
 import 'package:http/http.dart' as http;
 
 class TicketDetailsScreen extends StatefulWidget {
-  const TicketDetailsScreen({super.key, String? ticketId});
+  const TicketDetailsScreen({super.key, });
 
   @override
   State<TicketDetailsScreen> createState() => _TicketDetailsScreenState();

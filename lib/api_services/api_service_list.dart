@@ -18,6 +18,7 @@ import 'package:sunkonnect/sharedpreferences/sharedprefences.dart';
 import 'package:sunkonnect/tickets/model/images_respoonse_model.dart';
 import 'package:sunkonnect/tickets/model/markas_read_request_model.dart';
 import 'package:sunkonnect/tickets/model/markas_read_response_model.dart';
+import 'package:sunkonnect/tickets/model/notifiId_response_model.dart';
 import 'package:sunkonnect/widgets/constant.dart';
 import 'package:sunkonnect/loginflow/model/change_password_response_model.dart';
 import 'package:sunkonnect/loginflow/model/forgot_request_model.dart';
@@ -647,6 +648,55 @@ Future<GetNotificationFlagResponse> notificationFlag(
     // return userloginfailureresponseFromJson(response.body);
 
     print(requestModel);
+
+    throw Exception('Failed to load Data');
+  }
+
+  Future<NotifiIdTesponseModel> getNotifiData(String generateID) async {
+
+   
+
+    String url =
+        "${AppConstant.sunkonnectDevUrl}Ticket/patch-ticketInfo/$generateID";
+
+      print(generateID);
+       print(url);
+      
+
+  
+    try {
+    final response = await http.get(
+        Uri.parse(url),
+        headers: accessheaders
+      );
+
+    
+    print('fetch response notifiId data  $response');
+
+      print("response.body notifiId ${response.body}");
+      print("response.body notifiId ${response.statusCode}");
+      // inspect(requestModel.toJson());
+      if (response.statusCode == 200) {
+        return notifiIdTesponseModelFromJson(response.body);
+      } else if (response.statusCode == 203) {
+        // throw Exception('incorrect data');
+        return notifiIdTesponseModelFromJson(response.body);
+      } else if (response.statusCode == 201) {
+        // throw Exception('incorrect data');
+        return notifiIdTesponseModelFromJson(response.body);
+      } else if (response.statusCode == 401) {
+        // throw Exception('incorrect data');
+        return notifiIdTesponseModelFromJson(response.body);
+      } else if (response.statusCode == 404) {
+        // throw Exception('incorrect data');
+        return notifiIdTesponseModelFromJson(response.body);
+      } else
+        return notifiIdTesponseModelFromJson(response.body);
+      // print(response.statusCode);
+    } catch (e) {
+      print(e.toString());
+    }
+    // return userloginfailureresponseFromJson(response.body);
 
     throw Exception('Failed to load Data');
   }
