@@ -44,9 +44,11 @@ class RepositoryData {
   Future<ViewMessageLogResponseModel> viewMessageLog() async {
     String url =
         "ticketLog/patch-message-info/${SharedPrefServices.getDatumTicketId()}";
+      print('View Message $url');
 
     final response = await HttpClient.instance.get(
       url,
+      
     );
     return viewMessageLogResponseModelFromJson(response);
   }

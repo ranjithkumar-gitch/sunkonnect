@@ -67,7 +67,7 @@ class _ViewMessageState extends State<ViewMessage> {
                               height: 100,
                             ),
                             Text(
-                              "data NOT recieved. EMPTY",
+                              "Something went wrong.",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 33),
                             )
