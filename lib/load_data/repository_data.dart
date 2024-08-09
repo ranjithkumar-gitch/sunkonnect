@@ -55,9 +55,9 @@ class RepositoryData {
   Future<GetticketLogResponseModel> getTicketLog() async {
     String url =
         "Ticket/get-email-log-for-tickets/${SharedPrefServices.getTicketId()}";
-    print("uday get  url $url");
-    print(
-        "uday get message acccesstkn ${SharedPrefServices.getaccessToken().toString()}");
+    // print("uday get  url $url");
+    // print(
+    // "uday get message acccesstkn ${SharedPrefServices.getaccessToken().toString()}");
     final response = await HttpClient.instance.get(
       url,
     );

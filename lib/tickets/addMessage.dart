@@ -303,8 +303,7 @@ class _AddMessageState extends State<AddMessage> {
                       ),
 
                       Container(
-                         color: Colours.ktextfeildbgColor, 
-                        
+                        color: Colours.ktextfeildbgColor,
                         child: selectedImages.isEmpty && media == null
                             ? Container()
                             : SizedBox(
@@ -314,7 +313,6 @@ class _AddMessageState extends State<AddMessage> {
                                     ? 130
                                     : 250,
                                 child: GridView.builder(
-                                 
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
                                   shrinkWrap: true,
@@ -886,13 +884,13 @@ class _AddMessageState extends State<AddMessage> {
         setState(() {
           isLoading = false;
         });
-        final invalidsnackbar =  SnackBar(
-          content:  Text('New Message Created Successfully.'),
+        final invalidsnackbar = SnackBar(
+          content: Text('New Message Created Successfully.'),
         );
         ScaffoldMessenger.of(context).showSnackBar(invalidsnackbar);
         print(await response.stream.bytesToString());
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+            MaterialPageRoute(builder: (context) => DashboardScreen()));
       } else {
         setState(() {
           isLoading = false;

@@ -13,6 +13,8 @@ class GetTicketListRequestModel {
   String severity;
   String startDate;
   String category;
+  String dateSort;
+
   String daysOpen;
   String limit;
   String page;
@@ -29,6 +31,7 @@ class GetTicketListRequestModel {
     this.severity = "",
     this.startDate = "",
     this.category = "",
+    this.dateSort = "lastUpdated",
     this.daysOpen = "",
     this.limit = "",
     this.page = "",
@@ -52,6 +55,7 @@ GetTicketListRequestModel _$GetTicketListRequestModelFromJson(
     category: (json['data'] as String),
     daysOpen: (json['data'] as String),
     pageSize: (json['data'] as String),
+    dateSort: (json['data'] as String),
     pageNo: (json['data'] as String),
     limit: (json['data'] as String),
     page: (json['data'] as String),
@@ -72,6 +76,7 @@ Map<String, dynamic> _$GetTicketListRequestModelToJson(
       'severity': instance.severity,
       'startDate': instance.startDate,
       'category': instance.category,
+      'dateSort': instance.dateSort,
       'daysOpen': instance.daysOpen,
       'limit': instance.limit,
       'page': instance.page,

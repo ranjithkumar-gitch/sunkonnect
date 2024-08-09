@@ -67,7 +67,7 @@ class Data {
 }
 
 class Datum {
-  // final String? id;
+  final String? id;
   // final From? from;
   // final Bcc? to;
   // final List<Bcc>? cc;
@@ -88,7 +88,7 @@ class Datum {
   // final Bcc? bcc;
 
   Datum({
-    // this.id,
+    this.id,
     // // this.from,
     // this.to,
     // this.cc,
@@ -110,7 +110,7 @@ class Datum {
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        // id: json["_id"],
+        id: json["_id"],
         // from: fromValues.map[json["from"]]!,
         // to: bccValues.map[json["to"]]!,
         // cc: json["cc"] == null
@@ -144,7 +144,7 @@ class Datum {
       );
 
   Map<String, dynamic> toJson() => {
-        // "_id": id,
+        "_id": id,
         // "from": fromValues.reverse[from],
         // "to": bccValues.reverse[to],
         // "cc": cc == null
@@ -172,10 +172,6 @@ class Datum {
       };
 }
 
-
-
-
-
 class UserReadStatus {
   final String? userId;
   final bool? read;
@@ -194,9 +190,8 @@ class UserReadStatus {
       );
 
   Map<String, dynamic> toJson() => {
-        "userId":userId,
+        "userId": userId,
         "read": read,
         "_id": id,
       };
 }
-

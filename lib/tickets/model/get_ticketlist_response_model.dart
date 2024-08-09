@@ -96,6 +96,8 @@ class Datum {
   final String? createdBy;
   final String? utcTime;
   final DateTime? createdAt;
+  final DateTime? latestCreatedAt;
+
   final DateTime? updatedAt;
   // final int? v;
   final ObjectId? assignedtoObjectId;
@@ -124,6 +126,7 @@ class Datum {
     this.createdBy,
     this.utcTime,
     this.createdAt,
+    this.latestCreatedAt,
     this.updatedAt,
     // this.v,
     this.assignedtoObjectId,
@@ -165,6 +168,9 @@ class Datum {
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
+        latestCreatedAt: json["latestCreatedAt"] == null
+            ? null
+            : DateTime.parse(json["latestCreatedAt"]),
         updatedAt: json["updatedAt"] == null
             ? null
             : DateTime.parse(json["updatedAt"]),
@@ -200,6 +206,8 @@ class Datum {
         "createdBy": createdBy,
         "utcTime": utcTime,
         "createdAt": createdAt?.toIso8601String(),
+        "latestCreatedAt": latestCreatedAt?.toIso8601String(),
+
         "updatedAt": updatedAt?.toIso8601String(),
         // "__v": v,
         "assignedtoObjectId": assignedtoObjectId?.toJson(),
