@@ -17,7 +17,9 @@ import 'package:sunkonnect/widgets/progress_bar.dart';
 import 'package:http/http.dart' as http;
 
 class TicketDetailsScreen extends StatefulWidget {
-  const TicketDetailsScreen({super.key, });
+  const TicketDetailsScreen({
+    super.key,
+  });
 
   @override
   State<TicketDetailsScreen> createState() => _TicketDetailsScreenState();
@@ -238,326 +240,310 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                               .toString(),
                                                     )),
                                                     SizedBox(
-                                                      height: 40,
-                                                      width: 110,
-                                                      child: isEdited
-                                                          ? ElevatedButton(
-                                                              onPressed: () {
-                                                                editTicketRequestModel
-                                                                        .ticketId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .ticketId!
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .companyId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .companyId!
-                                                                        .id
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .customerId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .customerId!
-                                                                        .id
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .branchObjectId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .branchObjectId!
-                                                                        .id
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .startDate =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .startDate!
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .title =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .title!
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .accountCode =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .accountCode!
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .projectCode =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .projectCode!
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .requestedBy =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .requestedBy!
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .daysOpen =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .daysOpen!;
-
-                                                                editTicketRequestModel
-                                                                        .category =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .category!
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .severity =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .severity!
-                                                                        .toString();
-
-                                                                editTicketRequestModel
-                                                                        .raisebyObjectId =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .raisebyObjectId!;
-
-                                                                editTicketRequestModel
-                                                                        .raisebyObjectId =
-                                                                    RaisebyObjectId(
-                                                                  id: selectedmyticketview[
-                                                                          0]!
-                                                                      .raisebyObjectId
-                                                                      ?.id,
-                                                                  name: selectedmyticketview[
-                                                                          0]!
-                                                                      .raisebyObjectId
-                                                                      ?.name,
-                                                                );
-
-                                                                if (SharedPrefServices
-                                                                        .getroleCode()!
-                                                                    .toLowerCase()
-                                                                    .contains(
-                                                                        "company")) {
-                                                                  var selectedAssign =
-                                                                      assignList.firstWhere((item) =>
-                                                                          item[
-                                                                              'name'] ==
-                                                                          assigned);
+                                                        height: 40,
+                                                        width: 110,
+                                                        child: isEdited
+                                                            ? ElevatedButton(
+                                                                onPressed: () {
                                                                   editTicketRequestModel
-                                                                          .assignedtoObjectId =
-                                                                      AssignedtoObjectId(
-                                                                    id: selectedAssign[
-                                                                        '_id'],
-                                                                    name: selectedAssign[
-                                                                        'name'],
-                                                                  );
-                                                                } else {
-                                                                  // editTicketRequestModel.assignedtoObjectId = selectedmyticketview[0]!.assignedtoObjectId ?? AssignedtoObjectId(id: "", name: "");
-                                                                  // editTicketRequestModel
-                                                                  //         .assignedtoObjectId =
-                                                                  //     selectedmyticketview[
-                                                                  //             0]!
-                                                                  //         .assignedtoObjectId!;
-
-                                                                      editTicketRequestModel.endDate = (selectedmyticketview.isNotEmpty && 
-                                                               selectedmyticketview[0]?.assignedtoObjectId != null)
-                                                         ? selectedmyticketview[0]?.assignedtoObjectId?.toString() ?? ''
-                                                                  : '';
-                                                                }
-
-                                                                editTicketRequestModel
-                                                                        .status =
-                                                                    status;
-
-                                                                if (editTicketRequestModel.status == 'Closed' ||
-                                                                    editTicketRequestModel
-                                                                            .status ==
-                                                                        'On Hold' ||
-                                                                    editTicketRequestModel
-                                                                            .status ==
-                                                                        'Canceled') {
-                                                                  editTicketRequestModel
-                                                                      .endDate = DateTime
-                                                                          .now()
+                                                                      .ticketId = selectedmyticketview[
+                                                                          0]!
+                                                                      .ticketId!
                                                                       .toString();
-                                                                } else {
-                                                                  // editTicketRequestModel
-                                                                  //         .endDate =
-                                                                  //     selectedmyticketview[
-                                                                  //             0]!
-                                                                  //         .endDate!;
-                                                                  editTicketRequestModel.endDate = (selectedmyticketview.isNotEmpty && 
-                                    selectedmyticketview[0]?.endDate != null)
-                                    ? selectedmyticketview[0]?.endDate?.toString() ?? ''
-                                    : '';
+
+                                                                  editTicketRequestModel
+                                                                      .companyId = selectedmyticketview[
+                                                                          0]!
+                                                                      .companyId!
+                                                                      .id
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                      .customerId = selectedmyticketview[
+                                                                          0]!
+                                                                      .customerId!
+                                                                      .id
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                      .branchObjectId = selectedmyticketview[
+                                                                          0]!
+                                                                      .branchObjectId!
+                                                                      .id
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                      .startDate = selectedmyticketview[
+                                                                          0]!
+                                                                      .startDate!
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                          .title =
+                                                                      selectedmyticketview[
+                                                                              0]!
+                                                                          .title!
+                                                                          .toString();
+                                                                  editTicketRequestModel
+                                                                      .accountCode = selectedmyticketview[
+                                                                          0]!
+                                                                      .accountCode!
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                      .projectCode = selectedmyticketview[
+                                                                          0]!
+                                                                      .projectCode!
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                      .requestedBy = selectedmyticketview[
+                                                                          0]!
+                                                                      .requestedBy!
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                          .daysOpen =
+                                                                      selectedmyticketview[
+                                                                              0]!
+                                                                          .daysOpen!;
+
+                                                                  editTicketRequestModel
+                                                                      .category = selectedmyticketview[
+                                                                          0]!
+                                                                      .category!
+                                                                      .toString();
+                                                                  editTicketRequestModel
+                                                                      .severity = selectedmyticketview[
+                                                                          0]!
+                                                                      .severity!
+                                                                      .toString();
+
+                                                                  editTicketRequestModel
+                                                                          .raisebyObjectId =
+                                                                      selectedmyticketview[
+                                                                              0]!
+                                                                          .raisebyObjectId!;
+
+                                                                  editTicketRequestModel
+                                                                          .raisebyObjectId =
+                                                                      RaisebyObjectId(
+                                                                    id: selectedmyticketview[
+                                                                            0]!
+                                                                        .raisebyObjectId
+                                                                        ?.id,
+                                                                    name: selectedmyticketview[
+                                                                            0]!
+                                                                        .raisebyObjectId
+                                                                        ?.name,
+                                                                  );
+
+                                                                  if (SharedPrefServices
+                                                                          .getroleCode()!
+                                                                      .toLowerCase()
+                                                                      .contains(
+                                                                          "company")) {
+                                                                    var selectedAssign =
+                                                                        assignList.firstWhere((item) =>
+                                                                            item['name'] ==
+                                                                            assigned);
+                                                                    editTicketRequestModel
+                                                                            .assignedtoObjectId =
+                                                                        AssignedtoObjectId(
+                                                                      id: selectedAssign[
+                                                                          '_id'],
+                                                                      name: selectedAssign[
+                                                                          'name'],
+                                                                    );
+                                                                  } else {
+                                                                    editTicketRequestModel.assignedtoObjectId = selectedmyticketview[0]!.assignedtoObjectId ?? AssignedtoObjectId(id: "", name: "");
+                                                                    editTicketRequestModel
+                                                                            .assignedtoObjectId =
+                                                                        selectedmyticketview[
+                                                                                0]!
+                                                                            .assignedtoObjectId!;
                                                                   
-                                                                }
+                                                             
+                                                                           }
 
-                                                                editTicketRequestModel
-                                                                        .createdBy =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .createdBy!
+                                                                  editTicketRequestModel
+                                                                          .status =
+                                                                      status;
+
+                                                                  if (editTicketRequestModel
+                                                                              .status ==
+                                                                          'Closed' ||
+                                                                      editTicketRequestModel
+                                                                              .status ==
+                                                                          'Canceled') {
+                                                                    editTicketRequestModel
+                                                                        .endDate = DateTime
+                                                                            .now()
                                                                         .toString();
+                                                                  } else {
+                                                                    // editTicketRequestModel
+                                                                    //         .endDate =
+                                                                    //     selectedmyticketview[
+                                                                    //             0]!
+                                                                    //         .endDate!;
+                                                                    editTicketRequestModel
+                                                                        .endDate = (selectedmyticketview.isNotEmpty &&
+                                                                            selectedmyticketview[0]?.endDate !=
+                                                                                null)
+                                                                        ? selectedmyticketview[0]?.endDate?.toString() ??
+                                                                            ''
+                                                                        : '';
+                                                                  }
 
-                                                                editTicketRequestModel
-                                                                        .description =
-                                                                    selectedmyticketview[
-                                                                            0]!
-                                                                        .description!
-                                                                        .toString();
+                                                                  editTicketRequestModel
+                                                                      .createdBy = selectedmyticketview[
+                                                                          0]!
+                                                                      .createdBy!
+                                                                      .toString();
 
-                                                                editTicketRequestModel
-                                                                        .images =
-                                                                    selectedmyticketview[0]!
-                                                                            .images!
-                                                                        as List;
+                                                                  editTicketRequestModel
+                                                                      .description = selectedmyticketview[
+                                                                          0]!
+                                                                      .description!
+                                                                      .toString();
 
-                                                                editTicketRequestModel
-                                                                        .roleCode =
-                                                                    SharedPrefServices
-                                                                            .getroleCode()
-                                                                        .toString();
+                                                                  editTicketRequestModel
+                                                                      .images = selectedmyticketview[
+                                                                              0]!
+                                                                          .images!
+                                                                      as List;
 
-                                                                editTicketRequestModel
-                                                                        .userId =
-                                                                    SharedPrefServices
-                                                                            .getuserId()
-                                                                        .toString();
+                                                                  editTicketRequestModel
+                                                                      .roleCode = SharedPrefServices
+                                                                          .getroleCode()
+                                                                      .toString();
 
-                                                                editTicketRequestModel
-                                                                        .modifiedBy =
-                                                                    SharedPrefServices
-                                                                            .getuserId()
-                                                                        .toString();
-                                                                editTicketRequestModel
-                                                                        .loginUser =
-                                                                    SharedPrefServices
-                                                                            .getuserId()
-                                                                        .toString();
+                                                                  editTicketRequestModel
+                                                                      .userId = SharedPrefServices
+                                                                          .getuserId()
+                                                                      .toString();
 
-                                                                print(
-                                                                    editTicketRequestModel);
-                                                                inspect(
-                                                                    editTicketRequestModel);
-
-                                                                updateTicket(
-                                                                  editTicketRequestModel,
-                                                                  selectedMyticketsProvider,
-                                                                );
-                                                              },
-                                                              style:
-                                                                  ElevatedButton
-                                                                      .styleFrom(
-                                                                backgroundColor:
-                                                                    Colours
-                                                                        .kbuttonpurple,
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20),
-                                                                ),
-                                                              ),
-                                                              child:
-                                                                  const CustomText(
-                                                                text: 'Update',
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                textcolor: Colours
-                                                                    .kwhiteColor,
-                                                              ),
-                                                            )
-                                                         
-                                                          : (selectedmyticketview[0]!.status != 'Closed' && selectedmyticketview[0]!.status !='Canceled') ?
-                                                                           
-                                                                      
-                                                          OutlinedButton(
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  isEdited =
-                                                                      true;
-                                                                });
-
-                                                                if (SharedPrefServices
-                                                                        .getroleCode()!
-                                                                    .toLowerCase()
-                                                                    .contains(
-                                                                        "company")) {
-                                                                  // getDropDownList();
-
-                                                                  setState(() {
-                                                                    isApiCallProcess =
-                                                                        true;
-                                                                  });
+                                                                  editTicketRequestModel
+                                                                      .modifiedBy = SharedPrefServices
+                                                                          .getuserId()
+                                                                      .toString();
+                                                                  editTicketRequestModel
+                                                                      .loginUser = SharedPrefServices
+                                                                          .getuserId()
+                                                                      .toString();
 
                                                                   print(
-                                                                      "trigger dropdown");
-                                                                  print(SharedPrefServices
-                                                                      .getBranchobjId());
+                                                                      editTicketRequestModel);
+                                                                  inspect(
+                                                                      editTicketRequestModel);
 
-                                                                  getDropDownList();
-                                                                } else {
-                                                                  print(
-                                                                      "DONT trigger dropdown");
-                                                                }
-                                                              },
-                                                              style:
-                                                                  OutlinedButton
-                                                                   .styleFrom(
-                                                                side:
-                                                                    const BorderSide(
-                                                                  color: Colours
-                                                                      .kbuttonpurple,
-                                                                ),
-                                                                shape: RoundedRectangleBorder(
+                                                                  updateTicket(
+                                                                    editTicketRequestModel,
+                                                                    selectedMyticketsProvider,
+                                                                  );
+                                                                },
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  backgroundColor:
+                                                                      Colours
+                                                                          .kbuttonpurple,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            20)),
-                                                              ),
-                                                              child: const Row(
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .border_color,
-                                                                    color: Colours
-                                                                        .kbuttonpurple,
-                                                                    size: 15,
+                                                                            20),
                                                                   ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  CustomText(
-                                                                    text:
-                                                                        'Edit',
-                                                                    fontSize:
-                                                                        14,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    textcolor:
-                                                                        Colours
+                                                                ),
+                                                                child:
+                                                                    const CustomText(
+                                                                  text:
+                                                                      'Update',
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  textcolor: Colours
+                                                                      .kwhiteColor,
+                                                                ),
+                                                              )
+                                                            : (selectedmyticketview[0]!
+                                                                            .status !=
+                                                                        'Closed' &&
+                                                                    selectedmyticketview[0]!
+                                                                            .status !=
+                                                                        'Canceled')
+                                                                ? OutlinedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
+                                                                        isEdited =
+                                                                            true;
+                                                                      });
+
+                                                                      if (SharedPrefServices
+                                                                              .getroleCode()!
+                                                                          .toLowerCase()
+                                                                          .contains(
+                                                                              "company")) {
+                                                                        // getDropDownList();
+
+                                                                        setState(
+                                                                            () {
+                                                                          isApiCallProcess =
+                                                                              true;
+                                                                        });
+
+                                                                        print(
+                                                                            "trigger dropdown");
+                                                                        print(SharedPrefServices
+                                                                            .getBranchobjId());
+
+                                                                        getDropDownList();
+                                                                      } else {
+                                                                        print(
+                                                                            "DONT trigger dropdown");
+                                                                      }
+                                                                    },
+                                                                    style: OutlinedButton
+                                                                        .styleFrom(
+                                                                      side:
+                                                                          const BorderSide(
+                                                                        color: Colours
                                                                             .kbuttonpurple,
-                                                                  ),
-                                                                ],
-                                                              )) : Container()
-                                                    ),
+                                                                      ),
+                                                                      shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(20)),
+                                                                    ),
+                                                                    child:
+                                                                        const Row(
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .border_color,
+                                                                          color:
+                                                                              Colours.kbuttonpurple,
+                                                                          size:
+                                                                              15,
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              5,
+                                                                        ),
+                                                                        CustomText(
+                                                                          text:
+                                                                              'Edit',
+                                                                          fontSize:
+                                                                              14,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          textcolor:
+                                                                              Colours.kbuttonpurple,
+                                                                        ),
+                                                                      ],
+                                                                    ))
+                                                                : Container()),
                                                   ],
                                                 ),
                                                 ContentCard(
@@ -967,8 +953,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                   ?.endDate
                                                                   ?.isNotEmpty ==
                                                               true
-                                                               ? 
-                                                                formatDate(
+                                                      ? formatDate(
                                                           selectedmyticketview[
                                                                   0]!
                                                               .endDate
@@ -989,7 +974,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                 const SizedBox(
                                                   height: 5,
                                                 ),
-                                                
                                                 SizedBox(
                                                   child: CustomText(
                                                     text:

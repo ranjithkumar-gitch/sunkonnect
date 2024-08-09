@@ -179,6 +179,7 @@ class Datum {
         "__v": v,
         // "assignedtoObjectId": assignedtoObjectId,
         "assignedtoObjectId": assignedtoObjectId?.toJson(),
+        
         "endDate": endDate,
         "modifiedBy": modifiedBy,
         "endDateutcTimeZone": endDateutcTimeZone,
