@@ -120,121 +120,107 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
                         child: ListView.builder(
                             itemCount: emailnotificationListData.length,
                             itemBuilder: (context, index) {
-                              return ExpandableNotifier(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Card(
-                                  elevation: 1,
-                                  color: Colours.kcardbgColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: ListTile(
-                                    title: Row(
-                                      children: [
-                                        const CircleAvatar(
-                                          radius: 12,
-                                          backgroundColor:
-                                              Colours.kbuttonpurple,
-                                          child: Icon(
-                                            Icons.notifications,
-                                            color: Colors.white,
-                                            size: 16,
-                                          ),
+                              return Card(
+                                elevation: 1,
+                                color: Colours.kcardbgColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      const CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor: Colours.kbuttonpurple,
+                                        child: Icon(
+                                          Icons.notifications,
+                                          color: Colors.white,
+                                          size: 16,
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        GestureDetector(
-                                          
-                                          onTap: () {
-                                            String generateID =
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          String generateID =
+                                              emailnotificationListData[index]!
+                                                  .generatedId
+                                                  .toString();
+
+                                          setState(() {
+                                            myTicketsListProvider
+                                                .clearSelectedTicketDetails();
+                                            myTicketsListProvider
+                                                .clearmessagelogDetails();
+                                            myTicketsListProvider
+                                                .clearticketlogDetails();
+                                            myTicketsListProvider
+                                                .clearEmailNotificationList();
+
+                                            getTicketData(generateID);
+
+                                            SharedPrefServices.getTicketobjId()
+                                                .toString();
+
+                                            SharedPrefServices.setTicketId(
                                                 emailnotificationListData[
                                                         index]!
                                                     .generatedId
-                                                    .toString();
-
-                                            setState(() {
-                                              myTicketsListProvider
-                                                  .clearSelectedTicketDetails();
-                                              myTicketsListProvider
-                                                  .clearmessagelogDetails();
-                                              myTicketsListProvider
-                                                  .clearticketlogDetails();
-                                                myTicketsListProvider
-                                                  .clearEmailNotificationList();
-                                                  
-
-                                              getTicketData(generateID);
-
-                                             SharedPrefServices
-                                                      .getTicketobjId()
-                                                  .toString();
-
-                                              SharedPrefServices.setTicketId(
-                                                  emailnotificationListData[
-                                                          index]!
-                                                      .generatedId
-                                                      .toString());
-
-                                                
-                                              
-                                            });
-                                            print('testing data');
-                              print(SharedPrefServices.getTicketobjId().toString());
-                                         
-                                          },
-                                          child: CustomText(
-                                              text: emailnotificationListData[
-                                                      index]!
-                                                  .generatedId
-                                                  .toString(),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              textcolor: Colours.korange),
-                                        ),
-                                      ],
-                                    ),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(height: 4.0),
-                                        Text(
-                                          emailnotificationListData[index]!
-                                              .emailBody
-                                              .toString()
-                                              .toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 13,
-                                              color: Colours.kheadertext,
-                                              fontWeight: FontWeight.w400),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(height: 4.0),
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            formatDate(
-                                              emailnotificationListData[index]!
-                                                  .createdAt
-                                                  .toString()
-                                                  .toString(),
-                                            ),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 10,
-                                                color: Colours.ksubheadertext),
+                                                    .toString());
+                                          });
+                                          print('testing data');
+                                          print(SharedPrefServices
+                                                  .getTicketobjId()
+                                              .toString());
+                                        },
+                                        child: CustomText(
+                                            text: emailnotificationListData[
+                                                    index]!
+                                                .generatedId
+                                                .toString(),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            textcolor: Colours.korange),
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        emailnotificationListData[index]!
+                                            .emailBody
+                                            .toString()
+                                            .toString(),
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 13,
+                                            color: Colours.kheadertext,
+                                            fontWeight: FontWeight.w400),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          formatDate(
+                                            emailnotificationListData[index]!
+                                                .createdAt
+                                                .toString()
+                                                .toString(),
                                           ),
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 10,
+                                              color: Colours.ksubheadertext),
                                         ),
-                                      ],
-                                    ),
-                                    onTap: () {
-                                      // Add action to handle notification tap
-                                    },
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ));
+                              );
                             }),
                       );
               } else {
@@ -261,8 +247,8 @@ class _NotificationListScreenState extends State<NotificationListScreen> {
         print(SharedPrefServices.getTicketobjId());
 
         //  Navigator.push(context, MaterialPageRoute(builder: (context)=> TicketTabView(ticketObjetId: SharedPrefServices.setTicketobjId(response.data.first.id).toString())));
-         Navigator.push(context, MaterialPageRoute(builder: (context) => const TicketTabView()));
-
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const TicketTabView()));
       } else {
         showToast("Failed to fetch ticket data");
       }
