@@ -140,17 +140,16 @@ class Datum {
             ? null
             : DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        
-         assignedtoObjectId: json["assignedtoObjectId"] == null
+
+        assignedtoObjectId: json["assignedtoObjectId"] == null
             ? null
             : AssignedtoObjectId.fromJson(json["assignedtoObjectId"]),
         // assignedtoObjectId: json["assignedtoObjectId"],
-        endDate:  json['endDate'],
+        endDate: json['endDate'],
         // endDate: json["endDate"] == null ? '' : json["endDate"],
         modifiedBy: json["modifiedBy"],
         endDateutcTimeZone: json["endDateutcTimeZone"],
       );
-      
 
   Map<String, dynamic> toJson() => {
         "_id": id,
@@ -179,7 +178,7 @@ class Datum {
         "__v": v,
         // "assignedtoObjectId": assignedtoObjectId,
         "assignedtoObjectId": assignedtoObjectId?.toJson(),
-        
+
         "endDate": endDate,
         "modifiedBy": modifiedBy,
         "endDateutcTimeZone": endDateutcTimeZone,
@@ -291,7 +290,6 @@ class RaisebyObjectId {
       };
 }
 
-
 class AssignedtoObjectId {
   final String? id;
   final String? name;
@@ -301,7 +299,8 @@ class AssignedtoObjectId {
     this.name,
   });
 
-  factory AssignedtoObjectId.fromJson(Map<String, dynamic> json) => AssignedtoObjectId(
+  factory AssignedtoObjectId.fromJson(Map<String, dynamic> json) =>
+      AssignedtoObjectId(
         id: json["_id"],
         name: json["name"],
       );

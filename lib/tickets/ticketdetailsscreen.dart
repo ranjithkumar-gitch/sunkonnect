@@ -356,15 +356,15 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                                                                           'name'],
                                                                     );
                                                                   } else {
-                                                                    editTicketRequestModel.assignedtoObjectId = selectedmyticketview[0]!.assignedtoObjectId ?? AssignedtoObjectId(id: "", name: "");
-                                                                    editTicketRequestModel
-                                                                            .assignedtoObjectId =
-                                                                        selectedmyticketview[
+                                                                    selectedmyticketview[0]?.assignedtoObjectId ==
+                                                                            null
+                                                                        ? editTicketRequestModel.assignedtoObjectId =
+                                                                            null
+                                                                        : editTicketRequestModel
+                                                                            .assignedtoObjectId = selectedmyticketview[
                                                                                 0]!
                                                                             .assignedtoObjectId!;
-                                                                  
-                                                             
-                                                                           }
+                                                                  }
 
                                                                   editTicketRequestModel
                                                                           .status =
@@ -1137,10 +1137,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           "_id": editTicketRequestModel.raisebyObjectId.id,
           "name": editTicketRequestModel.raisebyObjectId.name,
         },
-        "assignedtoObjectId": {
-          "_id": editTicketRequestModel.assignedtoObjectId?.id,
-          "name": editTicketRequestModel.assignedtoObjectId?.name,
-        },
+        "assignedtoObjectId": editTicketRequestModel.assignedtoObjectId,
         "endDate": editTicketRequestModel.endDate,
         "status": editTicketRequestModel.status,
         "createdBy": editTicketRequestModel.createdBy,

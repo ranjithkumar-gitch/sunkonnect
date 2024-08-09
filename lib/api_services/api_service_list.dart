@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:developer';
 import 'package:sunkonnect/loginflow/model/email_flag_request_model.dart';
@@ -370,35 +369,27 @@ class ApiService {
     throw Exception('Failed to load Data');
   }
 
-
-
-
-   // get email flag 
+  // get email flag
   Future<GetflagResponseModel> getEmailFlag() async {
-
     String email = SharedPrefServices.getuserId().toString();
     String url =
         "${AppConstant.sunkonnectDevUrl}users/get-user-email-flag/$email";
 
-      print(url);
-      print(SharedPrefServices.getaccessToken().toString());
+    print(url);
+    print(SharedPrefServices.getaccessToken().toString());
 
-  //   var headers = accessheaders;
-  // var request = http.Request('GET', Uri.parse(url));
+    //   var headers = accessheaders;
+    // var request = http.Request('GET', Uri.parse(url));
 
-  // request.headers.addAll(headers);
- 
+    // request.headers.addAll(headers);
 
     try {
-    final response = await http.get(
-        Uri.parse(url),
-        headers: accessheaders
-      );
+      final response = await http.get(Uri.parse(url), headers: accessheaders);
 
-    //  http.StreamedResponse streamedResponse = await request.send();
-    // var response = await http.Response.fromStream(streamedResponse);
-     
-    print('fetch response email flag data  $response');
+      //  http.StreamedResponse streamedResponse = await request.send();
+      // var response = await http.Response.fromStream(streamedResponse);
+
+      print('fetch response email flag data  $response');
 
       print("response.body emailflag ${response.body}");
       print("response.body emailflag ${response.statusCode}");
@@ -428,12 +419,11 @@ class ApiService {
     throw Exception('Failed to load Data');
   }
 
- // Contact US POST Service
+  // Contact US POST Service
 
   Future<ContactUsResponseModel> contactUs(
       ContactUSRequestModel requestModel) async {
-    String url =
-        "${AppConstant.sunkonnectDevUrl}contact-us/insert-contactus";
+    String url = "${AppConstant.sunkonnectDevUrl}contact-us/insert-contactus";
     print(url);
 
     try {
@@ -473,18 +463,14 @@ class ApiService {
     throw Exception('Failed to load Data');
   }
 
-
   Future<EmailFlagResponse> emailFlagUpdate(
       EmailFlagupdateRequestModel requestModel) async {
     String url = "${AppConstant.sunkonnectDevUrl}Ticket/update-email-flag";
     print(url);
 
     try {
-      final response = await http.put(
-        Uri.parse(url),
-
-        body: requestModel.toJson(), headers: accessheaders
-      );
+      final response = await http.put(Uri.parse(url),
+          body: requestModel.toJson(), headers: accessheaders);
 
       print("response.body requestModel ${requestModel.toJson()}");
       print("response.body update email ${response.body}");
@@ -517,17 +503,15 @@ class ApiService {
     throw Exception('Failed to load Data');
   }
 
-   Future<GetEmailNotifiactonsResponseModel> notificationbadge(
+  Future<GetEmailNotifiactonsResponseModel> notificationbadge(
       GetEmailNotificationListRequestModel requestModel) async {
     String url =
         "${AppConstant.sunkonnectDevUrl}Ticket/get-email-notifications";
     print(url);
 
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        body: requestModel.toJson(), headers: accessheaders
-      );
+      final response = await http.post(Uri.parse(url),
+          body: requestModel.toJson(), headers: accessheaders);
 
       // print("response.body requestModel ${requestModel.toJson()}");
       // print("response.body signin ${response.body}");
@@ -560,18 +544,15 @@ class ApiService {
     throw Exception('Failed to load Data');
   }
 
-
-Future<GetNotificationFlagResponse> notificationFlag(
+  Future<GetNotificationFlagResponse> notificationFlag(
       GetEmailNotificationListRequestModel requestModel) async {
     String url =
         "${AppConstant.sunkonnectDevUrl}Ticket/get-email-notifications";
     print(url);
 
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        body: requestModel.toJson(), headers: accessheaders
-      );
+      final response = await http.post(Uri.parse(url),
+          body: requestModel.toJson(), headers: accessheaders);
 
       // print("response.body requestModel ${requestModel.toJson()}");
       // print("response.body signin ${response.body}");
@@ -603,11 +584,6 @@ Future<GetNotificationFlagResponse> notificationFlag(
 
     throw Exception('Failed to load Data');
   }
-
-
-  
-
-
 
   Future<MarkasReadResponseModel> markasRead(
       MarkasReadRequestModel requestModel) async {
@@ -616,10 +592,8 @@ Future<GetNotificationFlagResponse> notificationFlag(
     print(url);
 
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        body: requestModel.toJson(), headers: accessheaders
-      );
+      final response = await http.post(Uri.parse(url),
+          body: requestModel.toJson(), headers: accessheaders);
 
       print("response.body requestModel ${requestModel.toJson()}");
       print("response.body signin ${response.body}");
@@ -653,25 +627,16 @@ Future<GetNotificationFlagResponse> notificationFlag(
   }
 
   Future<NotifiIdTesponseModel> getNotifiData(String generateID) async {
-
-   
-
     String url =
         "${AppConstant.sunkonnectDevUrl}Ticket/patch-ticketInfo/$generateID";
 
-      print(generateID);
-       print(url);
-      
+    print(generateID);
+    print(url);
 
-  
     try {
-    final response = await http.get(
-        Uri.parse(url),
-        headers: accessheaders
-      );
+      final response = await http.get(Uri.parse(url), headers: accessheaders);
 
-    
-    print('fetch response notifiId data  $response');
+      print('fetch response notifiId data  $response');
 
       print("response.body notifiId ${response.body}");
       print("response.body notifiId ${response.statusCode}");
@@ -690,8 +655,9 @@ Future<GetNotificationFlagResponse> notificationFlag(
       } else if (response.statusCode == 404) {
         // throw Exception('incorrect data');
         return notifiIdTesponseModelFromJson(response.body);
-      } else
-        {return notifiIdTesponseModelFromJson(response.body);}
+      } else {
+        return notifiIdTesponseModelFromJson(response.body);
+      }
       // print(response.statusCode);
     } catch (e) {
       print(e.toString());
