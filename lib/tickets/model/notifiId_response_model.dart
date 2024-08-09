@@ -50,7 +50,7 @@ class Datum {
     final DateTime requestedBy;
     final int daysOpen;
     final String epic;
-    final dynamic sprint;
+    // final dynamic sprint;
     final String category;
     final String severity;
     final String priority;
@@ -58,7 +58,7 @@ class Datum {
     final String endDate;
     final String status;
     final String ticketlogs;
-    final dynamic numLogs;
+    // final dynamic numLogs;
     final List<Image> images;
     final String createdBy;
     final String utcTime;
@@ -83,7 +83,7 @@ class Datum {
         required this.requestedBy,
         required this.daysOpen,
         required this.epic,
-        required this.sprint,
+        // required this.sprint,
         required this.category,
         required this.severity,
         required this.priority,
@@ -91,7 +91,7 @@ class Datum {
         required this.endDate,
         required this.status,
         required this.ticketlogs,
-        required this.numLogs,
+        // required this.numLogs,
         required this.images,
         required this.createdBy,
         required this.utcTime,
@@ -117,15 +117,15 @@ class Datum {
         requestedBy: DateTime.parse(json["requestedBY"]),
         daysOpen: json["daysOpen"],
         epic: json["epic"],
-        sprint: json["sprint"],
+        // sprint: json["sprint"] ?? '',
         category: json["category"],
         severity: json["severity"],
         priority: json["priority"],
         startDate: json["startDate"],
-        endDate: json["endDate"],
+        endDate: json["endDate"] ?? '',
         status: json["status"],
         ticketlogs: json["ticketlogs"],
-        numLogs: json["numLogs"],
+        // numLogs: json["numLogs"]?? '',
         images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
         createdBy: json["createdBy"],
         utcTime: json["utcTime"],
@@ -151,7 +151,7 @@ class Datum {
         "requestedBY": requestedBy.toIso8601String(),
         "daysOpen": daysOpen,
         "epic": epic,
-        "sprint": sprint,
+        // "sprint": sprint,
         "category": category,
         "severity": severity,
         "priority": priority,
@@ -159,7 +159,7 @@ class Datum {
         "endDate": endDate,
         "status": status,
         "ticketlogs": ticketlogs,
-        "numLogs": numLogs,
+        // "numLogs": numLogs,
         "images": List<dynamic>.from(images.map((x) => x.toJson())),
         "createdBy": createdBy,
         "utcTime": utcTime,

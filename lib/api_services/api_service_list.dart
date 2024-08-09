@@ -691,7 +691,7 @@ Future<GetNotificationFlagResponse> notificationFlag(
         // throw Exception('incorrect data');
         return notifiIdTesponseModelFromJson(response.body);
       } else
-        return notifiIdTesponseModelFromJson(response.body);
+        {return notifiIdTesponseModelFromJson(response.body);}
       // print(response.statusCode);
     } catch (e) {
       print(e.toString());
